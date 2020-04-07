@@ -1,0 +1,21 @@
+.main-nav-links {
+
+   display: flex;
+   list-style: none;
+   width: 100%;
+   justify-content: flex-end;
+   margin: 0;
+
+   li {
+      margin-right: 10px;
+
+      &:last-child {
+         margin: 0;
+      }
+   }
+
+   a.active {
+      color: $color-blue-dark;
+   }
+
+}

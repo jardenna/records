@@ -1,0 +1,68 @@
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px white inset;
+}
+
+form {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+label {
+  top: 20px;
+  left: 0;
+  margin-top: 10px;
+  position: absolute;
+  @include transition($time: 0.3s);
+
+  &.top {
+    top: 0;
+  }
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-bottom: 1px solid $color-gray-dark;
+  background: none;
+  background-color: $color-white;
+  color: $color-gray-dark;
+  font-size: 18px;
+  margin: 25px 0;
+  color: $color-gray-darker;
+  outline: none;
+  font-family: $font-primary;
+
+  &:focus {
+    background-color: $color-gray-lighter;
+  }
+
+  &:focus~label {
+    top: 0;
+  }
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.required {
+  &:after {
+    content: "*";
+    color: $color-danger;
+    font-size: 33px;
+    position: absolute;
+    top: 5px;
+  }
+}

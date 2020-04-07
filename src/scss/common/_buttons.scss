@@ -1,0 +1,65 @@
+a.btn-primary,
+button {
+  color: $color-white;
+  outline: none;
+  border: 0;
+  padding: 10px;
+  font-weight: 700;
+  min-width: 150px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: inline-block;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+a.btn-primary {
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: $color-primary-btn;
+  @include transition();
+
+  &:hover {
+    background-color: $color-primary-btn-hover;
+  }
+}
+
+.btn-danger {
+  background-color: $color-danger;
+  @include transition();
+
+  &:hover {
+    background-color: $color-red-light;
+  }
+}
+
+
+.btn-rounded {
+  background-color: $color-primary-btn;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  @include transition();
+
+  &:hover {
+    background-color: $color-primary-btn-hover;
+  }
+}
+
+.btn-close {
+  &:after {
+    content: "+";
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 19px;
+    font-weight: 500;
+    @include rotate();
+  }
+}
