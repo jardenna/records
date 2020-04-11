@@ -11,9 +11,9 @@ const api = function (method, url, data, headers = {}) {
 
 api.credentials = 'include';
 api.headers = {
-	//'csrf-token': window.csrf || '',    // only if globally set, otherwise ignored
-	'Accept': 'application/json'      // receive json
-	//'Content-Type': 'application/json'  // send json
+	'csrf-token': window.csrf || '',    // only if globally set, otherwise ignored
+	'Accept': 'application/json',    // receive json
+	'Content-Type': 'application/json'  // send json
 };
 
 export default api;

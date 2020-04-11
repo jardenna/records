@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 
 
 //import store from '@redux/sagaStore';
-
+import Records from '@components/records/Records';
 
 class App extends Component {
 	render() {
 		return (
 
 			<div className="main-wrapper">
-				hello
+				<Records />
 
 			</div>
 
