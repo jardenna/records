@@ -23,7 +23,6 @@ class Records extends Component {
       e.preventDefault();
       const url = 'http://localhost:5000/posts/';
       const data = { title, description };
-
       api('post', url, data);
    }
 
