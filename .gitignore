@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+.env
 
 /keys
 package-lock.json
@@ -15,4 +16,4 @@ test.js
 *.ntvs*
 *.njsproj
 *.sln
-*.env
+

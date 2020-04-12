@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 var cors = require('cors');
+//require('dotenv').config();
 require('dotenv').config();
-
 const { PORT, DB_CONNECTION } = require('./config');
 
 const app = express();
@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
    res.send('we are home');
 });
 
-//const db = mongoose.connection;
+// const db = mongoose.connection;
 
 
 // try {
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 
 
 mongoose.connect(
-   DB_CONNECTION || 'mongodb://localhost/recordProject',
+   `mongodb+srv://helle:${process.env.API_KEY}@cluster0-pimzw.mongodb.net/recordproject?retryWrites=true&w=majority` || 'mongodb://localhost/recordProject',
    { useNewUrlParser: true, useUnifiedTopology: true })
    .then(
       () => {
