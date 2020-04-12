@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 //import { Provider } from 'react-redux';
 
-
 //import store from '@redux/sagaStore';
 import Records from '@components/records/Records';
 

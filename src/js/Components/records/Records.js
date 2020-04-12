@@ -16,6 +16,7 @@ class Records extends Component {
    handleChange = (e) => {
       const { name, value } = e.target;
       this.setState({ [name]: value });
+
    }
 
    handleSubmit = (e) => {
@@ -23,7 +24,22 @@ class Records extends Component {
       e.preventDefault();
       const url = 'http://localhost:5000/posts/';
       const data = { title, description };
-      api('post', url, data);
+      // axios({
+      //    url: 'http://localhost:5000/posts/',
+      //    method: 'POST',
+      //    data
+      // })
+      //    .then(() => console.log('data has been sent'))
+      //    .catch((err) => console.log('error', err));
+
+      api('post', url, data)
+         .then(() => console.log('data has been sent'))
+         .catch((err) => console.log('error', err));
+
+      this.setState({
+         title: '',
+         description: ''
+      });
    }
 
    render() {
