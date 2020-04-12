@@ -47,20 +47,24 @@ router.delete('/:postId', async (req, res) => {
 // });
 
 //Post a new post
-router.post('/', (req, res) => {
-   const post = new Post({
-      title: req.body.title,
-      description: req.body.description
-   });
-
-   post.save()
-      .then(data => {
-         console.log('Data has been saved');
-         res.json(data);
-      })
-      .catch(err => {
-         res.json({ message: err });
+router.post('/', async (req, res) => {
+   try {
+      const post = await new Post({
+         title: req.body.title,
+         description: req.body.description
       });
+
+      post.save()
+         .then(data => {
+            console.log('Data has been saved');
+            res.json(data);
+         })
+         .catch(err => {
+            res.json({ message: err });
+         });
+   } catch (error) {
+      res.json({ 'message': error });
+   }
 
 });
 

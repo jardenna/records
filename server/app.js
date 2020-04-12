@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 var cors = require('cors');
 require('dotenv').config();
 
-const { PORT } = require('./config');
+const { PORT, DB_CONNECTION } = require('./config');
 
 const app = express();
 app.use(cors());
@@ -22,23 +22,25 @@ app.get('/', (req, res) => {
    res.send('we are home');
 });
 
-const db = mongoose.connection;
+//const db = mongoose.connection;
 
 
-try {
+// try {
 
-   db.collections.records.insertMany([
-      { title: 'card', description: 15 },
-      { title: 'card', description: 15 },
-      { title: 'stamps', description: 30 }
-   ]
-   );
-} catch (e) {
-   console.log(e);
-}
+//    db.collections.records.insertMany([
+//       { title: 'card', description: 15 },
+//       { title: 'card', description: 15 },
+//       { title: 'stamps', description: 30 }
+//    ]
+//    );
+// } catch (e) {
+//    console.log(e);
+// }
+
+
 
 mongoose.connect(
-   'mongodb+srv://helle:SZkRHrIlhm5Ff4Fo@cluster0-pimzw.mongodb.net/recordproject?retryWrites=true&w=majority' || 'mongodb://localhost/recordProject',
+   DB_CONNECTION || 'mongodb://localhost/recordProject',
    { useNewUrlParser: true, useUnifiedTopology: true })
    .then(
       () => {
@@ -50,14 +52,3 @@ mongoose.connection.on('connected', () => {
    console.log('Connected to MongoDB');
 });
 
-
-
-// mongoose.connection.on('connected', () => {
-//    console.log('Mongoose default connection is open');
-// });
-
-// mongoose.connect(process.env.DB_CONNECTION,
-//    { useNewUrlParser: true, useUnifiedTopology: true },
-//    () => console.log('we are connected'));
-
-// app.listen(PORT);
