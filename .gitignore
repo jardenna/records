@@ -3,7 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
-
+server/config.js
 /keys
 package-lock.json
 test.js
