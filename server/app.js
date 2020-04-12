@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 var cors = require('cors');
-//require('dotenv').config();
+
 require('dotenv').config();
-const { PORT, DB_CONNECTION } = require('./config');
+const { PORT } = require('./config');
 
 const app = express();
 app.use(cors());
@@ -13,24 +13,46 @@ app.use(express.json());
 
 
 //import routes
-const postsRoute = require('./routes/posts');
+//const postsRoute = require('./routes/posts');
+const RecordRoutes = require('./routes/RecordRoutes');
 
 //Custom routes middleware
-app.use('/posts', postsRoute);
+app.use('/records', RecordRoutes);
 
 app.get('/', (req, res) => {
    res.send('we are home');
 });
 
-// const db = mongoose.connection;
+//const db = mongoose.connection;
 
 
 // try {
 
 //    db.collections.records.insertMany([
-//       { title: 'card', description: 15 },
-//       { title: 'card', description: 15 },
-//       { title: 'stamps', description: 30 }
+//       {
+//          'artist': '22 Pistepirkko',
+//          'title': 'Drops & Kicks',
+//          'prodYear': '2005',
+//          'label': 'Bone Voyage',
+//          'origin': 'Egen samling',
+//          'price': '20,5',
+//          'recordNo': 'BONE-0021',
+//          'numOfRecords': '2',
+//          'released': ' '
+
+//       },
+//       {
+
+//          'artist': '5 x Kaj',
+//          'title': 'Sange Og Historier',
+//          'prodYear': '1984',
+//          'label': 'Sam Records',
+//          'origin': 'Fået af Ernst',
+//          'price': '20',
+//          'recordNo': 'SAM 08',
+//          'numOfRecords': ' ',
+//          'released': ' '
+//       }
 //    ]
 //    );
 // } catch (e) {

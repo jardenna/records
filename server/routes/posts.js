@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
       );
 });
 
+
 //Get post by Id
 router.get('/:postId', async (req, res) => {
-
    try {
       const post = await Post.findById(req.params.postId);
       res.json(post);
@@ -24,6 +24,7 @@ router.get('/:postId', async (req, res) => {
    }
 
 });
+
 //Delete post
 router.delete('/:postId', async (req, res) => {
    try {
