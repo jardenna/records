@@ -1,0 +1,26 @@
+﻿.details-container {
+    .details-content {
+        .text-bold {
+            display: inline-block;
+            min-width: 37%;
+        }
+
+        .inline {
+
+            @include inline-item ($width: 48%, $margin: 10px);
+            margin-bottom: 14px;
+
+            &:first-child {
+                display: block;
+            }
+        }
+
+        .details-info {
+            border-top: 1px solid $color-gray;
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+    }
+
+   
+}

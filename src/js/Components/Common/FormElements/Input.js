@@ -5,8 +5,6 @@ import Label from '@formElements/Label';
 function Input(props) {
 
 	return (
-
-
 		<div className="input-wrapper">
 			<input
 				type={props.type ? props.type : 'text'}
@@ -23,7 +21,7 @@ function Input(props) {
 			<Label
 				className={props.value !== '' ? 'top' : ''}
 				htmlFor={props.inputIdentifier}
-				text={`${props.label} ${props.isRequired && '*'}`}
+				text={`${props.label} ${props.isRequired ? '*' : ''}`}
 			/>
 
 			{props.showIcon && <span className={`${props.hidden ? 'chevron-down' : 'chevron-up'} icon icon-chevron`} />}

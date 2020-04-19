@@ -1,0 +1,34 @@
+﻿.main-nav {
+    text-align: right;
+    background-color: $color-gray-light;
+    margin-bottom:20px;
+    .container{
+        padding: 10px 20px;
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 17px;
+
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: $color-blue;
+
+            @include transition();
+
+            &:hover {
+                color: $color-blue-dark;
+            }
+        }
+    }
+}

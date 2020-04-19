@@ -9,7 +9,10 @@
         "@commonReact": "./src/js/Components/Common",
         "@hooks": "./src/js/hooks",
         "@components": "./src/js/Components",
-        "@redux": "./src/js/redux"
+        "@redux": "./src/js/redux",
+        "@images": "./src/assets/images"
+
+
       }
     }],
     "@babel/plugin-transform-runtime",

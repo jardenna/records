@@ -1,6 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-var cors = require('cors');
+
+
+const path = require('path');
+
+const cors = require('cors');
+
 
 require('dotenv').config();
 const { PORT } = require('./config');
@@ -10,18 +15,28 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, './', 'public')));
 
 
 //import routes
-//const postsRoute = require('./routes/posts');
+
 const RecordRoutes = require('./routes/RecordRoutes');
+const userRoutes = require('./routes/UserRoutes');
+const homeRoute = require('./routes/homeRoute');
+
 
 //Custom routes middleware
 app.use('/records', RecordRoutes);
+app.use('/user', userRoutes);
+app.use('/', homeRoute);
 
-app.get('/', (req, res) => {
-   res.send('we are home');
-});
+
+
+
+
+// app.get('/', (_, res) => {
+//    res.send('we are home');
+// });
 
 //const db = mongoose.connection;
 
@@ -29,30 +44,22 @@ app.get('/', (req, res) => {
 // try {
 
 //    db.collections.records.insertMany([
-//       {
-//          'artist': '22 Pistepirkko',
-//          'title': 'Drops & Kicks',
-//          'prodYear': '2005',
-//          'label': 'Bone Voyage',
-//          'origin': 'Egen samling',
-//          'price': '20,5',
-//          'recordNo': 'BONE-0021',
-//          'numOfRecords': '2',
-//          'released': ' '
 
-//       },
-//       {
 
-//          'artist': '5 x Kaj',
-//          'title': 'Sange Og Historier',
-//          'prodYear': '1984',
-//          'label': 'Sam Records',
-//          'origin': 'Fået af Ernst',
-//          'price': '20',
-//          'recordNo': 'SAM 08',
-//          'numOfRecords': ' ',
-//          'released': ' '
-//       }
+
+// {
+//    "artist": "Rainbow",
+//       "title": "Difficult To Cure",
+//          "prodYear": "1981",
+//             "label": "Polydor",
+//                "origin": "Blå Kors Borgergade",
+//                   "price": "5",
+//                      "recordNo": "2391 506",
+//                         "numOfRecords": " ",
+//                            "released": " ",
+//                               "info": "",
+//                                  "cover": " "
+// }
 //    ]
 //    );
 // } catch (e) {

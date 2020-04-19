@@ -9,13 +9,24 @@ const RecordSchema = mongoose.Schema({
       type: String,
       required: true
    },
-   prodYear: Number,
+   prodYear: {
+      type: Number,
+      required: true
+   },
    label: String,
    origin: String,
-   price: mongoose.Schema.Types.Decimal128,
+   price: {
+      type: Number,
+      default: ''
+   },
    recordNum: String,
-   numOfRecords: Number,
+   numOfRecords: {
+      type: Number,
+      default: 1
+   },
    released: String,
+   info: String,
+   photo: String,
    date: {
       type: Date,
       default: Date.now

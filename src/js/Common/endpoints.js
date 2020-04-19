@@ -1,5 +1,6 @@
 const endpoints = {
-	series :'http://api.tvmaze.com/search/shows?q='
+	main: 'http://localhost:5000/',
+	uploads: 'http://localhost:5000/uploads/'
 };
 
 export default endpoints;
