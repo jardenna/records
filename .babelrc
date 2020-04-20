@@ -10,7 +10,8 @@
         "@hooks": "./src/js/hooks",
         "@components": "./src/js/Components",
         "@redux": "./src/js/redux",
-        "@images": "./src/assets/images"
+        "@images": "./src/assets/images",
+        "@data": "./src/assets/data"
 
 
       }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import api from '@common/api';
 import endpoints from '@common/endpoints';
@@ -19,13 +20,7 @@ export class Home extends Component {
 
    }
 
-   handleDetails = (id) => {
-      let a = location.origin;
-      let b = a + '/Records/DetailsView/' + id;
-      history.pushState(null, null, b);
-      window.location.reload(true);
-      let url = 'http://localhost:5000/records/' + id;
-   }
+
 
    render() {
       const { firstFour } = this.state;
@@ -47,7 +42,8 @@ export class Home extends Component {
                      <img src={img} alt={four.artist} />
                   </div>
                   <footer>
-                     <button className="btn-primary" onClick={() => this.handleDetails(four._id)}>Details</button>
+                     <Link to={`/details/${four._id}`}>Details</Link>
+
                   </footer>
                </div>);
             }

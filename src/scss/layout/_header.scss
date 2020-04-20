@@ -1,7 +1,28 @@
 .main-header {
-   position: relative;
 
-   .logo {
-      position: absolute;
+   background-size: 100%;
+   background-repeat: no-repeat;
+   background-position: bottom center;
+   height: 300px;
+   color: $color-white;
+   font-family: $font-secondary;
+   font-size: 40px;
+
+   .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 6% 20px;
+   }
+
+   h1 {
+      font-size: 65px;
+      margin: 0;
+   }
+
+   h2 {
+      font-size: 70px;
+      margin: 49px 60px;
+      text-transform: uppercase;
+
    }
 }

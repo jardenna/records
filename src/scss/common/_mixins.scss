@@ -142,3 +142,14 @@
   -o-transition: $what $time $how;
   transition: $what $time $how;
 }
+
+@mixin inline-item ($width:48%, $v-align:top, $margin:10px) {
+  display: inline-block;
+  width: $width;
+  vertical-align: $v-align;
+  margin-right: $margin;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
