@@ -19,17 +19,7 @@ export class Details extends Component {
 
    }
 
-   handleDeleteRecord = () => {
 
-      const url = endpoints.records;
-      const id = this.props.match.params.id;
-      const path = url + 'delete/' + id;
-
-
-      api('delete', path)
-
-         .catch(error => console.log(error));
-   }
 
 
    render() {
