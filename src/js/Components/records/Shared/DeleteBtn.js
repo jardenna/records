@@ -1,14 +1,19 @@
 ﻿import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Modal } from './Modal';
 
-export const DeleteBtn = ({ title, onClick, artist, className }) => (
+const DeleteBtn = ({ onClick }) => {
 
-    <Modal
-        className={className}
-        title={title}
-        artist={artist}
-        onClick={onClick}
-         />
+    return (
 
-);
+        <Link to={'/'}>
+            <button
+                onClick={onClick}
+                className="btn-danger">Delete
+            </button>
+        </Link >
+
+    );
+};
+
+export default DeleteBtn;

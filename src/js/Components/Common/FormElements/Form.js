@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import Input from '@formElements/Input';
 import TextArea from '@formElements/TextArea';
@@ -40,11 +41,13 @@ function Form(props) {
 					);
 				})
 			}
+
 			<Button
 				type='submit'
 				className={btnClass}
 				text={props.btnText}
 			/>
+
 		</form>
 	);
 }

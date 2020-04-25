@@ -19,7 +19,7 @@ const RecordSchema = mongoose.Schema({
       type: Number,
       default: ''
    },
-   recordNum: String,
+   recordNo: String,
    numOfRecords: {
       type: Number,
       default: 1

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-
-import Form from '@formElements/Form';
+import axios from 'axios';
 
 import endpoints from '@common/endpoints';
+import api from '@common/api';
+import Form from '@formElements/Form';
 
-class Records extends Component {
-
+export class Update extends Component {
    state = {
       file: '',
       fileName: '',
       filePath: '',
-      createRecords: {
+      record: {
          artist: '',
          title: '',
          prodYear: '',
@@ -24,6 +24,20 @@ class Records extends Component {
       }
    }
 
+   componentDidMount() {
+
+      const id = this.props.match.params.id;
+      const url = `${endpoints.records}${id}`;
+
+      api('get', url)
+         .then(record => this.setState({
+            isLoading: false,
+            record
+         }))
+         .catch(error => console.log(error));
+
+   }
+
    handleChange = (e) => {
       const { name, value } = e.target;
 
@@ -35,32 +49,31 @@ class Records extends Component {
          });
       }
       this.setState(prevState => ({
-         createRecords:
+         record:
          {
-            ...prevState.createRecords, [name]: value
+            ...prevState.record, [name]: value
          }
       }));
 
    }
 
    handleSubmit = (e) => {
-      const { createRecords, file, fileName } = this.state;
+      const { record, file, fileName } = this.state;
       e.preventDefault();
-
-      const url = endpoints.records;
+      const url = 'http://localhost:5000/records/';
+      const id = this.props.match.params.id;
+      const path = url + id;
 
       const fd = new FormData();
 
-      for (let key in createRecords) {
-         fd.append(key, createRecords[key]);
+      for (let key in record) {
+         fd.append(key, record[key]);
       }
       fd.append(fileName, file);
 
-      fetch(url, {
-         method: 'POST',
-         body: fd
-      })
-         .then(res => res.ok ? res.json() : Promise.reject(res))
+
+
+      axios.patch(path, record)
          .then(data => {
 
             this.setState({
@@ -70,26 +83,28 @@ class Records extends Component {
          .catch(error => {
             console.error(error);
          });
+      // fetch(path, {
+      //    method: 'patch',
+      //    body: fd
+      // })
+      //    .then(res => res.ok ? res.json() : Promise.reject(res))
+      //    .then(data => {
+
+      //       this.setState({
+      //          filePath: data.photo
+      //       });
+      //    })
+      //    .catch(error => {
+      //       console.error(error);
+      //    });
 
 
-      this.setState({
-         artist: '',
-         title: '',
-         prodYear: '',
-         label: '',
-         origin: '',
-         price: ' ',
-         recordNo: '',
-         numOfRecords: ' ',
-         released: ' ',
-         info: '',
-         photo: ''
-      });
+
    }
-
    render() {
-      const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = this.state.createRecords;
 
+
+      const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = this.state.record;
 
       const inputs = [
          {
@@ -168,7 +183,7 @@ class Records extends Component {
 
          },
          {
-            type: 'text',
+            type: 'textarea',
             name: 'info',
             inputIdentifier: 'info',
             label: 'Værd at vide',
@@ -184,21 +199,16 @@ class Records extends Component {
          }
 
       ];
-      const img = `http://localhost:5000/uploads/${this.state.filePath}`;
       return (
-         <div>
-            <Form
-               inputs={inputs}
-               btnText='Submit'
-               btnClass='primary'
-               onSubmit={this.handleSubmit}
-               onChange={this.handleChange}
-            />
-
-            <img src={img} alt="" />
-         </div>
+         <Form
+            inputs={inputs}
+            btnText='Submit'
+            btnClass='primary'
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+         />
       );
    }
 }
 
-export default Records;
+export default Update;

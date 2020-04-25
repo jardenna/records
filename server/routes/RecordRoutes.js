@@ -30,21 +30,6 @@ router.get('/:recordId', async (req, res) => {
 
 });
 
-// const storage = multer.diskStorage({
-//    destination: './server/public/uploads/',
-//    filename: function (req, file, cb) {
-//       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//    }
-// });
-
-// const upload = multer({
-//    storage: storage,
-//    limits: { fileSize: 1000000 },
-//    fileFilter: (req, file, cb) => {
-//       utils.checkFileType(file, cb);
-//    }
-// });
-
 //Add new record
 router.post('/', utils.upload.single('photo'), (req, res) => {
 
@@ -56,7 +41,7 @@ router.post('/', utils.upload.single('photo'), (req, res) => {
       label: req.body.label,
       origin: req.body.origin,
       price: req.body.price,
-      recordNum: req.body.recordNum,
+      recordNo: req.body.recordNo,
       numOfRecords: req.body.numOfRecords,
       released: req.body.released,
       info: req.body.info,
@@ -72,4 +57,47 @@ router.post('/', utils.upload.single('photo'), (req, res) => {
       });
 });
 
+//Delete Record
+router.delete('/delete/:recordId', async (req, res) => {
+   try {
+      const removedPost = await Record.deleteOne({ _id: req.params.recordId });
+      res.json(removedPost);
+   } catch (error) {
+      res.json({ 'message': error });
+   }
+
+});
+
+
+
+//Update record
+router.patch('/:recordId', async (req, res) => {
+   try {
+      const file = req.file ? req.file.filename : '';
+
+      const updatedPost = await Record.findOneAndUpdate(
+         { _id: req.params.recordId },
+         { updatedExisting: true },
+         {
+            $set: {
+               artist: req.body.artist,
+               title: req.body.title,
+               prodYear: req.body.prodYear,
+               label: req.body.label,
+               origin: req.body.origin,
+               price: req.body.price,
+               recordNo: req.body.recordNo,
+               numOfRecords: req.body.numOfRecords,
+               released: req.body.released,
+               info: req.body.info,
+               photo: file
+            }
+         }
+      );
+      res.json(updatedPost);
+   } catch (error) {
+      res.json({ 'message': error });
+   }
+
+});
 module.exports = router;

@@ -1,35 +1,29 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
-import api from '@common/api';
+import { connect } from 'react-redux';
+
+
 import endpoints from '@common/endpoints';
 import defaultImg from '@images/default.png';
+import DetailsLink from '@components/records/Shared/DetailsLink';
+import { fetchFirstSixSuccess } from '@redux/actions/homeActions';
 
 export class Home extends Component {
-   state = {
-      isLoading: true,
-      firstFour: []
-   }
-   componentDidMount() {
-      api('get', endpoints.main)
-         .then(firstFour => this.setState({
-            isLoading: false,
-            firstFour
-         }))
-         .catch(error => console.log(error));
 
+   componentDidMount() {
+      this.props.fetchFirstSixSuccess();
    }
 
 
 
    render() {
-      const { firstFour } = this.state;
+      const { firstSix } = this.props;
 
 
       return (
 
          <section className="index-block block-container flex-wrapper">
-            {firstFour.map(four => {
+            {firstSix.map(four => {
                const photo = four.photo;
                const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
 
@@ -42,7 +36,8 @@ export class Home extends Component {
                      <img src={img} alt={four.artist} />
                   </div>
                   <footer>
-                     <Link to={`/details/${four._id}`}>Details</Link>
+
+                     <DetailsLink id={four._id} />
 
                   </footer>
                </div>);
@@ -55,4 +50,10 @@ export class Home extends Component {
    }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+   firstSix: state.firstSix.firstSix
+});
+
+
+
+export default connect(mapStateToProps, { fetchFirstSixSuccess })(Home);

@@ -12,7 +12,7 @@ function TextArea(props) {
 				onChange={props.onChange}
 				onFocus={props.onFocus}
 				data-test='component-textarea'
-				value={props.value}
+				value={props.value !== null ? props.value : ''}
 			/>
 			<label className={props.value !== '' ? 'top' : ''} htmlFor={props.inputIdentifier}>{props.label}{props.isRequired && '*'}</label>
 			{props.error}

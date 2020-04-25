@@ -1,34 +1,39 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import api from '@common/api';
 import endpoints from '@common/endpoints';
 import { labels, noInfo } from '@data/labels';
 import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
+import Modal from '@commonReact/Modal';
+import { deleteGame } from '@redux/actions/deleteActions';
+
+import { fetchDetails } from '@redux/actions/detailActions';
 
 export class Details extends Component {
 
-   state = {
-      isLoading: true,
-      record: {}
-   }
-
    componentDidMount() {
-
-      const url = 'http://localhost:5000/records/';
-      const id = this.props.match.params.id;
-      const test = `${url}${id}`;
-      api('get', test)
-         .then(record => this.setState({
-            isLoading: false,
-            record
-         }))
-         .catch(error => console.log(error));
+      this.props.fetchDetails();
 
    }
+
+   handleDeleteRecord = () => {
+
+      const url = endpoints.records;
+      const id = this.props.match.params.id;
+      const path = url + 'delete/' + id;
+
+
+      api('delete', path)
+
+         .catch(error => console.log(error));
+   }
+
+
    render() {
-      const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = this.state.record;
+      const { _id, artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = this.props.details;
 
 
       const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
@@ -79,10 +84,14 @@ export class Details extends Component {
                      </div>}
 
                   <footer className="content-footer">
+                     <Modal
+                        onClick={this.props.deleteGame}
+                        title={title}
+                        artist={artist}
+                        id={_id}
+                     />
 
-                     Slet
-
-                     <Link to='/'>Rediger</Link>
+                     <Link to={`/update/${_id}`}>   <button>Rediger</button> </Link>
 
 
                   </footer>
@@ -102,4 +111,14 @@ export class Details extends Component {
    }
 }
 
-export default Details;
+const mapStateToProps = (state) => ({
+   details: state.recordDetails.record
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+   fetchDetails: () => dispatch(fetchDetails(ownProps.match.params.id)),
+   deleteGame: () => dispatch(deleteGame(ownProps.match.params.id))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

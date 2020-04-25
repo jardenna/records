@@ -9,7 +9,7 @@ function Input(props) {
 			<input
 				type={props.type ? props.type : 'text'}
 				name={props.name}
-				value={props.value}
+				value={props.value !== null ? props.value : ''}
 				id={props.inputIdentifier}
 				placeholder={props.placeholder}
 				onChange={props.onChange}
