@@ -7,24 +7,7 @@ export const ALL_RECORDS_TYPES = {
    FETCH_ALL_RECORDS_FAILURE: 'FETCH_ALL_RECORDS_FAILURE'
 };
 
-export function deleteSetSuccess(id) {
-   return {
-      type: 'DELETE_RECORDS_SUCCESS',
-      payload: id
 
-   };
-}
-export function deleteSet(id) {
-   return (dispatch) => {
-      const url = endpoints.records;
-      const path = url + 'delete/' + id;
-      fetch(path, {
-         method: 'DELETE'
-
-      }).then(response => response)
-         .then(id => dispatch(deleteSetSuccess(id)));
-   };
-}
 
 const fetchAllRecordsStart = () => {
    return ({

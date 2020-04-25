@@ -18,15 +18,15 @@ function handleResponse(response) {
    }
 }
 
-export function gameDeleted(id) {
+export function recordDeleted(id) {
 
    return {
       type: DELETE_TYPES.DELETE_RECORD_SUCCESS,
-      id
+      payload: id
    };
 }
 
-export function deleteGame(id) {
+export function deleteRecord(id) {
    const url = endpoints.records;
    const path = url + 'delete/' + id;
    return dispatch => {
@@ -36,6 +36,6 @@ export function deleteGame(id) {
             'Content-Type': 'application/json'
          }
       }).then(handleResponse)
-         .then(() => dispatch(gameDeleted(id)));
+         .then(() => dispatch(recordDeleted(id)));
    };
 }

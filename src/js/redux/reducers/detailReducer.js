@@ -1,5 +1,5 @@
 import { DETAILS_TYPE } from '@redux/actions/detailActions';
-import { DELETE_TYPES } from '@redux/actions/deleteActions';
+
 
 const initialState = {
    isLoading: false,
@@ -10,9 +10,9 @@ const initialState = {
 const detailReducer = (state = initialState, action) => {
 
    switch (action.type) {
-      case DELETE_TYPES.DELETE_RECORD_SUCCESS:
-         console.log(456);
-         return state.filter(item => item._id !== action.id);
+
+
+
       case DETAILS_TYPE.FETCH_DETAILS_START:
          return {
             ...state,

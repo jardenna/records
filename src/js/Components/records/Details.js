@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import api from '@common/api';
+
 import endpoints from '@common/endpoints';
 import { labels, noInfo } from '@data/labels';
 import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
 import Modal from '@commonReact/Modal';
-import { deleteGame } from '@redux/actions/deleteActions';
+import { deleteRecord } from '@redux/actions/deleteActions';
 
 import { fetchDetails } from '@redux/actions/detailActions';
 
@@ -18,9 +18,6 @@ export class Details extends Component {
       this.props.fetchDetails();
 
    }
-
-
-
 
    render() {
       const { _id, artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = this.props.details;
@@ -75,10 +72,11 @@ export class Details extends Component {
 
                   <footer className="content-footer">
                      <Modal
-                        onClick={this.props.deleteGame}
+                        onClick={this.props.deleteRecord}
                         title={title}
                         artist={artist}
                         id={_id}
+                        linkTo='/'
                      />
 
                      <Link to={`/update/${_id}`}>   <button>Rediger</button> </Link>
@@ -107,7 +105,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
    fetchDetails: () => dispatch(fetchDetails(ownProps.match.params.id)),
-   deleteGame: () => dispatch(deleteGame(ownProps.match.params.id))
+   deleteRecord: () => dispatch(deleteRecord(ownProps.match.params.id))
 });
 
 

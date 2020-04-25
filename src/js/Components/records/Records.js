@@ -184,7 +184,7 @@ class Records extends Component {
          }
 
       ];
-      const img = `http://localhost:5000/uploads/${this.state.filePath}`;
+
       return (
          <div>
             <Form
@@ -195,7 +195,7 @@ class Records extends Component {
                onChange={this.handleChange}
             />
 
-            <img src={img} alt="" />
+
          </div>
       );
    }

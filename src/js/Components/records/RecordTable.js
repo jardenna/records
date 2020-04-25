@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 
 import { labels, noInfo } from '@data/labels';
 import { fetchAllRecords } from '@redux/actions/recordsActions';
+import { deleteRecord } from '@redux/actions/deleteActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
-
+import Modal from '@commonReact/Modal';
 
 
 
@@ -21,6 +22,7 @@ class RecordTable extends Component {
 
    render() {
 
+      const { allRecords } = this.props;
       return (
          <table className="record-table">
             <thead>
@@ -31,12 +33,12 @@ class RecordTable extends Component {
                   <th>{labels.label} </th>
                   <th>{labels.origin} </th>
 
-                  <th>Antal plader <span>{this.props.allRecords.length}</span></th>
+                  <th>Antal plader <span>{allRecords && allRecords.length}</span></th>
                </tr>
             </thead>
             <tbody>
 
-               {this.props.allRecords.map(record =>
+               {allRecords && allRecords.map(record =>
 
                   <tr id={record._id} key={record._id}>
                      <td className="first-td" data-label={labels.artist}>{record.artist}</td>
@@ -48,8 +50,14 @@ class RecordTable extends Component {
                      <td>
                         <DetailsLink id={record._id} />
 
-                        delete
-                        </td>
+                        <Modal
+                           onClick={() => this.props.deleteRecord(record._id)}
+                           title={record.title}
+                           artist={record.artist}
+                           id={record._id}
+
+                        />
+                     </td>
                   </tr>
 
                )}
@@ -64,5 +72,9 @@ class RecordTable extends Component {
 const mapStateToProps = (state) => ({
    allRecords: state.records.allRecords
 });
+const mapDispatchToProps = (dispatch) => ({
+   fetchAllRecords: () => dispatch(fetchAllRecords()),
+   deleteRecord: () => dispatch(deleteRecord())
+});
 
-export default connect(mapStateToProps, { fetchAllRecords })(RecordTable);
+export default connect(mapStateToProps, { fetchAllRecords, deleteRecord })(RecordTable);

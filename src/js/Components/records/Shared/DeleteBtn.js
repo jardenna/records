@@ -2,16 +2,16 @@
 import { Link } from 'react-router-dom';
 
 
-const DeleteBtn = ({ onClick }) => {
+const DeleteBtn = ({ onClick, linkTo }) => {
 
     return (
 
-        <Link to={'/'}>
-            <button
-                onClick={onClick}
-                className="btn-danger">Delete
-            </button>
-        </Link >
+
+        <button
+            onClick={onClick}
+            className="btn-danger">Delete
+        </button>
+
 
     );
 };
