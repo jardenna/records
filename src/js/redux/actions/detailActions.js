@@ -8,8 +8,6 @@ export const DETAILS_TYPE = {
 };
 
 
-
-
 const fetchDetailsStart = () => ({
    type: DETAILS_TYPE.FETCH_DETAILS_START
 });
@@ -20,17 +18,21 @@ const fetchDetailsFailure = (error) => ({
    payload: error
 });
 
-export function fetchDetails(id) {
+const recordFetched = record => {
+   return {
+      type: DETAILS_TYPE.FETCH_DETAILS_SUCCESS,
+      payload: record
+   };
+};
+
+export const fetchDetails = id => {
 
    return dispatch => {
       dispatch(fetchDetailsStart());
       const url = `${endpoints.records}${id}`;
 
       api('get', url)
-         .then(record => dispatch({
-            type: DETAILS_TYPE.FETCH_DETAILS_SUCCESS,
-            payload: record
-         }))
-         .catch(error => dispatch(fetchDetailsFailure(error.message)));
+         .then(record => dispatch(recordFetched(record)))
+         .catch(error => dispatch(fetchDetailsFailure(error)));
    };
-}
+};

@@ -76,7 +76,7 @@ export class Details extends Component {
                         title={title}
                         artist={artist}
                         id={_id}
-                        linkTo='/'
+
                      />
 
                      <Link to={`/update/${_id}`}>   <button>Rediger</button> </Link>

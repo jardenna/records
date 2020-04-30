@@ -7,6 +7,7 @@ const Record = require('../models/RecordsModel');
 router.get('/', async (_, res) => {
    try {
       const latestRecords = await Record.find().sort({ _id: -1 }).limit(6);
+
       res.json(latestRecords);
    } catch (error) {
       res.status(201).json({ 'message': error });

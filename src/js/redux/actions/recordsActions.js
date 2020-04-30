@@ -22,17 +22,16 @@ const fetchAllRecordsFailure = (error) => {
    });
 };
 
-
-
+const allRecordsFetched = allRecords => ({
+   type: ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_SUCCESS,
+   payload: allRecords
+});
 
 export const fetchAllRecords = () => {
    return dispatch => {
       dispatch(fetchAllRecordsStart);
       api('get', endpoints.records)
-         .then(allRecords => dispatch({
-            type: ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_SUCCESS,
-            payload: allRecords
-         }))
+         .then(allRecords => dispatch(allRecordsFetched(allRecords)))
          .catch(
             error => dispatch(fetchAllRecordsFailure(error.message))
          );

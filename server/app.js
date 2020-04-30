@@ -1,9 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-
 const path = require('path');
-
 const cors = require('cors');
 
 
@@ -25,6 +23,7 @@ const userRoutes = require('./routes/UserRoutes');
 const homeRoute = require('./routes/homeRoute');
 
 
+
 //Custom routes middleware
 app.use('/records', RecordRoutes);
 app.use('/user', userRoutes);
@@ -32,39 +31,6 @@ app.use('/', homeRoute);
 
 
 
-
-
-// app.get('/', (_, res) => {
-//    res.send('we are home');
-// });
-
-//const db = mongoose.connection;
-
-
-// try {
-
-//    db.collections.records.insertMany([
-
-
-
-// {
-//    "artist": "Rainbow",
-//       "title": "Difficult To Cure",
-//          "prodYear": "1981",
-//             "label": "Polydor",
-//                "origin": "Blå Kors Borgergade",
-//                   "price": "5",
-//                      "recordNo": "2391 506",
-//                         "numOfRecords": " ",
-//                            "released": " ",
-//                               "info": "",
-//                                  "cover": " "
-// }
-//    ]
-//    );
-// } catch (e) {
-//    console.log(e);
-// }
 
 
 

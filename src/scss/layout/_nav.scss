@@ -1,4 +1,4 @@
-.main-nav-links {
+.main-nav {
 
    display: flex;
    list-style: none;
@@ -6,8 +6,13 @@
    justify-content: flex-end;
    margin: 0;
 
+   ul {
+      list-style: none;
+   }
+
    li {
       margin-right: 10px;
+      flex: 1;
 
       &:last-child {
          margin: 0;

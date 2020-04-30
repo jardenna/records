@@ -1,6 +1,5 @@
 const express = require('express');
-//const path = require('path');
-//const multer = require('multer');
+
 const Record = require('../models/RecordsModel');
 const router = express.Router();
 
@@ -75,9 +74,9 @@ router.patch('/:recordId', async (req, res) => {
    try {
       const file = req.file ? req.file.filename : '';
 
-      const updatedPost = await Record.findOneAndUpdate(
+      const updatedPost = await Record.updateOne(
          { _id: req.params.recordId },
-         { updatedExisting: true },
+
          {
             $set: {
                artist: req.body.artist,

@@ -13,7 +13,6 @@ const recordsReducer = (state = initialState, action) => {
 
          return ({
             ...state,
-
             allRecords: state.allRecords.filter(record => record._id !== action.payload)
          });
       case ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_START:

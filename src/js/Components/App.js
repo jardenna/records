@@ -24,6 +24,7 @@ class App extends Component {
 
 
 					<div className="main-wrapper">
+
 						<Switch>
 							<Route exact path='/' component={Home} />
 							<Route path='/addalbum' component={AddAlbum} />

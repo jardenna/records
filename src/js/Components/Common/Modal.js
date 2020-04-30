@@ -18,7 +18,7 @@ class Modal extends Component {
 
    render() {
       const { showPopup } = this.state;
-      const { title, artist, className, onClick, id, linkTo } = this.props;
+      const { title, artist, className, onClick, id } = this.props;
 
       let text = 'Er du sikker på at du vil slette';
       let info = `${title} med ${artist}?`;
@@ -33,7 +33,7 @@ class Modal extends Component {
                      <h1>{info}</h1>
                      <div className="modal-footer">
                         <button className="btn-primary" onClick={this.togglePopup}>Fortryd</button>
-                        <DeleteBtn onClick={onClick} id={id} linkTo={linkTo} />
+                        <DeleteBtn onClick={onClick} id={id} />
 
                      </div>
                   </div>

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import endpoints from '@common/endpoints';
 import api from '@common/api';
 import Form from '@formElements/Form';
+import { fetchDetails } from '@redux/actions/detailActions';
+
 
 export class Update extends Component {
    state = {
@@ -26,15 +29,17 @@ export class Update extends Component {
 
    componentDidMount() {
 
-      const id = this.props.match.params.id;
-      const url = `${endpoints.records}${id}`;
 
-      api('get', url)
-         .then(record => this.setState({
-            isLoading: false,
-            record
-         }))
-         .catch(error => console.log(error));
+      this.props.fetchDetails();
+      this.setState({
+         record: this.props.details
+      });
+      // api('get', url)
+      //    .then(record => this.setState({
+      //       isLoading: false,
+      //       record
+      //    }))
+      //    .catch(error => console.log(error));
 
    }
 
@@ -58,49 +63,26 @@ export class Update extends Component {
    }
 
    handleSubmit = (e) => {
-      const { record, file, fileName } = this.state;
+      const { record } = this.state;
       e.preventDefault();
       const url = 'http://localhost:5000/records/';
       const id = this.props.match.params.id;
       const path = url + id;
+      // const fd = new FormData();
 
-      const fd = new FormData();
-
-      for (let key in record) {
-         fd.append(key, record[key]);
-      }
-      fd.append(fileName, file);
-
-
+      // for (let key in record) {
+      //    fd.append(key, record[key]);
+      // }
+      // fd.append(fileName, file);
 
       axios.patch(path, record)
-         .then(data => {
-
-            this.setState({
-               filePath: data.photo
-            });
-         })
+         .then(this.props.history.push('/details/' + id))
          .catch(error => {
             console.error(error);
          });
-      // fetch(path, {
-      //    method: 'patch',
-      //    body: fd
-      // })
-      //    .then(res => res.ok ? res.json() : Promise.reject(res))
-      //    .then(data => {
-
-      //       this.setState({
-      //          filePath: data.photo
-      //       });
-      //    })
-      //    .catch(error => {
-      //       console.error(error);
-      //    });
-
-
 
    }
+
    render() {
 
 
@@ -211,4 +193,14 @@ export class Update extends Component {
    }
 }
 
-export default Update;
+
+const mapStateToProps = (state) => ({
+   details: state.recordDetails.record
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+   fetchDetails: () => dispatch(fetchDetails(ownProps.match.params.id))
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Update);
