@@ -67,10 +67,31 @@ router.delete('/delete/:recordId', async (req, res) => {
 
 });
 
+//post photo
+router.post('/:recordId', utils.upload.single('photo'), async (req, res) => {
+
+   const file = req.file ? req.file.filename : '';
+   try {
+      const record = await Record.updateOne(
+         { _id: req.params.recordId },
+
+         {
+            $set: {
+
+               photo: file
+            }
+         }
+      );
+      res.json(record);
+   } catch (error) {
+      res.json({ 'message': error });
+   }
+
+});
 
 
 //Update record
-router.patch('/:recordId', async (req, res) => {
+router.put('/:recordId', async (req, res) => {
    try {
       const file = req.file ? req.file.filename : '';
 
@@ -94,6 +115,7 @@ router.patch('/:recordId', async (req, res) => {
          }
       );
       res.json(updatedPost);
+      //res.redirect('/posts');
    } catch (error) {
       res.json({ 'message': error });
    }

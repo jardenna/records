@@ -21,7 +21,7 @@ const updateRecordFailure = (error) => ({
 });
 
 const recordUpdated = (id, record) => {
-   console.log(id, record);
+
    return ({
       type: UPDATE_TYPES.UPDATE_RECORD_SUCCES,
       payload: record,

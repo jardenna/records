@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Form from '@formElements/Form';
 
 import { createRecord } from '@redux/actions/createActions';
+import { fetchDetails } from '@redux/actions/detailActions';
 
 
 class AddAlbum extends Component {
@@ -23,6 +24,14 @@ class AddAlbum extends Component {
          released: ' ',
          info: ''
       }
+   }
+
+   componentDidMount() {
+      if (this.props.match.params.id) {
+         console.log(this.props);
+      }
+
+
    }
 
    handleChange = (e) => {
@@ -70,7 +79,6 @@ class AddAlbum extends Component {
 
    render() {
       const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = this.state.record;
-
 
       const inputs = [
          {
@@ -183,7 +191,8 @@ class AddAlbum extends Component {
 }
 
 const mapStateToProps = (state) => ({
-   record: state.create.record
+   record: state.create.record,
+   details: state.recordDetails.record
 });
 
 export default connect(mapStateToProps, { createRecord })(AddAlbum);

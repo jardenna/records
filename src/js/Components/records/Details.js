@@ -79,7 +79,7 @@ export class Details extends Component {
 
                      />
 
-                     <Link to={`/update/${_id}`}>   <button>Rediger</button> </Link>
+                     <Link to={`/update/${_id}`}>   <button id={_id}>Rediger</button> </Link>
 
 
                   </footer>

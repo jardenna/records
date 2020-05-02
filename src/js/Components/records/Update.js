@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 import { connect } from 'react-redux';
 
-import endpoints from '@common/endpoints';
-import api from '@common/api';
+
 import Form from '@formElements/Form';
 import { fetchDetails } from '@redux/actions/detailActions';
 
@@ -30,16 +29,11 @@ export class Update extends Component {
    componentDidMount() {
 
 
-      this.props.fetchDetails();
+      this.props.fetchDetails(this.props.details._id);
+
       this.setState({
          record: this.props.details
       });
-      // api('get', url)
-      //    .then(record => this.setState({
-      //       isLoading: false,
-      //       record
-      //    }))
-      //    .catch(error => console.log(error));
 
    }
 
@@ -68,14 +62,16 @@ export class Update extends Component {
       const url = 'http://localhost:5000/records/';
       const id = this.props.match.params.id;
       const path = url + id;
-      // const fd = new FormData();
 
-      // for (let key in record) {
-      //    fd.append(key, record[key]);
-      // }
-      // fd.append(fileName, file);
 
-      axios.patch(path, record)
+      fetch(path, {
+         method: 'PUT',
+         body: JSON.stringify(record),
+         headers: {
+            'Content-Type': 'application/json'
+         }
+      })
+         .then(res => res.json())
          .then(this.props.history.push('/details/' + id))
          .catch(error => {
             console.error(error);
@@ -198,9 +194,6 @@ const mapStateToProps = (state) => ({
    details: state.recordDetails.record
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-   fetchDetails: () => dispatch(fetchDetails(ownProps.match.params.id))
 
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Update);
+export default connect(mapStateToProps, { fetchDetails })(Update);
