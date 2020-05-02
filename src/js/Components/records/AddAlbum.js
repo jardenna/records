@@ -27,8 +27,26 @@ class AddAlbum extends Component {
    }
 
    componentDidMount() {
-      if (this.props.match.params.id) {
-         console.log(this.props);
+      const { fetchDetails, details } = this.props;
+      const id = details._id;
+
+
+      if (id) {
+         fetchDetails(id);
+         this.setState({
+            record: {
+               artist: details.artist,
+               title: details.title,
+               prodYear: details.prodYear,
+               label: details.label,
+               origin: details.origin,
+               price: details.price,
+               recordNo: details.recordNo,
+               numOfRecords: details.numOfRecords,
+               released: details.released,
+               info: details.info
+            }
+         });
       }
 
 
@@ -195,4 +213,4 @@ const mapStateToProps = (state) => ({
    details: state.recordDetails.record
 });
 
-export default connect(mapStateToProps, { createRecord })(AddAlbum);
+export default connect(mapStateToProps, { createRecord, fetchDetails })(AddAlbum);

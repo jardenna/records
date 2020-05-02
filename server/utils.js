@@ -3,7 +3,7 @@ const multer = require('multer');
 
 //Global error message
 const errorMsg = (error, res) => {
-   console.log(error);
+
    res.status(500).json({
       error
    });

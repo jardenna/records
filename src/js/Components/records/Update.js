@@ -12,6 +12,7 @@ export class Update extends Component {
       file: '',
       fileName: '',
       filePath: '',
+      imgUpdated: false,
       record: {
          artist: '',
          title: '',
@@ -44,7 +45,9 @@ export class Update extends Component {
       if (name === 'photo') {
          this.setState({
             file: e.target.files[0],
-            fileName: name
+            fileName: name,
+            imgUpdated: true
+
          });
       }
       this.setState(prevState => ({
@@ -56,12 +59,32 @@ export class Update extends Component {
 
    }
 
+
+
    handleSubmit = (e) => {
-      const { record } = this.state;
+
+      const { record, imgUpdated, fileName, file } = this.state;
       e.preventDefault();
       const url = 'http://localhost:5000/records/';
       const id = this.props.match.params.id;
       const path = url + id;
+
+      if (imgUpdated) {
+
+         const fd = new FormData();
+
+         for (let key in record) {
+            fd.append(key, record[key]);
+         }
+         fd.append(fileName, file);
+
+         fetch(path, {
+            method: 'POST',
+            body: fd
+
+         })
+            .then(res => res.ok ? res.json() : Promise.reject(res));
+      }
 
 
       fetch(path, {
@@ -71,7 +94,7 @@ export class Update extends Component {
             'Content-Type': 'application/json'
          }
       })
-         .then(res => res.json())
+         .then(res => res.ok ? res.json() : Promise.reject(res))
          .then(this.props.history.push('/details/' + id))
          .catch(error => {
             console.error(error);
@@ -176,15 +199,23 @@ export class Update extends Component {
             isRequired: false
          }
 
+
       ];
+
+
+
       return (
-         <Form
-            inputs={inputs}
-            btnText='Submit'
-            btnClass='primary'
-            onSubmit={this.handleSubmit}
-            onChange={this.handleChange}
-         />
+         <div>
+            <Form
+               inputs={inputs}
+               btnText='Submit'
+               btnClass='primary'
+               onSubmit={this.handleSubmit}
+               onChange={this.handleChange}
+            />
+
+         </div>
+
       );
    }
 }

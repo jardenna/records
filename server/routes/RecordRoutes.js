@@ -70,7 +70,7 @@ router.delete('/delete/:recordId', async (req, res) => {
 //post photo
 router.post('/:recordId', utils.upload.single('photo'), async (req, res) => {
 
-   const file = req.file ? req.file.filename : '';
+   const file = req.file ? req.file.filename : req.body.photo;
    try {
       const record = await Record.updateOne(
          { _id: req.params.recordId },
@@ -91,9 +91,11 @@ router.post('/:recordId', utils.upload.single('photo'), async (req, res) => {
 
 
 //Update record
-router.put('/:recordId', async (req, res) => {
+router.put('/:recordId', utils.upload.single('photo'), async (req, res) => {
+
+
    try {
-      const file = req.file ? req.file.filename : '';
+      const file = req.file ? req.file.filename : req.body.photo;
 
       const updatedPost = await Record.updateOne(
          { _id: req.params.recordId },
@@ -115,7 +117,8 @@ router.put('/:recordId', async (req, res) => {
          }
       );
       res.json(updatedPost);
-      //res.redirect('/posts');
+
+
    } catch (error) {
       res.json({ 'message': error });
    }
