@@ -4,7 +4,8 @@ import { UPDATE_TYPES } from '@redux/actions/updateActions';
 const initialState = {
    isLoading: false,
    record: {},
-   error: false
+   error: false,
+   image: ''
 };
 
 const updateReducer = (state = initialState, action) => {
@@ -14,20 +15,22 @@ const updateReducer = (state = initialState, action) => {
             ...state,
             isLoading: true
          };
-      case UPDATE_TYPES.UPDATE_RECORD_SUCCES:
+      case UPDATE_TYPES.UPDATE_RECORD_SUCCESS:
 
          return {
             ...state,
             isLoading: false,
             record: action.payload,
-            id: action.id
+            id: action.id,
+            image: action.image
          };
 
       case UPDATE_TYPES.UPDATE_RECORD_FAILURE:
+
          return {
             ...state,
             isLoading: false,
-            error: action.payload
+            error: true
          };
 
       default: return state;

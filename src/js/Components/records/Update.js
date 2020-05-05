@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 
-
+import endpoints from '@common/endpoints';
 import Form from '@formElements/Form';
 import { fetchDetails } from '@redux/actions/detailActions';
+import { updateRecordSuccess } from '@redux/actions/updateActions';
+import { updateImage } from '@redux/actions/updateActions';
 
 
 export class Update extends Component {
@@ -62,48 +63,15 @@ export class Update extends Component {
 
 
    handleSubmit = (e) => {
-
-      const { record, imgUpdated, fileName, file } = this.state;
       e.preventDefault();
-      const url = 'http://localhost:5000/records/';
-      const id = this.props.match.params.id;
-      const path = url + id;
-
-      if (imgUpdated) {
-
-         const fd = new FormData();
-
-         for (let key in record) {
-            fd.append(key, record[key]);
-         }
-         fd.append(fileName, file);
-
-         fetch(path, {
-            method: 'POST',
-            body: fd
-
-         })
-            .then(res => res.ok ? res.json() : Promise.reject(res));
-      }
+      const { record, imgUpdated, fileName, file } = this.state;
 
 
-      fetch(path, {
-         method: 'PUT',
-         body: JSON.stringify(record),
-         headers: {
-            'Content-Type': 'application/json'
-         }
-      })
-         .then(res => res.ok ? res.json() : Promise.reject(res))
-         .then(this.props.history.push('/details/' + id))
-         .catch(error => {
-            console.error(error);
-         });
-
+      const id = this.props.details._id;
+      this.props.updateRecordSuccess(id, record, imgUpdated, fileName, file);
    }
 
    render() {
-
 
       const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = this.state.record;
 
@@ -202,8 +170,6 @@ export class Update extends Component {
 
       ];
 
-
-
       return (
          <div>
             <Form
@@ -227,4 +193,4 @@ const mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps, { fetchDetails })(Update);
+export default connect(mapStateToProps, { fetchDetails, updateRecordSuccess })(Update);

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import Form from '@formElements/Form';
+import Loader from '@commonReact/Loader';
+import Error from '@commonReact/Error';
 
 import { createRecord } from '@redux/actions/createActions';
 import { fetchDetails } from '@redux/actions/detailActions';
 
 
-class AddAlbum extends Component {
+class Create extends Component {
 
    state = {
       file: '',
@@ -74,7 +77,8 @@ class AddAlbum extends Component {
    handleSubmit = (e) => {
       e.preventDefault();
       const { file, fileName, record } = this.state;
-      this.props.createRecord(record, fileName, file);
+      const { createRecord } = this.props;
+      createRecord(record, fileName, file);
 
       this.setState({
          file: '',
@@ -97,6 +101,15 @@ class AddAlbum extends Component {
 
    render() {
       const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = this.state.record;
+      const { isLoading, error } = this.props;
+
+      if (isLoading) {
+         return <Loader />;
+      }
+
+      if (error) {
+         return <Error />;
+      }
 
       const inputs = [
          {
@@ -208,9 +221,12 @@ class AddAlbum extends Component {
    }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
    record: state.create.record,
-   details: state.recordDetails.record
+   details: state.recordDetails.record,
+   error: state.create.error,
+   isLoading: state.create.isLoading
+
 });
 
-export default connect(mapStateToProps, { createRecord, fetchDetails })(AddAlbum);
+export default connect(mapStateToProps, { createRecord, fetchDetails })(Create);

@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import store from '@redux/store';
 
 import Home from '@components/records/Home';
-import AddAlbum from '@components/records/AddAlbum';
+import Create from '@components/records/Create';
 import RecordTable from '@components/records/RecordTable';
 import Details from '@components/records/Details';
 import Update from '@components/records/Update';
@@ -27,7 +27,7 @@ class App extends Component {
 
 						<Switch>
 							<Route exact path='/' component={Home} />
-							<Route path='/addalbum' component={AddAlbum} />
+							<Route path='/create' component={Create} />
 							<Route path='/all' component={RecordTable} />
 							<Route path='/details/:id' component={Details} />
 							<Route path='/update/:id' component={Update} />

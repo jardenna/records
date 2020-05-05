@@ -9,7 +9,7 @@ function Nav() {
       <nav className="main-nav">
 
          <Link className="main-nav-items" to="/">Home</Link>
-         <Link className="main-nav-items" to="/addalbum">Tilføj album</Link>
+         <Link className="main-nav-items" to="/create">Tilføj album</Link>
          <Link className="main-nav-items" to="/all">Se alle</Link>
 
       </nav>

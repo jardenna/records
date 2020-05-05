@@ -29,11 +29,11 @@ const allRecordsFetched = allRecords => ({
 
 export const fetchAllRecords = () => {
    return dispatch => {
-      dispatch(fetchAllRecordsStart);
+      dispatch(fetchAllRecordsStart());
       api('get', endpoints.records)
          .then(allRecords => dispatch(allRecordsFetched(allRecords)))
          .catch(
-            error => dispatch(fetchAllRecordsFailure(error.message))
+            error => dispatch(fetchAllRecordsFailure(error))
          );
    };
 };

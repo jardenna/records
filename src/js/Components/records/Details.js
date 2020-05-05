@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
+import Loader from '@commonReact/Loader';
+import Error from '@commonReact/Error';
 import endpoints from '@common/endpoints';
 import { labels, noInfo } from '@data/labels';
 import defaultImg from '@images/default.png';
@@ -15,13 +16,20 @@ import { fetchDetails } from '@redux/actions/detailActions';
 export class Details extends Component {
 
    componentDidMount() {
-      this.props.fetchDetails();
+      this.props.fetchDetails(this.props.match.params.id);
 
    }
 
    render() {
       const { _id, artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = this.props.details;
+      const { isLoading, error } = this.props;
+      if (isLoading) {
+         return <Loader />;
+      }
 
+      // if (error) {
+      //    return <Error />;
+      // }
 
       const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
       return (
@@ -72,10 +80,11 @@ export class Details extends Component {
 
                   <footer className="content-footer">
                      <Modal
-                        onClick={this.props.deleteRecord}
+                        onClick={() => this.props.deleteRecord(_id)}
                         title={title}
                         artist={artist}
                         id={_id}
+                        linkTo={'/'}
                      />
 
                      <Link to={`/update/${_id}`}>   <button id={_id}>Rediger</button> </Link>
@@ -99,13 +108,12 @@ export class Details extends Component {
 }
 
 const mapStateToProps = (state) => ({
-   details: state.recordDetails.record
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-   fetchDetails: () => dispatch(fetchDetails(ownProps.match.params.id)),
-   deleteRecord: () => dispatch(deleteRecord(ownProps.match.params.id))
+   details: state.recordDetails.record,
+   error: state.recordDetails.error,
+   isLoading: state.recordDetails.isLoading
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Details);
+
+
+export default connect(mapStateToProps, { fetchDetails, deleteRecord })(Details);

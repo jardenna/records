@@ -19,13 +19,15 @@ const createReducer = (state = initialState, action) => {
             ...state,
             record: action.payload,
             file: action.file,
-            fileName: action.fileName
+            fileName: action.fileName,
+            isLoading: false
          };
 
       case CREATE_TYPES.CREATE_RECORD_FAILURE:
          return {
             ...state,
-            error: true
+            error: true,
+            isLoading: false
          };
 
       default: return state;

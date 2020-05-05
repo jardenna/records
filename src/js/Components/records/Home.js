@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 
-
+import Loader from '@commonReact/Loader';
+import Error from '@commonReact/Error';
 import endpoints from '@common/endpoints';
 import defaultImg from '@images/default.png';
 import DetailsLink from '@components/records/Shared/DetailsLink';
@@ -18,6 +18,11 @@ export class Home extends Component {
 
    render() {
       const { firstSix } = this.props;
+      const { isLoading, error } = this.props;
+      if (isLoading) {
+         return <Loader />;
+      }
+
 
 
       return (
@@ -50,10 +55,10 @@ export class Home extends Component {
    }
 }
 
-const mapStateToProps = (state) => ({
-   firstSix: state.firstSix.firstSix
+const mapStateToProps = state => ({
+   firstSix: state.firstSix.firstSix,
+   isLoading: state.firstSix.isLoading,
+   error: state.firstSix.error
 });
-
-
 
 export default connect(mapStateToProps, { fetchFirstSixSuccess })(Home);

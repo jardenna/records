@@ -31,7 +31,7 @@ const recordsReducer = (state = initialState, action) => {
          return ({
             ...state,
             isLoading: false,
-            error: action.payload
+            error: true
          });
       case ALL_RECORDS_TYPES.DELETE_RECORDS_FAILURE:
          return ({

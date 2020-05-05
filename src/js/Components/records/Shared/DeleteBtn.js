@@ -6,13 +6,13 @@ const DeleteBtn = ({ onClick, linkTo }) => {
 
     return (
 
-
-        <button
-            onClick={onClick}
-            className="btn-danger">Delete
+        <Link to={linkTo}>
+            <button
+                onClick={onClick}
+                className="btn-danger">Delete
         </button>
 
-
+        </Link >
     );
 };
 

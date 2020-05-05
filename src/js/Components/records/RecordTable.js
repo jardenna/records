@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 import { labels, noInfo } from '@data/labels';
 import { fetchAllRecords } from '@redux/actions/recordsActions';
 import { deleteRecord } from '@redux/actions/deleteActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
 import Modal from '@commonReact/Modal';
-
+import Loader from '@commonReact/Loader';
+import Error from '@commonReact/Error';
 
 
 class RecordTable extends Component {
@@ -22,7 +22,17 @@ class RecordTable extends Component {
 
    render() {
 
-      const { allRecords } = this.props;
+      const { allRecords, error, isLoading } = this.props;
+
+      if (isLoading) {
+         return <Loader />;
+      }
+
+      if (error) {
+         return <Error />;
+      }
+
+
       return (
          <table className="record-table">
             <thead>
@@ -55,6 +65,7 @@ class RecordTable extends Component {
                            title={record.title}
                            artist={record.artist}
                            id={record._id}
+                           linkTo={'/all'}
 
                         />
                      </td>
@@ -70,11 +81,11 @@ class RecordTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
-   allRecords: state.records.allRecords
+   allRecords: state.records.allRecords,
+   error: state.records.error,
+   isLoading: state.records.isLoading
 });
-const mapDispatchToProps = (dispatch) => ({
-   fetchAllRecords: () => dispatch(fetchAllRecords()),
-   deleteRecord: () => dispatch(deleteRecord())
-});
+
+
 
 export default connect(mapStateToProps, { fetchAllRecords, deleteRecord })(RecordTable);

@@ -26,7 +26,6 @@ export const createRecord = (record, fileName, file) => {
    }
    fd.append(fileName, file);
 
-
    return dispatch => {
       dispatch(createRecordStart());
       fetch(endpoints.records, {
