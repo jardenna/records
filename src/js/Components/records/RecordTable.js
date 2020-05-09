@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { labels, noInfo } from '@data/labels';
-import { fetchAllRecords } from '@redux/actions/recordsActions';
+
+import { fetchAllRecordsStart } from '@redux/actions/recordsActions';
 import { deleteRecord } from '@redux/actions/deleteActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
 import Modal from '@commonReact/Modal';
@@ -11,14 +12,9 @@ import Error from '@commonReact/Error';
 
 
 class RecordTable extends Component {
-
-
-
    componentDidMount() {
-      this.props.fetchAllRecords();
-
+      this.props.fetchAllRecordsStart();
    }
-
 
    render() {
 
@@ -88,4 +84,4 @@ const mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps, { fetchAllRecords, deleteRecord })(RecordTable);
+export default connect(mapStateToProps, { deleteRecord, fetchAllRecordsStart })(RecordTable);

@@ -1,16 +1,14 @@
-// import { all, call } from 'redux-saga/effects';
-// import { dogSagas } from '@redux/sagas/dogsSagas';
-// import { fetchUsersSagas } from '@redux/sagas/fetchUsersSagas';
-// import { imageSagas } from '@redux/sagas/imageSagas';
+import { all, call } from 'redux-saga/effects';
+import { recordsSagas } from '@redux/sagas/recordSagas';
+import { firstSixSagas } from '@redux/sagas/homeSagas';
+//import { detailSagas } from '@redux/sagas/datailSagas';
 
 
+function* rootSaga() {
+   yield all([
+      call(recordsSagas),
+      call(firstSixSagas)
+   ]);
+}
 
-// function* rootSaga() {
-//    yield all([
-//       call(dogSagas),
-//       call(fetchUsersSagas),
-//       call(imageSagas)
-//    ]);
-// }
-
-// export default rootSaga;
+export default rootSaga;

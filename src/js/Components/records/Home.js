@@ -6,12 +6,12 @@ import Error from '@commonReact/Error';
 import endpoints from '@common/endpoints';
 import defaultImg from '@images/default.png';
 import DetailsLink from '@components/records/Shared/DetailsLink';
-import { fetchFirstSixSuccess } from '@redux/actions/homeActions';
+import { fetchFirstSixStart } from '@redux/actions/homeActions';
 
 export class Home extends Component {
 
    componentDidMount() {
-      this.props.fetchFirstSixSuccess();
+      this.props.fetchFirstSixStart();
    }
 
 
@@ -28,7 +28,7 @@ export class Home extends Component {
       return (
 
          <section className="index-block block-container flex-wrapper">
-            {firstSix.map(four => {
+            {firstSix && firstSix.map(four => {
                const photo = four.photo;
                const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
 
@@ -55,10 +55,13 @@ export class Home extends Component {
    }
 }
 
-const mapStateToProps = state => ({
-   firstSix: state.firstSix.firstSix,
-   isLoading: state.firstSix.isLoading,
-   error: state.firstSix.error
-});
+const mapStateToProps = state => {
 
-export default connect(mapStateToProps, { fetchFirstSixSuccess })(Home);
+   return ({
+      firstSix: state.firstSix.firstSix,
+      isLoading: state.firstSix.isLoading,
+      error: state.firstSix.error
+   });
+};
+
+export default connect(mapStateToProps, { fetchFirstSixStart })(Home);

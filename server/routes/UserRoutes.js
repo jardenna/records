@@ -76,7 +76,7 @@ router.post('/signup', (req, res) => {
          const post = await User.deleteOne(req.params.userId);
          res.json(post);
       } catch (error) {
-         console.log(error);
+
 
          res.status(500).json({
             'message': error

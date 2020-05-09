@@ -1,11 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 
+const sagaMiddleware = createSagaMiddleware();
 
 import rootReducer from './rootReducer';
+import rootSaga from './rootSaga';
 
-const middleware = [thunk, logger];
+const middleware = [thunk, logger, sagaMiddleware];
 
 const composeEnhancers =
    process.env.NODE_ENV === 'development'
@@ -20,5 +23,5 @@ const store = createStore(
 );
 
 
-
+sagaMiddleware.run(rootSaga);
 export default store;
