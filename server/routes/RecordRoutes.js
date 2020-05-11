@@ -29,6 +29,29 @@ router.get('/:recordId', async (req, res) => {
 
 });
 
+//post photo
+router.post('/:recordId', utils.upload.single('photo'), async (req, res) => {
+
+   const file = req.file ? req.file.filename : req.body.photo;
+
+   try {
+      const record = await Record.updateOne(
+         { _id: req.params.recordId },
+
+         {
+            $set: {
+
+               photo: file
+            }
+         }
+      );
+      res.json(record);
+   } catch (error) {
+      res.json({ 'message': error });
+   }
+
+});
+
 //Add new record
 router.post('/', utils.upload.single('photo'), (req, res) => {
 
@@ -67,35 +90,14 @@ router.delete('/delete/:recordId', async (req, res) => {
 
 });
 
-//post photo
-router.post('/:recordId', utils.upload.single('photo'), async (req, res) => {
 
-   const file = req.file ? req.file.filename : req.body.photo;
-   try {
-      const record = await Record.updateOne(
-         { _id: req.params.recordId },
-
-         {
-            $set: {
-
-               photo: file
-            }
-         }
-      );
-      res.json(record);
-   } catch (error) {
-      res.json({ 'message': error });
-   }
-
-});
 
 
 //Update record
-router.put('/:recordId', utils.upload.single('photo'), async (req, res) => {
+router.put('/:recordId', async (req, res) => {
 
 
    try {
-      const file = req.file ? req.file.filename : req.body.photo;
 
       const updatedPost = await Record.updateOne(
          { _id: req.params.recordId },
@@ -111,8 +113,7 @@ router.put('/:recordId', utils.upload.single('photo'), async (req, res) => {
                recordNo: req.body.recordNo,
                numOfRecords: req.body.numOfRecords,
                released: req.body.released,
-               info: req.body.info,
-               photo: file
+               info: req.body.info
             }
          }
       );

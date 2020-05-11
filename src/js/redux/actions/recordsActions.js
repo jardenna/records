@@ -5,11 +5,9 @@ export const ALL_RECORDS_TYPES = {
 };
 
 //Export to component
-export const fetchAllRecordsStart = () => {
-   return ({
-      type: ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_START
-   });
-};
+export const fetchAllRecordsStart = () => ({
+   type: ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_START
+});
 
 //Export to RecordSagas
 export const fetchAllRecordsFailure = error => ({

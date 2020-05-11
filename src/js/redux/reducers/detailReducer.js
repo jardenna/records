@@ -10,9 +10,6 @@ const initialState = {
 const detailReducer = (state = initialState, action) => {
 
    switch (action.type) {
-
-
-
       case DETAILS_TYPE.FETCH_DETAILS_START:
          return {
             ...state,

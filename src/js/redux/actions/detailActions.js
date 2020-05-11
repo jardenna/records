@@ -8,17 +8,18 @@ export const DETAILS_TYPE = {
 };
 
 
-const fetchDetailsStart = () => ({
-   type: DETAILS_TYPE.FETCH_DETAILS_START
+export const fetchDetailsStart = id => ({
+   type: DETAILS_TYPE.FETCH_DETAILS_START,
+   payload: id
 });
 
 
-const fetchDetailsFailure = (error) => ({
+export const fetchDetailsFailure = error => ({
    type: DETAILS_TYPE.FETCH_DETAILS_FAILURE,
    payload: error
 });
 
-const recordFetched = record => {
+export const recordFetched = record => {
    return {
       type: DETAILS_TYPE.FETCH_DETAILS_SUCCESS,
       payload: record

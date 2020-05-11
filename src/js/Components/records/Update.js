@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import endpoints from '@common/endpoints';
+
 import Form from '@formElements/Form';
 import { fetchDetails } from '@redux/actions/detailActions';
 import { updateRecordSuccess } from '@redux/actions/updateActions';
-import { updateImage } from '@redux/actions/updateActions';
+import { createUsersRequest } from '@redux/actions/createActions';
 
 
 export class Update extends Component {
@@ -29,13 +29,26 @@ export class Update extends Component {
    }
 
    componentDidMount() {
+      const { fetchDetails, details } = this.props;
+      const id = details._id;
 
-
-      this.props.fetchDetails(this.props.details._id);
-
-      this.setState({
-         record: this.props.details
-      });
+      if (id) {
+         fetchDetails(id);
+         this.setState({
+            record: {
+               artist: details.artist,
+               title: details.title,
+               prodYear: details.prodYear,
+               label: details.label,
+               origin: details.origin,
+               price: details.price,
+               recordNo: details.recordNo,
+               numOfRecords: details.numOfRecords,
+               released: details.released,
+               info: details.info
+            }
+         });
+      }
 
    }
 
@@ -65,10 +78,34 @@ export class Update extends Component {
    handleSubmit = (e) => {
       e.preventDefault();
       const { record, imgUpdated, fileName, file } = this.state;
+      const { updateRecordSuccess, details, createUsersRequest } = this.props;
+
+      const id = details._id;
+
+      if (id) {
+         updateRecordSuccess(id, record, imgUpdated, fileName, file);
+
+      } else {
 
 
-      const id = this.props.details._id;
-      this.props.updateRecordSuccess(id, record, imgUpdated, fileName, file);
+         createUsersRequest(record, fileName, file);
+         this.setState({
+
+            record: {
+               artist: '',
+               title: '',
+               prodYear: '',
+               label: '',
+               origin: '',
+               price: ' ',
+               recordNo: '',
+               numOfRecords: ' ',
+               released: ' ',
+               info: ''
+            }
+         });
+      }
+
    }
 
    render() {
@@ -193,4 +230,4 @@ const mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps, { fetchDetails, updateRecordSuccess })(Update);
+export default connect(mapStateToProps, { createUsersRequest, fetchDetails, updateRecordSuccess })(Update);

@@ -10,13 +10,13 @@ import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
 import Modal from '@commonReact/Modal';
 import { deleteRecord } from '@redux/actions/deleteActions';
-
-import { fetchDetails } from '@redux/actions/detailActions';
+import { fetchDetailsStart } from '@redux/actions/detailActions';
 
 export class Details extends Component {
 
    componentDidMount() {
-      this.props.fetchDetails(this.props.match.params.id);
+
+      this.props.fetchDetailsStart(this.props.match.params.id);
 
    }
 
@@ -114,6 +114,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-
-
-export default connect(mapStateToProps, { fetchDetails, deleteRecord })(Details);
+export default connect(mapStateToProps, { deleteRecord, fetchDetailsStart })(Details);

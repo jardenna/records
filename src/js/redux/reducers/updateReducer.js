@@ -16,7 +16,6 @@ const updateReducer = (state = initialState, action) => {
             isLoading: true
          };
       case UPDATE_TYPES.UPDATE_RECORD_SUCCESS:
-
          return {
             ...state,
             isLoading: false,

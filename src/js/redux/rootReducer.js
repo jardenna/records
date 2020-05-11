@@ -6,6 +6,7 @@ import recordsReducer from './reducers/recordsReducer';
 import detailReducer from './reducers/detailReducer';
 import createReducer from './reducers/createReducer';
 import updateReducer from './reducers/updateReducer';
+import userReducer from './reducers/userReducer';
 
 
 
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
    records: recordsReducer,
    recordDetails: detailReducer,
    create: createReducer,
-   update: updateReducer
+   update: updateReducer,
+   users: userReducer
 
 });
 

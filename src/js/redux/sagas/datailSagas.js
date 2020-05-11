@@ -1,4 +1,4 @@
-import { all, takeLatest, call, put, take } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import api from '@common/api';
 import endpoints from '@common/endpoints';
@@ -9,40 +9,32 @@ import {
    DETAILS_TYPE
 } from '@redux/actions/detailActions';
 
-
-const fetchDetails = id => {
-
+//API Call
+const detailsApi = id => {
    const url = `${endpoints.records}${id}`;
    return api('get', url)
       .then(data => data);
 };
 
-function* fetchDetailsAsync(id) {
+//Worker
+function* fetchDetailsWorker(action) {
    try {
-
-      const response = yield call(fetchDetails, id);
-
+      const response = yield call(detailsApi, action.payload);
       yield put(recordFetched(response));
    } catch (error) {
       yield put(fetchDetailsFailure(error));
-
    }
+
 }
 
-function* details() {
-
-   while (true) {
-      const id = yield take(DETAILS_TYPE.FETCH_DETAILS_START);
-
-      yield call(fetchDetailsAsync, id);
-   }
-
-
-
-
+//Watcher
+function* watchCreateUserRequest() {
+   yield takeLatest(DETAILS_TYPE.FETCH_DETAILS_START, fetchDetailsWorker);
 }
 
 export function* detailSagas() {
-   yield all([call(details)]);
+   yield all([
+      call(watchCreateUserRequest)
+   ]);
 
 }

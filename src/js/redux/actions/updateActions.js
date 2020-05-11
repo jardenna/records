@@ -12,12 +12,12 @@ const updateRecordStart = () => ({
    type: UPDATE_TYPES.UPDATE_RECORD_START
 });
 
-const updateRecordFailure = (error) => ({
+const updateRecordFailure = error => ({
    type: UPDATE_TYPES.UPDATE_RECORD_FAILURE,
    payload: error
 });
 
-const recordUpdated = (id, fileName, record) => {
+const recordUpdated = (id, record, fileName) => {
 
    return ({
       type: UPDATE_TYPES.UPDATE_RECORD_SUCCESS,
@@ -46,9 +46,6 @@ export const updateRecordSuccess = (id, record, imgUpdated, fileName, file) => {
             body: fd
          })
             .then(res => res.ok ? res.json() : Promise.reject(res));
-
-
-
       };
    }
 
@@ -65,8 +62,5 @@ export const updateRecordSuccess = (id, record, imgUpdated, fileName, file) => {
          .then(() => dispatch(recordUpdated(id, record)))
          .catch(error => dispatch(updateRecordFailure(error)));
    };
-
-
-
 
 };
