@@ -9,7 +9,7 @@ import { labels, noInfo } from '@data/labels';
 import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
 import Modal from '@commonReact/Modal';
-import { deleteRecord } from '@redux/actions/deleteActions';
+import { recordDeleted } from '@redux/actions/recordsActions';
 import { fetchDetailsStart } from '@redux/actions/detailActions';
 
 export class Details extends Component {
@@ -80,7 +80,7 @@ export class Details extends Component {
 
                   <footer className="content-footer">
                      <Modal
-                        onClick={() => this.props.deleteRecord(_id)}
+                        onClick={() => this.props.recordDeleted(_id)}
                         title={title}
                         artist={artist}
                         id={_id}
@@ -114,4 +114,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { deleteRecord, fetchDetailsStart })(Details);
+export default connect(mapStateToProps, { fetchDetailsStart, recordDeleted })(Details);

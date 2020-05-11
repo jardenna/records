@@ -3,6 +3,7 @@ import { recordsSagas } from '@redux/sagas/recordSagas';
 import { firstSixSagas } from '@redux/sagas/homeSagas';
 import { detailSagas } from './sagas/datailSagas';
 import { createSagas } from '@redux/sagas/createSagas';
+import { deleteSagas } from '@redux/sagas/deleteSagas';
 
 
 function* rootSaga() {
@@ -10,7 +11,8 @@ function* rootSaga() {
       call(recordsSagas),
       call(firstSixSagas),
       call(detailSagas),
-      call(createSagas)
+      call(createSagas),
+      call(deleteSagas)
    ]);
 }
 

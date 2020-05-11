@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { labels, noInfo } from '@data/labels';
 
 import { fetchAllRecordsStart } from '@redux/actions/recordsActions';
-import { deleteRecord } from '@redux/actions/deleteActions';
+import { recordDeleted } from '@redux/actions/recordsActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
 import Modal from '@commonReact/Modal';
 import Loader from '@commonReact/Loader';
@@ -57,7 +57,7 @@ class RecordTable extends Component {
                         <DetailsLink id={record._id} />
 
                         <Modal
-                           onClick={() => this.props.deleteRecord(record._id)}
+                           onClick={() => this.props.recordDeleted(record._id)}
                            title={record.title}
                            artist={record.artist}
                            id={record._id}
@@ -84,4 +84,4 @@ const mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps, { deleteRecord, fetchAllRecordsStart })(RecordTable);
+export default connect(mapStateToProps, { recordDeleted, fetchAllRecordsStart })(RecordTable);

@@ -1,5 +1,4 @@
 import { ALL_RECORDS_TYPES } from '@redux/actions/recordsActions';
-import { DELETE_TYPES } from '@redux/actions/deleteActions';
 
 const initialState = {
    isLoading: false,
@@ -9,8 +8,7 @@ const initialState = {
 
 const recordsReducer = (state = initialState, action) => {
    switch (action.type) {
-      case DELETE_TYPES.DELETE_RECORD_SUCCESS:
-
+      case ALL_RECORDS_TYPES.DELETE_RECORD_SUCCESS:
          return ({
             ...state,
             allRecords: state.allRecords.filter(record => record._id !== action.payload)
