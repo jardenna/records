@@ -10,7 +10,7 @@ const DeleteBtn = ({ onClick, linkTo }) => {
             <button
                 onClick={onClick}
                 className="btn-danger">Delete
-        </button>
+            </button>
 
         </Link >
     );

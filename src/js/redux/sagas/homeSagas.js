@@ -16,6 +16,7 @@ function fetchFirstSix() {
 }
 
 function* fetchFirstSixAsync() {
+
    try {
       const response = yield call(fetchFirstSix);
       yield put(firstSixFetched(response));

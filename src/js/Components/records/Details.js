@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 
 import Loader from '@commonReact/Loader';
 import Error from '@commonReact/Error';
@@ -12,100 +13,101 @@ import Modal from '@commonReact/Modal';
 import { recordDeleted } from '@redux/actions/recordsActions';
 import { fetchDetailsStart } from '@redux/actions/detailActions';
 
-export class Details extends Component {
+export function Details({ fetchDetailsStart, isLoading, error, details, recordDeleted }) {
 
-   componentDidMount() {
+   const id = useParams().id;
+   React.useEffect(() => {
+      fetchDetailsStart(id);
+   }, []);
 
-      this.props.fetchDetailsStart(this.props.match.params.id);
+   const { _id, artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = details;
 
+
+
+
+   if (isLoading) {
+      return <Loader />;
    }
 
-   render() {
-      const { _id, artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = this.props.details;
-      const { isLoading, error } = this.props;
-      if (isLoading) {
-         return <Loader />;
-      }
+   // if (error) {
+   //    return <Error />;
+   // }
 
-      // if (error) {
-      //    return <Error />;
-      // }
+   const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
+   return (
+      <div className="details-container">
+         <div className="block-container flex-wrapper">
 
-      const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
-      return (
-         <div className="details-container">
-            <div className="block-container flex-wrapper">
-
-               <section className="flex-2 details-content">
+            <section className="flex-2 details-content">
 
 
-                  <DetailsContent
-                     text={origin === null ? noInfo : origin}
-                     label={labels.origin} />
+               <DetailsContent
+                  text={origin === null ? noInfo : origin}
+                  label={labels.origin} />
 
-                  <DetailsContent
-                     text={prodYear}
-                     label={labels.prodYear} />
+               <DetailsContent
+                  text={prodYear}
+                  label={labels.prodYear} />
 
-                  <DetailsContent
-                     text={released === null ? prodYear : released}
-                     label={labels.released} />
+               <DetailsContent
+                  text={released === null ? prodYear : released}
+                  label={labels.released} />
 
-                  <DetailsContent
-                     text={label}
-                     label={labels.label} />
+               <DetailsContent
+                  text={label}
+                  label={labels.label} />
 
-                  <DetailsContent
-                     text={recordNo}
-                     label={labels.recordNo} />
+               <DetailsContent
+                  text={recordNo}
+                  label={labels.recordNo} />
 
-                  <DetailsContent
-                     text={numOfRecords === 0 ? 1 : numOfRecords}
-                     label={labels.numOfRecords} />
-
-
-                  <DetailsContent
-                     text={price === null ? noInfo : price + ',00'}
-                     label={labels.price} />
+               <DetailsContent
+                  text={numOfRecords === 0 ? 1 : numOfRecords}
+                  label={labels.numOfRecords} />
 
 
-                  {info === '' ? null :
-                     <div className="details-info">
-                        <div className="text-bold"> {labels.info}</div>
-                        <p>
-                           {info}
-                        </p>
-
-                     </div>}
-
-                  <footer className="content-footer">
-                     <Modal
-                        onClick={() => this.props.recordDeleted(_id)}
-                        title={title}
-                        artist={artist}
-                        id={_id}
-                        linkTo={'/'}
-                     />
-
-                     <Link to={`/update/${_id}`}>   <button id={_id}>Rediger</button> </Link>
+               <DetailsContent
+                  text={price === null ? noInfo : price + ',00'}
+                  label={labels.price} />
 
 
-                  </footer>
-               </section>
-               <section className="block-item flex-item">
-                  <h1>{artist}</h1>
-                  <h2> {title}</h2>
-                  <div className="block-img">
-                     <img src={img} alt={artist} />
-                  </div>
+               {info === '' ? null :
+                  <div className="details-info">
+                     <div className="text-bold"> {labels.info}</div>
+                     <p>
+                        {info}
+                     </p>
 
-               </section>
-            </div>
+                  </div>}
 
+               <footer className="content-footer">
+                  <Modal
+                     onClick={() => recordDeleted(_id)}
+                     title={title}
+                     artist={artist}
+                     id={_id}
+                     linkTo={'/'}
+                  />
+
+                  <Link to={`/update/${_id}`}>   <button id={_id} className='btn-primary'>Rediger</button> </Link>
+
+
+               </footer>
+            </section>
+            <section className="block-item flex-item">
+               <h1>{artist}</h1>
+               <h2> {title}</h2>
+               <div className="block-img">
+                  <img src={img} alt={artist} />
+               </div>
+
+            </section>
          </div>
-      );
-   }
+
+      </div>
+   );
 }
+
 
 const mapStateToProps = (state) => ({
    details: state.recordDetails.record,

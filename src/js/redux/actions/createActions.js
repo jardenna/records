@@ -11,7 +11,6 @@ export const createStart = () => ({
 });
 
 export const createUsersRequest = (record, fileName, file, id, imgUpdated) => {
-
    return ({
       type: CREATE_TYPES.CREATE_USER_REQUEST,
       payload: record,

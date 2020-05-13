@@ -15,6 +15,12 @@ button {
   }
 }
 
+button.details-btn:last-child {
+  margin-right: 10px;
+}
+
+
+
 a.btn-primary {
   text-decoration: none;
   text-align: center;

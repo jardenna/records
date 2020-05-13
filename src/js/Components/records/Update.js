@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 
 import Form from '@formElements/Form';
@@ -8,219 +9,192 @@ import { updateRecordSuccess } from '@redux/actions/updateActions';
 import { createUsersRequest } from '@redux/actions/createActions';
 
 
-export class Update extends Component {
-   state = {
-      file: '',
-      fileName: '',
-      filePath: '',
-      imgUpdated: false,
-      record: {
-         artist: '',
-         title: '',
-         prodYear: '',
-         label: '',
-         origin: '',
-         price: ' ',
-         recordNo: '',
-         numOfRecords: ' ',
-         released: ' ',
-         info: ''
-      }
-   }
+function Update({ createUsersRequest, fetchDetails, updateRecordSuccess, details }) {
 
-   componentDidMount() {
-      const { fetchDetails, details } = this.props;
-      const id = details._id;
+
+   const id = useParams().id;
+   React.useEffect(() => {
 
       if (id) {
          fetchDetails(id);
-         this.setState({
-            record: {
-               artist: details.artist,
-               title: details.title,
-               prodYear: details.prodYear,
-               label: details.label,
-               origin: details.origin,
-               price: details.price,
-               recordNo: details.recordNo,
-               numOfRecords: details.numOfRecords,
-               released: details.released,
-               info: details.info
-            }
+         setValues({
+            artist: details.artist,
+            title: details.title,
+            prodYear: details.prodYear,
+            label: details.label,
+            origin: details.origin,
+            price: details.price,
+            recordNo: details.recordNo,
+            numOfRecords: details.numOfRecords,
+            released: details.released,
+            info: details.info
          });
       }
+   }, []);
 
-   }
+   const recordObj = {
+      artist: '',
+      title: '',
+      prodYear: '',
+      label: '',
+      origin: '',
+      price: ' ',
+      recordNo: '',
+      numOfRecords: ' ',
+      released: ' ',
+      info: ''
+   };
 
-   handleChange = (e) => {
+
+   const [values, setValues] = React.useState(recordObj);
+   const [file, setFile] = React.useState('');
+   const [fileName, setFileName] = React.useState('');
+   const [imgUpdated, setImgUpdated] = React.useState(false);
+
+   function handleChange(e) {
       const { name, value } = e.target;
-
+      setValues({
+         ...values,
+         [name]: value
+      });
 
       if (name === 'photo') {
-         this.setState({
-            file: e.target.files[0],
-            fileName: name,
-            imgUpdated: true
-
-         });
+         setFile(e.target.files[0]);
+         setFileName(name);
+         setImgUpdated(true);
       }
-      this.setState(prevState => ({
-         record:
-         {
-            ...prevState.record, [name]: value
-         }
-      }));
-
    }
 
+   function handleSubmit(e) {
 
 
-   handleSubmit = (e) => {
       e.preventDefault();
-      const { record, imgUpdated, fileName, file } = this.state;
-      const { updateRecordSuccess, details, createUsersRequest } = this.props;
-
-      const id = details._id;
-
       if (id) {
-         updateRecordSuccess(id, record, imgUpdated, fileName, file);
-
+         updateRecordSuccess(id, values, imgUpdated, fileName, file);
       } else {
+         createUsersRequest(values, fileName, file);
 
 
-         createUsersRequest(record, fileName, file);
-         this.setState({
-
-            record: {
-               artist: '',
-               title: '',
-               prodYear: '',
-               label: '',
-               origin: '',
-               price: ' ',
-               recordNo: '',
-               numOfRecords: ' ',
-               released: ' ',
-               info: ''
-            }
-         });
+         setValues(recordObj);
       }
 
    }
 
-   render() {
+   const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = values;
 
-      const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = this.state.record;
+   const inputs = [
+      {
+         type: 'text',
+         name: 'artist',
+         inputIdentifier: 'artist',
+         label: 'Gruppe / Kunstner',
+         isRequired: true,
+         value: artist
 
-      const inputs = [
-         {
-            type: 'text',
-            name: 'artist',
-            inputIdentifier: 'artist',
-            label: 'Gruppe / Kunstner',
-            isRequired: true,
-            value: artist
+      },
+      {
+         type: 'text',
+         name: 'title',
+         inputIdentifier: 'title',
+         label: 'Titel',
+         isRequired: true,
+         value: title
 
-         },
-         {
-            type: 'text',
-            name: 'title',
-            inputIdentifier: 'title',
-            label: 'Titel',
-            isRequired: true,
-            value: title
+      },
+      {
+         type: 'text',
+         name: 'prodYear',
+         inputIdentifier: 'prodYear',
+         label: 'Produktions år',
+         isRequired: true,
+         value: prodYear
+      },
+      {
+         type: 'text',
+         name: 'label',
+         inputIdentifier: 'label',
+         label: 'Plademærke',
+         isRequired: false,
+         value: label
+      },
+      {
+         type: 'textarea',
+         name: 'origin',
+         inputIdentifier: 'origin',
+         label: 'Oprindelse',
+         isRequired: false,
+         value: origin
+      },
+      {
+         type: 'text',
+         name: 'price',
+         inputIdentifier: 'price',
+         label: 'Pris',
+         isRequired: false,
+         value: price
+      },
+      {
+         type: 'text',
+         name: 'recordNo',
+         inputIdentifier: 'recordNo',
+         label: 'Pladenummer',
+         isRequired: false,
+         value: recordNo
+      },
+      {
+         type: 'text',
+         name: 'numOfRecords',
+         inputIdentifier: 'numOfRecords',
+         label: 'Antal LP(er)',
+         isRequired: false,
+         value: numOfRecords
+      },
+      {
+         type: 'text',
+         name: 'released',
+         inputIdentifier: 'released',
+         label: 'Senest udgivet',
+         isRequired: false,
+         value: released
 
-         },
-         {
-            type: 'text',
-            name: 'prodYear',
-            inputIdentifier: 'prodYear',
-            label: 'Produktions år',
-            isRequired: true,
-            value: prodYear
-         },
-         {
-            type: 'text',
-            name: 'label',
-            inputIdentifier: 'label',
-            label: 'Plademærke',
-            isRequired: false,
-            value: label
-         },
-         {
-            type: 'textarea',
-            name: 'origin',
-            inputIdentifier: 'origin',
-            label: 'Oprindelse',
-            isRequired: false,
-            value: origin
-         },
-         {
-            type: 'text',
-            name: 'price',
-            inputIdentifier: 'price',
-            label: 'Pris',
-            isRequired: false,
-            value: price
-         },
-         {
-            type: 'text',
-            name: 'recordNo',
-            inputIdentifier: 'recordNo',
-            label: 'Pladenummer',
-            isRequired: false,
-            value: recordNo
-         },
-         {
-            type: 'text',
-            name: 'numOfRecords',
-            inputIdentifier: 'numOfRecords',
-            label: 'Antal LP(er)',
-            isRequired: false,
-            value: numOfRecords
-         },
-         {
-            type: 'text',
-            name: 'released',
-            inputIdentifier: 'released',
-            label: 'Senest udgivet',
-            isRequired: false,
-            value: released
-
-         },
-         {
-            type: 'textarea',
-            name: 'info',
-            inputIdentifier: 'info',
-            label: 'Værd at vide',
-            isRequired: false,
-            value: info
-         },
-         {
-            type: 'file',
-            name: 'photo',
-            inputIdentifier: 'cover',
-            label: 'Indsæt billede',
-            isRequired: false
-         }
+      },
+      {
+         type: 'textarea',
+         name: 'info',
+         inputIdentifier: 'info',
+         label: 'Værd at vide',
+         isRequired: false,
+         value: info
+      },
+      {
+         type: 'file',
+         name: 'photo',
+         inputIdentifier: 'cover',
+         label: 'Indsæt billede',
+         isRequired: false
+      }
 
 
-      ];
+   ];
 
-      return (
-         <div>
-            <Form
-               inputs={inputs}
-               btnText='Submit'
-               btnClass='primary'
-               onSubmit={this.handleSubmit}
-               onChange={this.handleChange}
-            />
 
-         </div>
 
-      );
-   }
+
+   return (
+      <div>
+
+         <Form
+            inputs={inputs}
+            btnText='Submit'
+            btnClass='primary'
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+         />
+
+      </div >
+
+   );
+
 }
 
 

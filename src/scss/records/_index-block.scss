@@ -1,9 +1,18 @@
-﻿
-.index-block {
+﻿.index-block {
     .block-item {
         margin-bottom: 30px;
     }
 }
+
+.index-block-footer {
+    .btn-primary {
+        background: none;
+        text-align: right;
+        font-size: 14px;
+        font-weight: 200;
+    }
+}
+
 .block-container {
     &.flex-wrapper .flex-item:last-child {
         margin-right: 30px;
@@ -27,12 +36,13 @@
         color: #fff;
         padding: 25px;
 
-        .index-block-btn{
-            margin-right:30px;
+        .index-block-btn {
+            margin-right: 30px;
         }
-        
-        
-        .index-block-btn, .index-block-danger {
+
+
+        .index-block-btn,
+        .index-block-danger {
             background: none;
             font-weight: 300;
             min-width: 30px;

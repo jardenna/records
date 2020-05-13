@@ -9,6 +9,7 @@ import {
 } from '@redux/actions/createActions';
 
 
+
 const createRecordApi = (record, fileName, file, id, imgUpdated) => {
 
    const fd = new FormData();
@@ -57,12 +58,14 @@ const createRecordApi = (record, fileName, file, id, imgUpdated) => {
 
 //Worker
 function* createRecord(action) {
-
    try {
+
       yield put(createStart);
+
       yield call(createRecordApi, action.payload, action.fileName, action.file, action.id, action.imgUpdated);
 
    } catch (error) {
+
       yield put(createRecordFailure(error));
    }
    yield;
@@ -74,6 +77,7 @@ function* watchCreateRequest() {
 
 
 export function* createSagas() {
+
    yield all([
       call(watchCreateRequest)
    ]);

@@ -5,10 +5,7 @@
     margin-bottom: 10px;
     width: 100%;
 
-    button {
-        min-width: 96px;
-        width: 48%;
-    }
+
 
 
 
@@ -26,21 +23,9 @@
             display: none;
         }
 
-        &:after {
-            content: "";
-            @include triangle($size:7px, $color:$color-blue-darkest, $dir:up);
-            top: 13px;
-            margin-left: 10px;
-            display: inline-block;
-        }
-
-        &.arrow-down {
-
-            &:after {
-
-                @include triangle($size:7px, $color:$color-blue-darkest, $dir:down);
-                top: 20px;
-            }
+        button {
+            background: none;
+            text-align: left;
         }
 
 
@@ -59,6 +44,27 @@
                 width: 100%;
             }
         }
+
+
+    }
+
+    .ascending:after {
+        content: "";
+        @include triangle($size:7px, $color:$color-blue-darkest, $dir:down);
+        top: 26px;
+        margin-left: 10px;
+        display: inline-block;
+        right: 10px;
+    }
+
+    .descending:after {
+
+        content: "";
+
+        @include triangle($size:7px, $color:$color-blue-darkest, $dir:up);
+        top: 20px;
+        display: inline-block;
+        right: 10px;
     }
 
     tr {
