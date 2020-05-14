@@ -67,14 +67,11 @@ function Update({ createUsersRequest, fetchDetails, updateRecordSuccess, details
 
    function handleSubmit(e) {
 
-
       e.preventDefault();
       if (id) {
          updateRecordSuccess(id, values, imgUpdated, fileName, file);
       } else {
          createUsersRequest(values, fileName, file);
-
-
          setValues(recordObj);
       }
 

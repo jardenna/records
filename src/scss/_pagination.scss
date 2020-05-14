@@ -1,8 +1,4 @@
-﻿
-
-
-
-.pagination {
+﻿.pagination {
 
 
     &.flex-wrapper {
@@ -49,7 +45,9 @@
 
             &.disabled {
                 color: $color-gray-dark;
-                cursor: not-allowed;
+                cursor: default;
+                pointer-events: none;
+                color: $color-gray;
 
                 &:hover {
                     background-color: $color-white;
