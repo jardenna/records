@@ -10,12 +10,23 @@ import Loader from '@commonReact/Loader';
 import Error from '@commonReact/Error';
 import { useSortableData } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
+import Search from '@commonReact/Search';
 
 function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recordDeleted }) {
 
    React.useEffect(() => {
       fetchAllRecordsStart();
    }, []);
+
+   const searchObj = {
+      searchArtist: '',
+      searchTitle: '',
+      searchLabel: '',
+      searchOrigin: '',
+      searchProdYear: ''
+   };
+   const [values, setValues] = React.useState(searchObj);
+   const [searchInput, setSearchInput] = React.useState('');
 
    const { items, requestSort, getClassNamesFor } = useSortableData(allRecords);
 
@@ -27,6 +38,40 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
    if (error) {
       return <Error />;
    }
+
+
+   const handleSearch = (e) => {
+      const { name, value } = e.target;
+
+      setSearchInput(name);
+      setValues({
+         ...values,
+         [name]: value
+      });
+
+   };
+   const filteredText = items.filter(item => {
+      const artist = values.searchArtist.toLowerCase();
+      const title = values.searchTitle.toLowerCase();
+      const label = values.searchLabel.toLowerCase();
+      const origin = values.searchOrigin.toLowerCase();
+
+      if (searchInput === 'searchTitle') {
+         return item.title.toLowerCase().includes(title);
+      }
+
+      if (searchInput === 'searchArtist') {
+         return item.artist.toLowerCase().includes(artist);
+      }
+      if (searchInput === 'searchLabel') {
+         return item.label.toLowerCase().includes(label);
+      }
+      if (searchInput === 'searchOrigin') {
+         return item.origin.toLowerCase().includes(origin);
+      }
+
+      return item;
+   });
 
 
    return (
@@ -42,6 +87,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      className={getClassNamesFor('artist')}
                      onClick={() => requestSort('artist')}
                   />
+                  <Search
+                     onChange={handleSearch}
+                     value={values.searchArtist}
+                     name='searchArtist'
+                  />
                </th>
                <th>
                   <Button
@@ -50,6 +100,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      text={labels.title}
                      className={getClassNamesFor('title')}
                      onClick={() => requestSort('title')}
+                  />
+                  <Search
+                     onChange={handleSearch}
+                     value={values.searchTitle}
+                     name='searchTitle'
                   />
                </th>
                <th>
@@ -60,6 +115,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      className={getClassNamesFor('prodYear')}
                      onClick={() => requestSort('prodYear')}
                   />
+
                </th>
                <th>
                   <Button
@@ -68,6 +124,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      text={labels.label}
                      className={getClassNamesFor('label')}
                      onClick={() => requestSort('label')}
+                  />
+                  <Search
+                     onChange={handleSearch}
+                     value={values.label}
+                     name='searchLabel'
                   />
                </th>
 
@@ -79,6 +140,12 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      className={getClassNamesFor('origin')}
                      onClick={() => requestSort('origin')}
                   />
+                  <Search
+                     onChange={handleSearch}
+                     value={values.origin}
+                     name='searchOrigin'
+                  />
+
                </th>
 
 
@@ -87,7 +154,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
          </thead>
          <tbody>
 
-            {items && items.map(record =>
+            {filteredText.map(record =>
 
                <tr id={record._id} key={record._id}>
                   <td className="first-td" data-label={labels.artist}>{record.artist}</td>
