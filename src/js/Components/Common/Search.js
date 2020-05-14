@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function Search({ onChange, value, onClick, placeholder, name }) {
+function Search({ onChange, value, placeholder, name, onClick }) {
 
    return (
       <form>
@@ -13,7 +13,10 @@ function Search({ onChange, value, onClick, placeholder, name }) {
                value={value}
                name={name}
             />
-            <span onClick={onClick} className="btn-close" />
+            <span onClick={() => onClick(name)}
+               className="btn-close"
+
+            />
          </div>
       </form>
    );

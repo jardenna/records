@@ -12,23 +12,25 @@ import { useSortableData } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
 
+import useFilter from '@hooks/useFilter';
+
 function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recordDeleted }) {
 
    React.useEffect(() => {
-      fetchAllRecordsStart();
+      if (allRecords.length === 0) {
+         fetchAllRecordsStart();
+      }
    }, []);
 
    const searchObj = {
-      searchArtist: '',
-      searchTitle: '',
-      searchLabel: '',
-      searchOrigin: '',
-      searchProdYear: ''
+      artist: '',
+      title: '',
+      label: '',
+      origin: ''
    };
-   const [values, setValues] = React.useState(searchObj);
-   const [searchInput, setSearchInput] = React.useState('');
 
    const { items, requestSort, getClassNamesFor } = useSortableData(allRecords);
+   const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, items);
 
 
    if (isLoading) {
@@ -38,41 +40,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
    if (error) {
       return <Error />;
    }
-
-
-   const handleSearch = (e) => {
-      const { name, value } = e.target;
-
-      setSearchInput(name);
-      setValues({
-         ...values,
-         [name]: value
-      });
-
-   };
-   const filteredText = items.filter(item => {
-      const artist = values.searchArtist.toLowerCase();
-      const title = values.searchTitle.toLowerCase();
-      const label = values.searchLabel.toLowerCase();
-      const origin = values.searchOrigin.toLowerCase();
-
-      if (searchInput === 'searchTitle') {
-         return item.title.toLowerCase().includes(title);
-      }
-
-      if (searchInput === 'searchArtist') {
-         return item.artist.toLowerCase().includes(artist);
-      }
-      if (searchInput === 'searchLabel') {
-         return item.label.toLowerCase().includes(label);
-      }
-      if (searchInput === 'searchOrigin') {
-         return item.origin.toLowerCase().includes(origin);
-      }
-
-      return item;
-   });
-
 
    return (
       <table className="record-table">
@@ -88,9 +55,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      onClick={() => requestSort('artist')}
                   />
                   <Search
-                     onChange={handleSearch}
-                     value={values.searchArtist}
-                     name='searchArtist'
+                     onChange={handleChange}
+                     value={values.artist}
+                     name='artist'
+                     onClick={handleEmptyInput}
+
                   />
                </th>
                <th>
@@ -102,9 +71,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      onClick={() => requestSort('title')}
                   />
                   <Search
-                     onChange={handleSearch}
-                     value={values.searchTitle}
-                     name='searchTitle'
+                     onChange={handleChange}
+                     value={values.title}
+                     name='title'
+                     onClick={handleEmptyInput}
+
                   />
                </th>
                <th>
@@ -126,9 +97,10 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      onClick={() => requestSort('label')}
                   />
                   <Search
-                     onChange={handleSearch}
+                     onChange={handleChange}
                      value={values.label}
-                     name='searchLabel'
+                     name='label'
+                     onClick={handleEmptyInput}
                   />
                </th>
 
@@ -141,9 +113,10 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                      onClick={() => requestSort('origin')}
                   />
                   <Search
-                     onChange={handleSearch}
+                     onChange={handleChange}
                      value={values.origin}
-                     name='searchOrigin'
+                     name='origin'
+                     onClick={handleEmptyInput}
                   />
 
                </th>

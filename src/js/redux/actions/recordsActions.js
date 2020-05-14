@@ -23,8 +23,11 @@ export const fetchAllRecordsFailure = error => ({
 });
 
 //Export to RecordSagas
-export const allRecordsFetched = allRecords => ({
-   type: ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_SUCCESS,
-   payload: allRecords
-});
+export const allRecordsFetched = allRecords => {
+
+   return ({
+      type: ALL_RECORDS_TYPES.FETCH_ALL_RECORDS_SUCCESS,
+      payload: allRecords
+   });
+};
 

@@ -14,7 +14,10 @@ export function Home({ firstSix, fetchFirstSixStart, isLoading, error }) {
 
 
    React.useEffect(() => {
-      fetchFirstSixStart();
+      if (firstSix.length === 0) {
+         fetchFirstSixStart();
+      }
+
    }, [fetchFirstSixStart]);
    if (isLoading) {
       return <Loader />;
