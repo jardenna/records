@@ -5,10 +5,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import store from '@redux/store';
 
 import Home from '@components/records/Home';
+import Login from '@components/Login';
 import RecordTable from '@components/records/RecordTable';
 import Details from '@components/records/Details';
 import Update from '@components/records/Update';
-
 import Nav from '@components/records/Shared/Nav';
 import MainHeader from '@components/records/Shared/MainHeader';
 
@@ -21,7 +21,7 @@ function App() {
 
 				<Nav />
 				<div className="main-wrapper">
-
+					<Login />
 					<Switch>
 						<Route exact path='/' component={Home} />
 						<Route path='/create' component={Update} />

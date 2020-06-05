@@ -10,7 +10,7 @@ export const createStart = () => ({
    type: CREATE_TYPES.CREATE_RECORD_START
 });
 
-export const createUsersRequest = (record, fileName, file, id, imgUpdated) => {
+export const createRecordRequest = (record, fileName, file, id, imgUpdated) => {
    return ({
       type: CREATE_TYPES.CREATE_USER_REQUEST,
       payload: record,

@@ -22,6 +22,7 @@ function Form(props) {
 								name={input.name}
 								value={input.value}
 								onChange={props.onChange}
+								onBlur={props.onBlur}
 								inputIdentifier={input.inputIdentifier}
 								label={input.label}
 								isRequired={input.isRequired}
@@ -35,6 +36,7 @@ function Form(props) {
 									label={input.label}
 									isRequired={input.isRequired}
 									error={input.error}
+									onBlur={props.onBlur}
 								/>
 							}
 						</Fragment>

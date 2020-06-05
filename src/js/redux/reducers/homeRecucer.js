@@ -22,6 +22,7 @@ const homeReducer = (state = initialState, action) => {
          };
 
       case FETCH_FIRST_SIX.FETCH_RECORDS_FAILURE:
+         console.log(145);
          return {
             ...state,
             isLoading: false,

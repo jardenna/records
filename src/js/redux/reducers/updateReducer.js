@@ -9,6 +9,7 @@ const initialState = {
 };
 
 const updateReducer = (state = initialState, action) => {
+
    switch (action.type) {
       case UPDATE_TYPES.UPDATE_RECORD_START:
          return {

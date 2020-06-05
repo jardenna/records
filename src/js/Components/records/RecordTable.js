@@ -11,6 +11,7 @@ import Error from '@commonReact/Error';
 import { useSortableData } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
+import Selectbox from '@formElements/Selectbox';
 import usePagination from '@hooks/usePagination';
 
 import useFilter from '@hooks/useFilter';
@@ -18,9 +19,7 @@ import useFilter from '@hooks/useFilter';
 function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recordDeleted }) {
 
    React.useEffect(() => {
-      if (allRecords.length !== 0) {
-         fetchAllRecordsStart();
-      }
+      fetchAllRecordsStart();
    }, []);
 
    const searchObj = {
@@ -32,7 +31,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
 
    const { items, requestSort, getClassNamesFor } = useSortableData(allRecords);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, items);
-   const { next, prev, jump, currentData, currentPage, maxPage } = usePagination(filteredText, 20);
+   const { next, prev, jump, currentData, currentPage, maxPage, pageNumbers, createPageNumbers } = usePagination(filteredText, 20, 6);
 
 
 
@@ -43,10 +42,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
    if (error) {
       return <Error />;
    }
-
-   const pageNumbers = Array.apply(null, Array(maxPage)).map(
-      function (currentValue, index) { return index + 1; });
-
 
    return (
       <div>
@@ -163,10 +158,12 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
             </tbody>
 
          </table>
+
          <section className="pagination">
             <ul className="pagination-numbers">
                <li onClick={prev} className={currentPage === 1 ? 'disabled' : ''}>Prev</li>
-               {pageNumbers.map(pageNumber => {
+               {createPageNumbers().map(pageNumber => {
+
                   return (
                      <li
                         key={pageNumber}
@@ -181,6 +178,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                <li onClick={next} className={currentPage === maxPage ? 'disabled' : ''}>next</li>
             </ul>
          </section>
+         <Selectbox />
+
       </div>
    );
 }

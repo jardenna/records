@@ -2,15 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-
 import Form from '@formElements/Form';
 import { fetchDetails } from '@redux/actions/detailActions';
 import { updateRecordSuccess } from '@redux/actions/updateActions';
-import { createUsersRequest } from '@redux/actions/createActions';
+import { createRecordRequest } from '@redux/actions/createActions';
 
 
-function Update({ createUsersRequest, fetchDetails, updateRecordSuccess, details }) {
-
+function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, details }) {
 
    const id = useParams().id;
    React.useEffect(() => {
@@ -66,12 +64,11 @@ function Update({ createUsersRequest, fetchDetails, updateRecordSuccess, details
    }
 
    function handleSubmit(e) {
-
       e.preventDefault();
       if (id) {
          updateRecordSuccess(id, values, imgUpdated, fileName, file);
       } else {
-         createUsersRequest(values, fileName, file);
+         createRecordRequest(values, fileName, file);
          setValues(recordObj);
       }
 
@@ -188,7 +185,7 @@ function Update({ createUsersRequest, fetchDetails, updateRecordSuccess, details
             onChange={handleChange}
          />
 
-      </div >
+      </div>
 
    );
 
@@ -201,4 +198,4 @@ const mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps, { createUsersRequest, fetchDetails, updateRecordSuccess })(Update);
+export default connect(mapStateToProps, { createRecordRequest, fetchDetails, updateRecordSuccess })(Update);
