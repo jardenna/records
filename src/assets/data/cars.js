@@ -1,5 +1,3 @@
-
-
 export const theadText = [
    {
       key: 'id',
