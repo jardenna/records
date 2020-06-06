@@ -2,8 +2,9 @@ import React from 'react';
 
 import TableCell from './TableCell';
 
-function TableData({ data, theadText }) {
+function TableBody({ data, theadText }) {
    const headerOrder = theadText.map(m => m.key);
+
    return (
       <tbody>
          {
@@ -15,6 +16,7 @@ function TableData({ data, theadText }) {
                         return (
                            <TableCell key={'cell' + i}
                               data={row.find(r => r.key === headerOrder[i])}
+
                            />
                         );
                      }
@@ -28,4 +30,4 @@ function TableData({ data, theadText }) {
    );
 }
 
-export default TableData;
+export default TableBody;
