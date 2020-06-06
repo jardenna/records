@@ -1,10 +1,4 @@
-﻿.index-block {
-    .block-item {
-        margin-bottom: 30px;
-    }
-}
-
-.index-block-footer {
+﻿.index-block-footer {
     .btn-primary {
         background: none;
         text-align: right;
@@ -14,18 +8,6 @@
 }
 
 .block-container {
-    &.flex-wrapper .flex-item:last-child {
-        margin-right: 30px;
-    }
-
-    ul {
-        list-style: none;
-
-        li {
-            display: inline-block;
-        }
-    }
-
 
 
 
@@ -35,6 +17,7 @@
         position: relative;
         color: #fff;
         padding: 25px;
+        margin-bottom: 30px;
 
         .index-block-btn {
             margin-right: 30px;

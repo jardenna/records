@@ -6,13 +6,18 @@ function Nav() {
 
    return (
 
+
+
       <nav className="main-nav">
-
-         <Link className="main-nav-items" to="/">Home</Link>
-         <Link className="main-nav-items" to="/create">Tilføj album</Link>
-         <Link className="main-nav-items" to="/all">Se alle</Link>
-
+         <div className="main-wrapper">
+            <Link className="main-nav-items" to="/">Home</Link>
+            <Link className="main-nav-items" to="/create">Tilføj album</Link>
+            <Link className="main-nav-items" to="/all">Se alle</Link>
+            <Link className="main-nav-items" to="/table">Table</Link>
+            <Link className="main-nav-items" to="/login">login</Link>
+         </div>
       </nav>
+
 
    );
 }

@@ -26,7 +26,7 @@ export function Home({ firstSix, fetchFirstSixStart, isLoading, error }) {
    }
    return (
 
-      <section className="index-block block-container flex-wrapper">
+      <section className="block-container flex-wrapper">
 
          {firstSix && firstSix.map(six => {
             const photo = six.photo;
