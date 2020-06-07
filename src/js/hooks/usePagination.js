@@ -10,6 +10,7 @@ const range = (from, to, step = 1) => {
 
    return range;
 };
+
 function usePagination(data, itemsPerPage, maxNumbers) {
    const [currentPage, setCurrentPage] = React.useState(1);
    const maxPage = Math.ceil(data.length / itemsPerPage);
@@ -79,13 +80,9 @@ function usePagination(data, itemsPerPage, maxNumbers) {
       return data.slice(begin, end);
    }
 
-   const pageNumbers = Array.apply(null, Array(maxPage)).map(
-      function (currentValue, index) { return index + 1; });
 
 
-
-
-   return { next, prev, jump, currentData, currentPage, maxPage, pageNumbers, createPageNumbers };
+   return { next, prev, jump, currentData, currentPage, maxPage, createPageNumbers };
 }
 
 export default usePagination;

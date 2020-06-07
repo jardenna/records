@@ -1,66 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 
 import { normalizeData } from '@common/normalizeData';
 import { cars, theadText } from '@data/cars';
-
-const useSortableData = (items, config = null) => {
-   const [sortConfig, setSortConfig] = React.useState(config);
-
-   const sortedItems = React.useMemo(() => {
-      let sortableItems = [...items];
-      if (sortConfig !== null) {
-         sortableItems.sort((a, b) => {
-            if (a[sortConfig.key] < b[sortConfig.key]) {
-               return sortConfig.direction === 'ascending' ? -1 : 1;
-            }
-            if (a[sortConfig.key] > b[sortConfig.key]) {
-               return sortConfig.direction === 'ascending' ? 1 : -1;
-            }
-            return 0;
-         });
-      }
-
-
-      return sortableItems;
-   }, [items, sortConfig]);
-
-   const requestSort = (key) => {
-      let direction = 'ascending';
-      if (
-         sortConfig &&
-         sortConfig.key === key &&
-         sortConfig.direction === 'ascending'
-      ) {
-         direction = 'descending';
-      }
-      setSortConfig({ key, direction });
-   };
-
-   return { items: sortedItems, requestSort, sortConfig };
-};
+import { useSorting } from '@hooks/useSorting';
+import usePagination from '@hooks/usePagination';
 
 function Table() {
 
    const data = cars.map((d, id) => ({ ...d, id }));
    const [headerText, setHeaderText] = useState(theadText);
 
-   const { items, requestSort, sortConfig } = useSortableData(data);
+   const { sortedItems, sortFunc, sortClassName } = useSorting(data);
 
-   const a = normalizeData(items);
-
-
+   const tbodyData = normalizeData(sortedItems);
+   const { next, prev, jump, currentData, currentPage,
+      maxPage, pageNumbers, createPageNumbers } = usePagination(tbodyData, 2, 2);
 
 
 
 
    return (
-      <table className="container">
-         <TableHeader headers={headerText} requestSort={requestSort} />
-         <TableBody data={a} theadText={theadText} />
-      </table>
+      <div>
+         <table className="container">
+            <TableHeader
+               headers={headerText}
+               sortFunc={sortFunc}
+               sortClassName={sortClassName}
+            />
+            <TableBody data={tbodyData} theadText={theadText} />
+         </table>
+         <section className="pagination">
+            <ul className="pagination-numbers">
+               <li onClick={prev} className={currentPage === 1 ? 'disabled' : ''}>Prev</li>
+               {createPageNumbers().map(pageNumber => {
+
+                  return (
+                     <li
+                        key={pageNumber}
+                        onClick={() => jump(pageNumber)}
+                        className={currentPage === pageNumber ? 'active' : ''}
+                     >
+                        {pageNumber}
+                     </li>
+                  );
+
+               })}
+               <li onClick={next} className={currentPage === maxPage ? 'disabled' : ''}>next</li>
+            </ul>
+         </section>
+      </div>
+
    );
 }
 export default Table;

@@ -8,7 +8,7 @@ import DetailsLink from '@components/records/Shared/DetailsLink';
 import Modal from '@commonReact/Modal';
 import Loader from '@commonReact/Loader';
 import Error from '@commonReact/Error';
-import { useSortableData } from '@hooks/useSorting';
+import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
 import Selectbox from '@formElements/Selectbox';
@@ -29,10 +29,9 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
       origin: ''
    };
 
-   const { items, requestSort, getClassNamesFor } = useSortableData(allRecords);
-   const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, items);
-   const { next, prev, jump, currentData, currentPage, maxPage, pageNumbers, createPageNumbers } = usePagination(filteredText, 20, 6);
-
+   const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
+   const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
+   const { next, prev, jump, currentData, currentPage, maxPage, createPageNumbers } = usePagination(filteredText, 20, 6);
 
 
    if (isLoading) {
@@ -55,8 +54,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         type='button'
                         id={labels.artist}
                         text={labels.artist}
-                        className={getClassNamesFor('artist')}
-                        onClick={() => requestSort('artist')}
+                        className={sortClassName('artist')}
+                        onClick={() => sortFunc('artist')}
                      />
                      <Search
                         onChange={handleChange}
@@ -71,8 +70,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         type='button'
                         id={labels.title}
                         text={labels.title}
-                        className={getClassNamesFor('title')}
-                        onClick={() => requestSort('title')}
+                        className={sortClassName('title')}
+                        onClick={() => sortFunc('title')}
                      />
                      <Search
                         onChange={handleChange}
@@ -87,8 +86,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         type='button'
                         id={labels.prodYear}
                         text={labels.prodYear}
-                        className={getClassNamesFor('prodYear')}
-                        onClick={() => requestSort('prodYear')}
+                        className={sortClassName('prodYear')}
+                        onClick={() => sortFunc('prodYear')}
                      />
 
                   </th>
@@ -97,8 +96,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         type='button'
                         id={labels.label}
                         text={labels.label}
-                        className={getClassNamesFor('label')}
-                        onClick={() => requestSort('label')}
+                        className={sortClassName('label')}
+                        onClick={() => sortFunc('label')}
                      />
                      <Search
                         onChange={handleChange}
@@ -113,8 +112,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         type='button'
                         id={labels.origin}
                         text={labels.origin}
-                        className={getClassNamesFor('origin')}
-                        onClick={() => requestSort('origin')}
+                        className={sortClassName('origin')}
+                        onClick={() => sortFunc('origin')}
                      />
                      <Search
                         onChange={handleChange}

@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const useSortableData = (items, config = null) => {
+export const useSorting = (items, config = null) => {
    const [sortConfig, setSortConfig] = React.useState(config);
-   const getClassNamesFor = (name) => {
+   const sortClassName = (name) => {
       if (!sortConfig) {
          return;
       }
@@ -24,7 +24,7 @@ export const useSortableData = (items, config = null) => {
       return sortableItems;
    }, [items, sortConfig]);
 
-   const requestSort = key => {
+   const sortFunc = key => {
       let direction = 'ascending';
       if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
          direction = 'descending';
@@ -32,5 +32,5 @@ export const useSortableData = (items, config = null) => {
       setSortConfig({ key, direction });
    };
 
-   return { items: sortedItems, requestSort, getClassNamesFor };
+   return { sortedItems, sortFunc, sortClassName };
 };

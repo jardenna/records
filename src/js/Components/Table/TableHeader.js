@@ -2,16 +2,21 @@ import React from 'react';
 
 import TableCell from './TableCell';
 
-function TableHeader({ headers, requestSort }) {
+function TableHeader({ headers, sortFunc, sortClassName }) {
 
    return (
       <thead className="table-row">
          <tr>
             {
                headers.map((d) => {
-
                   return (
-                     <TableCell key={d.key} data={d} onClick={() => requestSort(d.key)} />
+                     <TableCell
+                        key={d.key}
+                        data={d}
+                        onClick={() => sortFunc(d.key)}
+                        className={sortClassName(d.key)}
+
+                     />
                   );
                })
             }

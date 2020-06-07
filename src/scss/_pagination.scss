@@ -1,5 +1,17 @@
-﻿.pagination {
+﻿ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
+.pagination {
+
+
+    .page-item {
+        flex: 1;
+        font-size: 15px;
+        max-width: 6%;
+    }
 
     &.flex-wrapper {
 
@@ -10,11 +22,7 @@
 
 
 
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+
     }
 
 
