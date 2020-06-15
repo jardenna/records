@@ -1,6 +1,8 @@
 import React from 'react';
 
-function PaginationNav() {
+import { LEFT_PAGE, RIGHT_PAGE } from './constants';
+
+function PaginationNav({ pageNumbers, handleMoveLeft, handleMoveRight, currentPage, handleClick }) {
    return (
       <nav>
          <ul className="pagination flex-wrapper">
