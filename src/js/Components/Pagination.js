@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
 
-const range = (from, to, step = 1) => {
-   let i = from;
-   const range = [];
 
-   while (i <= to) {
-      range.push(i);
-      i += step;
-   }
 
-   return range;
-};
+const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
+
 const fetchPageNumbers = (currentPage) => {
 
    const pageNeighbours = 1;
@@ -41,8 +34,6 @@ const fetchPageNumbers = (currentPage) => {
       const rightSpill = endPage < beforeLastPage;
 
 
-
-
       if (leftSpill && !rightSpill) {
          const extraPages = range(startPage - singleSpillOffset, startPage - 1);
          pages = [LEFT_PAGE, ...extraPages, ...pages];
@@ -59,119 +50,127 @@ const fetchPageNumbers = (currentPage) => {
    return range(1, totalPages);
 };
 
-class Pagination extends Component {
-   constructor(props) {
-      super(props);
-      const totalPages = Math.ceil(200 / 18);
 
-      this.state = {
-         currentPage: 1,
-         totalPages,
-         pageLimit: 18
-      };
-   }
+const onPageChanged = data => {
 
-   gotoPage = page => {
-      const { onPageChanged = f => f } = this.props;
-      const { totalPages, pageLimit } = this.state;
+   const { currentPage, pageLimit, allCountries } = data;
 
-      const currentPage = Math.max(0, Math.min(page, totalPages));
+   const offset = (currentPage - 1) * pageLimit;
+   const currentCountries = allCountries.slice(offset, offset + pageLimit);
+
+   return (
+      currentCountries
+   );
+};
+
+function Pagination({ pageLimit, totalRecords, pageNeighbours, itemsPerPage }) {
+
+   const [currentPage, setCurrentPage] = React.useState(1);
+   React.useEffect(() => {
 
       const paginationData = {
          currentPage,
          totalPages,
-         pageLimit
+         pageLimit,
+         allCountries: []
       };
 
-      this.setState({ currentPage }, () => onPageChanged(paginationData));
+      () => onPageChanged(paginationData);
+   });
+
+   const gotoPage = page => {
+
+      const totalPages = Math.ceil(totalRecords / pageLimit);
+
+      const currentPage = Math.max(0, Math.min(page, totalPages));
+
+      setCurrentPage(currentPage);
+
    };
 
 
-   handleClick = (page, evt) => {
+
+   const handleClick = (page, evt) => {
       evt.preventDefault();
-      this.gotoPage(page);
+      gotoPage(page);
    };
 
-   handleMoveLeft = evt => {
+   const handleMoveLeft = evt => {
       evt.preventDefault();
-      this.gotoPage(this.state.currentPage - this.props.pageNeighbours * 2 - 1);
+      gotoPage(currentPage - pageNeighbours * 2 - 1);
    };
 
-   handleMoveRight = evt => {
+   const handleMoveRight = evt => {
       evt.preventDefault();
-      this.gotoPage(this.state.currentPage + this.props.pageNeighbours * 2 + 1);
+      gotoPage(currentPage + pageNeighbours * 2 + 1);
    };
 
 
-
-   render() {
-      const { totalPages, currentPage } = this.state;
-
-
-      if (totalPages === 1) return null;
+   const totalPages = Math.ceil(totalRecords / pageLimit);
+   if (totalPages === 1) return null;
 
 
-      const pages = fetchPageNumbers(currentPage);
+   const pages = fetchPageNumbers(currentPage);
 
 
-      return (
+   return (
 
-         <nav aria-label="Countries Pagination">
-            <ul className="pagination flex-wrapper">
-               {pages.map((page, index) => {
-                  if (page === LEFT_PAGE)
-                     return (
-                        <li key={index} className="flex-item page-item">
-                           <a
-                              className="page-link"
-                              href="#"
-                              aria-label="Previous"
-                              onClick={this.handleMoveLeft}
-                           >
-                              <span aria-hidden="true">&laquo;</span>
-                              <span className="sr-only">Previous</span>
-                           </a>
-                        </li>
-                     );
-
-                  if (page === RIGHT_PAGE)
-                     return (
-                        <li key={index} className="flex-item page-item">
-                           <a
-                              className="page-link"
-                              href="#"
-                              aria-label="Next"
-                              onClick={this.handleMoveRight}
-                           >
-                              <span aria-hidden="true">&raquo;</span>
-                              <span className="sr-only">Next</span>
-                           </a>
-                        </li>
-                     );
-
+      <nav aria-label="Countries Pagination">
+         <ul className="pagination flex-wrapper">
+            {pages.map((page, index) => {
+               if (page === LEFT_PAGE)
                   return (
-                     <li
-                        key={index}
-                        className={`flex-item page-item${
-                           currentPage === page ? ' active' : ''
-                           }`}
-                     >
+                     <li key={index} className="flex-item page-item">
                         <a
                            className="page-link"
                            href="#"
-                           onClick={e => this.handleClick(page, e)}
+                           aria-label="Previous"
+                           onClick={handleMoveLeft}
                         >
-                           {page}
+                           <span aria-hidden="true">&laquo;</span>
+                           <span className="sr-only">Previous</span>
                         </a>
                      </li>
                   );
-               })}
-            </ul>
-         </nav>
 
-      );
-   }
+               if (page === RIGHT_PAGE)
+                  return (
+                     <li key={index} className="flex-item page-item">
+                        <a
+                           className="page-link"
+                           href="#"
+                           aria-label="Next"
+                           onClick={handleMoveRight}
+                        >
+                           <span aria-hidden="true">&raquo;</span>
+                           <span className="sr-only">Next</span>
+                        </a>
+                     </li>
+                  );
+
+               return (
+                  <li
+                     key={index}
+                     className={`flex-item page-item${
+                        currentPage === page ? ' active' : ''
+                        }`}
+                  >
+                     <a
+                        className="page-link"
+                        href="#"
+                        onClick={e => handleClick(page, e)}
+                     >
+                        {page}
+                     </a>
+                  </li>
+               );
+            })}
+         </ul>
+      </nav>
+
+   );
 }
+
 
 
 
