@@ -64,6 +64,7 @@ function Pagination({ pageLimit, totalRecords, pageNeighbours }) {
    if (totalPages === 1) return null;
 
 
+   // const pageNumbers = [1, 2, 3];
    const pageNumbers = fetchPageNumbers(totalRecords, pageLimit, pageNeighbours, currentPage);
 
 

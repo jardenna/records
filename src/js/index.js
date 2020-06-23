@@ -5,14 +5,14 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import App from '@components/App';
-import Test from '@components/Test';
+import Pagin from '@components/Pagin';
 
 
 
 
 
 render(
-	<Test />,
+	<Pagin />,
 	document.getElementById('app')
 );
 
