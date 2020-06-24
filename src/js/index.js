@@ -5,14 +5,14 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import App from '@components/App';
-import Pagin from '@components/Pagin';
+import Pagina from '@components/Pagina';
 
 
 
 
 
 render(
-	<Pagin />,
+	<App />,
 	document.getElementById('app')
 );
 

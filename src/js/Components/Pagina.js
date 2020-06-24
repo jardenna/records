@@ -2,16 +2,17 @@ import React from 'react';
 
 import Pagination from '@commonReact/Pagination/Pagination';
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
+import usePagina from '@commonReact/Pagination/usePagina';
 import useGlobalFetch from '@hooks/useGlobalFetch';
 
 
-function Pagin() {
+function Pagina() {
 
    const { isLoading, hasError, result } = useGlobalFetch('https://jsonplaceholder.typicode.com/posts', 'get');
 
    const totalRecords = result ? result.length : 1;
-   //const { pageNumbers, handleMoveLeft, handleMoveRight, currentPage, handleClick } = Pagination(totalRecords, 18, 1);
-   //pageLimit, totalRecords, pageNeighbours
+   //const { pageNumbers, handleMoveLeft, handleMoveRight, currentPage, handleClick } = usePagina(totalRecords, 18, 1);
+
    return (
       <div>
          <Pagination
@@ -26,4 +27,4 @@ function Pagin() {
    );
 
 }
-export default Pagin;
+export default Pagina;

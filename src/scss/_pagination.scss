@@ -1,16 +1,11 @@
-﻿ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.pagination {
-
+﻿.pagination {
+    margin-top: 20px;
 
     .page-item {
         flex: 1;
         font-size: 15px;
         max-width: 6%;
+
     }
 
     &.flex-wrapper {
@@ -20,24 +15,38 @@
             max-width: 51%;
         }
 
-
-
-
     }
 
 
     .pagination-numbers {
 
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .pagination-chevron {
+            position: relative;
+            top: -1px;
+
+            a {
+                padding-bottom: 9px;
+            }
+        }
 
         li {
             display: inline-block;
-            padding: 8px 15px;
-            border: 1px solid $color-gray-dark;
-            border-right: none;
-            cursor: pointer;
 
-            &:last-child {
-                border-right: 1px solid $color-gray-dark;
+        }
+
+        a {
+
+            padding: 8px 15px;
+            border: 1px solid #333300;
+            border-right: none;
+            color: inherit;
+
+            &.last-of-type {
+                border-right: 1px solid #333300;
             }
 
             &.active {
@@ -45,8 +54,7 @@
                 color: $color-white;
 
                 &:hover {
-                    background-color: $color-blue;
-                    color: $color-white;
+
                     cursor: default;
                 }
             }
@@ -63,7 +71,8 @@
             }
 
             &:hover {
-                background-color: $color-gray-light;
+                background-color: $color-blue;
+                color: $color-white;
             }
         }
     }

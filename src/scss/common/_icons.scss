@@ -1,0 +1,15 @@
+.chevron-left {
+   &:after {
+      content: "";
+      @include chevron($size:7px, $weight:1px, $color:$color-black, $dir:left);
+      display: inline-block;
+   }
+}
+
+.chevron-right {
+   &:after {
+      content: "";
+      @include chevron($size:7px, $weight:1px, $color:$color-black, $dir:right);
+      display: inline-block;
+   }
+}

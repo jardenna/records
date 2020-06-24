@@ -31,9 +31,10 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
 
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
-   const { next, prev, jump, currentData, currentPage, maxPage, createPageNumbers } = usePagination(filteredText, 20, 6);
+   const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, 20, 6);
 
-
+   const LEFT_PAGE = 'LEFT';
+   const RIGHT_PAGE = 'RIGHT';
    if (isLoading) {
       return <Loader />;
    }
@@ -160,26 +161,92 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
 
          <section className="pagination">
             <ul className="pagination-numbers">
-               <li onClick={prev} className={currentPage === 1 ? 'disabled' : ''}>Prev</li>
-               {createPageNumbers().map(pageNumber => {
+               <li
+
+                  className={`pagination-chevron ${currentPage === 1 ? 'disabled' : ''}`}
+                  aria-disabled={currentPage === 1 && true}
+               >
+                  <a href="#" onClick={prevPage}>
+
+                     <span
+                        aria-label="Jump Previous"
+                        className="screen-reader"
+                     >
+                        Jump Previous
+                  </span>
+                     <span className="chevron-left" aria-hidden="true" />
+                  </a>
+
+               </li>
+               {pages.map((page, index) => {
+                  if (page === LEFT_PAGE)
+                     return (
+                        <li
+                           key={index}
+                           className="page-item"
+                           aria-label="Previous"
+
+                        >
+                           <a href="#" onClick={prev}>
+                              <span aria-hidden="true">...</span>
+                              <span className="screen-reader">Previous</span>
+                           </a>
+                        </li>
+                     );
+
+                  if (page === RIGHT_PAGE)
+                     return (
+                        <li
+                           key={index}
+                           className=" page-item"
+
+                        >
+                           <a href="#" onClick={next}>
+                              <span aria-hidden="true">...</span>
+                              <span className="screen-reader">Next</span>
+                           </a>
+                        </li>
+                     );
 
                   return (
                      <li
-                        key={pageNumber}
-                        onClick={() => jump(pageNumber)}
-                        className={currentPage === pageNumber ? 'active' : ''}
+                        key={index}
+
+
                      >
-                        {pageNumber}
+                        <a
+                           href="#"
+                           aria-label="Next"
+                           onClick={e => jump(e, page)}
+                           className={`page-item${
+                              currentPage === page ? ' active' : ''
+                              }`}
+                        >
+                           {page}
+                        </a>
+
+
                      </li>
                   );
-
                })}
-               <li onClick={next} className={currentPage === maxPage ? 'disabled' : ''}>next</li>
+               <li
+
+                  className={`pagination-chevron ${currentPage === maxPage ? 'disabled' : ''}`}>
+                  <a href="#" className="last-of-type" onClick={nextPage}>
+                     <span
+                        aria-label="Jump Next"
+                        className="screen-reader"
+                     >
+                        Jump Next
+                  </span>
+                     <span className="chevron-right" aria-hidden="true" />
+                  </a>
+               </li>
             </ul>
          </section>
          <Selectbox />
 
-      </div>
+      </div >
    );
 }
 

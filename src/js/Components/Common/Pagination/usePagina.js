@@ -1,13 +1,37 @@
 import React from 'react';
 
-
+import { LEFT_PAGE, RIGHT_PAGE } from './constants';
 import { fetchPageNumbers } from './fetchPageNumbers';
 
 import PaginationNav from './PaginationNav';
 
-function Pagination({ pageLimit, totalRecords, pageNeighbours }) {
+const onPageChanged = data => {
+
+   const { currentPage, pageLimit, allCountries } = data;
+
+   const offset = (currentPage - 1) * pageLimit;
+   const currentCountries = allCountries.slice(offset, offset + pageLimit);
+
+   return (
+      currentCountries
+   );
+};
+
+
+function usePagina(pageLimit, totalRecords, pageNeighbours) {
 
    const [currentPage, setCurrentPage] = React.useState(1);
+   React.useEffect(() => {
+
+      const paginationData = {
+         currentPage,
+         totalPages,
+         pageLimit,
+         allCountries: []
+      };
+
+      () => onPageChanged(paginationData);
+   }, []);
 
    const gotoPage = page => {
 
@@ -42,24 +66,12 @@ function Pagination({ pageLimit, totalRecords, pageNeighbours }) {
 
    const pageNumbers = fetchPageNumbers(totalRecords, pageLimit, pageNeighbours, currentPage);
 
+   return { pageNumbers, handleMoveLeft, handleMoveRight, currentPage, handleClick };
 
-   return (
-      <div>
-         <PaginationNav
-            pageNumbers={pageNumbers}
-            handleMoveLeft={handleMoveLeft}
-            handleMoveRight={handleMoveRight}
-            currentPage={currentPage}
-            handleClick={handleClick}
 
-         />
-
-      </div>
-
-   );
 }
 
 
 
 
-export default Pagination;
+export default usePagina;
