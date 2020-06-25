@@ -1,12 +1,12 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 
-function useGlobalEventListner (event, func){
-	useEffect(()=>{
+function useGlobalEventListner(event, func) {
+	useEffect(() => {
 		window.addEventListener(event, func);
-		return()=>{
+		return () => {
 			window.removeEventListener(event, func);
 		};
-	},[func]);
+	}, [func]);
 }
 
 export default useGlobalEventListner;

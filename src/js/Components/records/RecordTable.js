@@ -44,8 +44,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
    }
 
    return (
-      <div>
-
+      <React.Fragment>
+         <Selectbox />
          <table className="record-table">
             <thead>
                <tr>
@@ -63,7 +63,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         value={values.artist}
                         name='artist'
                         onClick={handleEmptyInput}
-
                      />
                   </th>
                   <th>
@@ -169,9 +168,9 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
             prevPage={prevPage}
          />
 
-         <Selectbox />
 
-      </div >
+
+      </React.Fragment >
    );
 }
 
@@ -181,7 +180,5 @@ const mapStateToProps = (state) => ({
    error: state.records.error,
    isLoading: state.records.isLoading
 });
-
-
 
 export default connect(mapStateToProps, { recordDeleted, fetchAllRecordsStart })(RecordTable);

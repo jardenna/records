@@ -2,6 +2,7 @@ import React from 'react';
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import { validateAuth } from '@common/validateAuth';
+import Selectbox from '@formElements/Selectbox';
 
 function Login() {
    const loginObj = {
@@ -43,7 +44,7 @@ function Login() {
 
    return (
       <div>
-         <h1>Log Ind</h1>
+         <Selectbox />
          <Form
             inputs={inputs}
             btnText='Submit'

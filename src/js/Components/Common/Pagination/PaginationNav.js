@@ -2,8 +2,6 @@ import React from 'react';
 
 import { LEFT_PAGE, RIGHT_PAGE } from '@commonReact/Pagination/constants';
 
-import PaginationItem from './PaginationItem';
-
 function PaginationNav({ next, prev, jump, currentPage, maxPage, pages, nextPage, prevPage }) {
 
    return (
@@ -26,7 +24,7 @@ function PaginationNav({ next, prev, jump, currentPage, maxPage, pages, nextPage
 
             </li>
             {pages.map((page, index) => {
-               if (page === LEFT_PAGE)
+               if (page === LEFT_PAGE) {
                   return (
                      <li
                         key={index}
@@ -40,8 +38,9 @@ function PaginationNav({ next, prev, jump, currentPage, maxPage, pages, nextPage
                         </a>
                      </li>
                   );
+               }
 
-               if (page === RIGHT_PAGE)
+               if (page === RIGHT_PAGE) {
                   return (
                      <li
                         key={index}
@@ -54,12 +53,13 @@ function PaginationNav({ next, prev, jump, currentPage, maxPage, pages, nextPage
                         </a>
                      </li>
                   );
+               }
+
 
                return (
                   <li
                      key={index}
-
-
+                     className="pagination-item"
                   >
                      <a
                         href="#"
@@ -77,7 +77,7 @@ function PaginationNav({ next, prev, jump, currentPage, maxPage, pages, nextPage
                );
             })}
             <li
-               className={`pagination-chevron ${currentPage === maxPage ? 'disabled' : ''}`}>
+               className={`pagination-item pagination-chevron ${currentPage === maxPage ? 'disabled' : ''}`}>
                <a href="#" className="last-of-type" onClick={nextPage}>
                   <span
                      aria-label="Jump Next"
