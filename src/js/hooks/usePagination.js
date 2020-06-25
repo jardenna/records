@@ -2,15 +2,13 @@ import React from 'react';
 import { LEFT_PAGE, RIGHT_PAGE } from '../Components/Common/Pagination/constants';
 const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
-function usePagination(data, itemsPerPage, maxNumbers) {
+function usePagination(data, itemsPerPage, pageNeighbours) {
    const [currentPage, setCurrentPage] = React.useState(1);
 
    // Number of  pages
    const maxPage = Math.ceil(data.length / itemsPerPage);
 
    function createPageNumbers() {
-      const pageNeighbours = 2;
-
 
       const totalNumbers = (pageNeighbours * 2) + 3;
       const totalBlocks = totalNumbers + 2;
@@ -52,9 +50,9 @@ function usePagination(data, itemsPerPage, maxNumbers) {
 
    const gotoPage = page => {
 
-      const totalPages = Math.ceil(data.length / 18);
+      //const totalPages = Math.ceil(data.length / 10);
 
-      const currentPage = Math.max(0, Math.min(page, totalPages));
+      const currentPage = Math.max(0, Math.min(page, data.length));
 
       setCurrentPage(currentPage);
 
@@ -68,7 +66,6 @@ function usePagination(data, itemsPerPage, maxNumbers) {
    function prevPage(e) {
       e.preventDefault();
       setCurrentPage(() => Math.min(currentPage - 1, currentPage));
-
    }
 
    function next(e) {

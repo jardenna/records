@@ -5,11 +5,14 @@ function useFilter(initialState, items) {
 
 
    const filteredText = items.filter(function (item) {
-      // for (var key in values) {
+      for (let key in values) {
 
-      //    if (!item[key].toLowerCase().includes(values[key].toLowerCase()) && values[key] !== '')
-      //       return false;
-      // }
+         if (item[key]) {
+            if (!item[key].toLowerCase().includes(values[key].toLowerCase()) && values[key] !== '') {
+               return false;
+            }
+         }
+      }
       return true;
    });
 

@@ -1,24 +1,9 @@
 ﻿.pagination {
     margin-top: 20px;
 
-    .page-item {
-        flex: 1;
-        font-size: 15px;
-        max-width: 6%;
-
-    }
-
-    &.flex-wrapper {
-
-        .flex-4 {
-            margin: 0;
-            max-width: 51%;
-        }
-
-    }
 
 
-    .pagination-numbers {
+    .pagination-wrapper {
 
         list-style: none;
         margin: 0;
@@ -28,14 +13,22 @@
             position: relative;
             top: -1px;
 
-            a {
-                padding-bottom: 9px;
-            }
         }
 
         li {
             display: inline-block;
+            text-align: center;
 
+            &.disabled {
+                color: $color-gray-dark;
+                cursor: default;
+                pointer-events: none;
+                color: $color-gray;
+
+                &:hover {
+                    background-color: $color-white;
+                }
+            }
         }
 
         a {
@@ -44,6 +37,8 @@
             border: 1px solid #333300;
             border-right: none;
             color: inherit;
+            display: block;
+            min-width: 48px;
 
             &.last-of-type {
                 border-right: 1px solid #333300;
@@ -59,16 +54,7 @@
                 }
             }
 
-            &.disabled {
-                color: $color-gray-dark;
-                cursor: default;
-                pointer-events: none;
-                color: $color-gray;
 
-                &:hover {
-                    background-color: $color-white;
-                }
-            }
 
             &:hover {
                 background-color: $color-blue;

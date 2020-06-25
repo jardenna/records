@@ -1,61 +1,93 @@
 import React from 'react';
 
-import { LEFT_PAGE, RIGHT_PAGE } from './constants';
+import { LEFT_PAGE, RIGHT_PAGE } from '@commonReact/Pagination/constants';
 
-function PaginationNav({ pageNumbers, handleMoveLeft, handleMoveRight, currentPage, handleClick }) {
+import PaginationItem from './PaginationItem';
+
+function PaginationNav({ next, prev, jump, currentPage, maxPage, pages, nextPage, prevPage }) {
 
    return (
-      <nav>
-         <ul className="pagination flex-wrapper">
-            {pageNumbers.map((pageNumber, i) => {
+      <nav className="pagination">
+         <ul className="pagination-wrapper">
+            <li
+               className={`pagination-item pagination-chevron ${currentPage === 1 ? 'disabled' : ''}`}
+               aria-disabled={currentPage === 1 && true}
+            >
+               <a href="#" onClick={prevPage}>
 
-               if (pageNumber === LEFT_PAGE)
+                  <span
+                     aria-label="Jump Previous"
+                     className="screen-reader"
+                  >
+                     Jump Previous
+                  </span>
+                  <span className="chevron-left" aria-hidden="true" />
+               </a>
+
+            </li>
+            {pages.map((page, index) => {
+               if (page === LEFT_PAGE)
                   return (
-                     <li key={i} className="flex-item page-item">
-                        <a
-                           className="page-link"
-                           href="#"
-                           aria-label="Previous"
-                           onClick={handleMoveLeft}
-                        >
-                           <span>&laquo;</span>
+                     <li
+                        key={index}
+                        className="pagination-item"
+                        aria-label="Previous"
 
+                     >
+                        <a href="#" onClick={prev}>
+                           <span aria-hidden="true">...</span>
+                           <span className="screen-reader">Previous</span>
                         </a>
                      </li>
                   );
 
-               if (pageNumber === RIGHT_PAGE)
+               if (page === RIGHT_PAGE)
                   return (
-                     <li key={i} className="flex-item page-item">
-                        <a
-                           className="page-link"
-                           href="#"
-                           aria-label="Next"
-                           onClick={handleMoveRight}
-                        >
-                           <span>&raquo;</span>
+                     <li
+                        key={index}
+                        className="pagination-item"
 
+                     >
+                        <a href="#" onClick={next}>
+                           <span aria-hidden="true">...</span>
+                           <span className="screen-reader">Next</span>
                         </a>
                      </li>
                   );
 
                return (
                   <li
-                     key={i}
-                     className={`flex-item page-item ${
-                        currentPage === pageNumber ? ' active' : ''
-                        }`}
+                     key={index}
+
+
                   >
                      <a
-                        className="page-link"
                         href="#"
-                        onClick={e => handleClick(pageNumber, e)}
+                        aria-label="Next"
+                        onClick={e => jump(e, page)}
+                        className={`pagination-item${
+                           currentPage === page ? ' active' : ''
+                           }`}
                      >
-                        {pageNumber}
+                        {page}
                      </a>
+
+
                   </li>
                );
             })}
+            <li
+               className={`pagination-chevron ${currentPage === maxPage ? 'disabled' : ''}`}>
+               <a href="#" className="last-of-type" onClick={nextPage}>
+                  <span
+                     aria-label="Jump Next"
+                     className="screen-reader"
+                  >
+                     Jump Next
+                  </span>
+                  <span className="chevron-right" aria-hidden="true" />
+               </a>
+            </li>
          </ul>
       </nav>
    );
