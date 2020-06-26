@@ -2,13 +2,14 @@ import React from 'react';
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import { validateAuth } from '@common/validateAuth';
-import Selectbox from '@formElements/Selectbox';
+import Select from '@formElements/Select';
 
 function Login() {
    const loginObj = {
       email: '',
       password: ''
    };
+
 
 
    const login = () => {
@@ -44,7 +45,7 @@ function Login() {
 
    return (
       <div>
-         <Selectbox />
+         <Select />
          <Form
             inputs={inputs}
             btnText='Submit'

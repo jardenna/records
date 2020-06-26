@@ -52,14 +52,14 @@ function Selectbox() {
          </div>
          <ul className={!dropdown ? 'hidden' : ''}>
 
-            {data[0].map(selectOption => {
+            {data[0].map((selectOption, index) => {
                return (
                   <li
                      key={selectOption.text}
                      ref={ref}
                      onClick={() => handleSelect(selectOption.text)}
-                     tabIndex={0}
-                     focus={currentFocus === 1}
+                     tabIndex={currentFocus ? 0 : -1}
+
                      onKeyUp={(e) => handleKeyUp(e, selectOption.text)}
                   >
                      {selectOption.text}
