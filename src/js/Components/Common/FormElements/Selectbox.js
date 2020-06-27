@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import useElementFocus from '@hooks/useElementFocus';
+
 import { normalizeData } from '@common/normalizeData';
 
 function Selectbox() {
@@ -12,19 +12,13 @@ function Selectbox() {
 
    const [itemsPerpage, setItemsPerPage] = React.useState(10);
    const [dropdown, setDropdown] = React.useState(false);
-   const [currentFocus, setCurrentFocus] = useElementFocus(data[0].length);
+
 
    const handleSelect = (id) => {
       setItemsPerPage(id);
       setDropdown(false);
    };
-   // const handleSelect = useCallback((name, index) => {
-   //    setFocus(index);
-   //    return (
-   //       setItemsPerPage(id),
-   //       setDropdown(false)
-   //    );
-   // }, [name, setFocus]);
+
 
    const handleKeyUp = (e, name) => {
       if (e.key === 'Enter') {
@@ -32,17 +26,9 @@ function Selectbox() {
             setDropdown(false);
       }
 
-
    };
 
-   const ref = React.useRef(null);
-   React.useEffect(() => {
 
-      if (currentFocus) {
-
-         ref.current.focus();
-      }
-   }, [currentFocus]);
 
    return (
 
@@ -56,9 +42,9 @@ function Selectbox() {
                return (
                   <li
                      key={selectOption.text}
-                     ref={ref}
+
                      onClick={() => handleSelect(selectOption.text)}
-                     tabIndex={currentFocus ? 0 : -1}
+
 
                      onKeyUp={(e) => handleKeyUp(e, selectOption.text)}
                   >

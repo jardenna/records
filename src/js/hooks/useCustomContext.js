@@ -1,7 +1,6 @@
-import {useContext} from 'react';
-import  Context  from '../Components/UdemyHooks/Reaction/context';
+import { useContext } from 'react';
+import Context from '../Components/UdemyHooks/Reaction/context';
 
-
-export const useCustomContext =()=>{
+export const useCustomContext = () => {
 	return useContext(Context);
 };

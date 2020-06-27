@@ -5,7 +5,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import store from '@redux/store';
 
 import Home from '@components/records/Home';
-import Select from './select/js/Components/Select';
 import Login from '@components/Login';
 import Table from '@components/Table/Table';
 import RecordTable from '@components/records/RecordTable';
@@ -29,7 +28,6 @@ function App() {
 						<Route path='/create' component={Update} />
 						<Route path='/all' component={RecordTable} />
 						<Route path='/login' component={Login} />
-						<Route path='/select' component={Select} />
 						<Route path='/table' component={Table} />
 						<Route path='/details/:id' component={Details} />
 						<Route path='/update/:id' component={Update} />
