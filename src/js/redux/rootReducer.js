@@ -5,12 +5,14 @@ import homeReducer from './reducers/homeRecucer';
 import recordsReducer from './reducers/recordsReducer';
 import detailReducer from './reducers/detailReducer';
 import updateReducer from './reducers/updateReducer';
+import selectReducer from './reducers/selectReducer';
 
 const rootReducer = combineReducers({
    firstSix: homeReducer,
    records: recordsReducer,
    recordDetails: detailReducer,
-   update: updateReducer
+   update: updateReducer,
+   select: selectReducer
 
 });
 

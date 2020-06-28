@@ -10,17 +10,11 @@ function useElementFocus(items, id) {
 	const enterPress = useKeyPress(ENTER);
 	const escPress = useKeyPress(ESC);
 
-
-	//Indsæt ref ref.current.focus();
 	React.useEffect(() => {
-
 		if (items.length && downPress) {
-
 			setSelectedItem(prevState =>
 				prevState < items.length - 1 ? prevState + 1 : prevState
 			);
-
-
 		}
 	}, [downPress]);
 
@@ -42,8 +36,10 @@ function useElementFocus(items, id) {
 		}
 	}, [escPress]);
 
-
-	return [selected, selectedItem];
+	if (id === 1) {
+		return [selected, selectedItem];
+	}
+	return [];
 }
 
 export default useElementFocus;

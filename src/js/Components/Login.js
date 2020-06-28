@@ -2,7 +2,7 @@ import React from 'react';
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import { validateAuth } from '@common/validateAuth';
-import Select from '@formElements/Select';
+import Select from './select/Select';
 
 
 const items = [
@@ -58,10 +58,9 @@ function Login() {
 
    return (
       <div>
-         <Select items={items} id={1} test={'test'} />
-         <Select items={items1} id={2} test={'test1'} />
 
-
+         <Select />
+         <Select />
          <Form
             inputs={inputs}
             btnText='Submit'
