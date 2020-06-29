@@ -15,8 +15,9 @@ function Input(props) {
 				onChange={props.onChange}
 				onFocus={props.onFocus}
 				data-test='component-input'
-				autoComplete={'new-' + props.name}
+				autoComplete={'off'}
 				onBlur={props.onBlur}
+
 			/>
 
 			<Label

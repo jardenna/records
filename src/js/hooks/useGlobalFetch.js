@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useGlobalFetch ( initialUrl, method, initialData){
+function useGlobalFetch(initialUrl, method, initialData = {}) {
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [hasError, setHasError] = useState(false);
@@ -19,19 +19,22 @@ function useGlobalFetch ( initialUrl, method, initialData){
 			return response.ok && response.json ? response.json() : initialData;
 		};
 
+
+
+
 		const fetchData = () => {
 			setIsLoading(true);
 			return fetch(initialUrl,
 				{
 					method: method.toUpperCase(),
-					body: JSON.stringify(initialData),
+					//body: JSON.stringify(initialData),
 					credentials: 'same-origin'
 				})
 				.then(handleFetchResponse)
 				.catch(handleFetchResponse);
 		};
 
-		if (initialUrl && !rendered){
+		if (initialUrl && !rendered) {
 			fetchData().then(result => !rendered && setResult(result));
 		}
 
@@ -41,7 +44,7 @@ function useGlobalFetch ( initialUrl, method, initialData){
 		};
 	}, []);
 
-	return { isLoading, hasError,  result };
+	return { isLoading, hasError, result };
 
 }
 

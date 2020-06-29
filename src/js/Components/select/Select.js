@@ -10,7 +10,10 @@ export class Select extends Component {
       super(props);
       // create a ref to store the DOM element
       this.selectRef = React.createRef();
-      this.arrayOfOptionsRefs = [];
+
+      this.state = ({
+         arrayOfOptionsRefs: []
+      });
    }
    state = {
       currentAllele: undefined,
@@ -19,15 +22,11 @@ export class Select extends Component {
       focusedOption: undefined
    };
 
-   clearOptionsRefs = () => {
-      this.arrayOfOptionsRefs = [];
-   };
+
 
    handleSubmit = () => {
-      const { dispatch, parentId, alleleId } = this.props;
+      const { dispatch } = this.props;
       const info = {
-         parentId: parentId,
-         alleleId: alleleId,
          allele: this.state.currentAllele
       };
 
@@ -50,14 +49,12 @@ export class Select extends Component {
 
    _handleOpenOptions = event => {
       this.setState(
-         () => {
-            return {
-               openOptions: !this.state.openOptions,
-               focusedOption: document.activeElement.id
-            };
+         {
+            openOptions: !this.state.openOptions,
+            focusedOption: document.activeElement.id
          },
          () => {
-            this.arrayOfOptionsRefs[0].focus();
+            this.state.arrayOfOptionsRefs[0].focus();
          }
       );
    };
@@ -66,10 +63,10 @@ export class Select extends Component {
       switch (event.type) {
          case 'click':
             this.setState(
-               () => ({
+               {
                   currentAllele: color,
                   openOptions: !this.state.openOptions
-               }),
+               },
                () => {
                   this.handleSubmit();
                }
@@ -79,10 +76,10 @@ export class Select extends Component {
          case 'keydown':
             if (event.key === 'Enter' || event.key === ' ') {
                this.setState(
-                  () => ({
+                  {
                      currentAllele: color,
                      openOptions: !this.state.openOptions
-                  }),
+                  },
                   () => {
                      this.handleSubmit();
                   }
@@ -91,14 +88,14 @@ export class Select extends Component {
             }
             if (event.key === 'ArrowUp') {
                event.preventDefault();
-               this.arrayOfOptionsRefs[index - 1].focus();
+               this.state.arrayOfOptionsRefs[index - 1].focus();
                this.setState(() => ({
                   focusedOption: document.activeElement.id
                }));
             }
             if (event.key === 'ArrowDown') {
                event.preventDefault();
-               this.arrayOfOptionsRefs[index + 1].focus();
+               this.state.arrayOfOptionsRefs[index + 1].focus();
                this.setState(() => ({
                   focusedOption: document.activeElement.id
                }));
@@ -122,13 +119,17 @@ export class Select extends Component {
       // because refs are called when ColorListboxOptions is unmounted
       // don't add it if it's null
       if (element !== null) {
-         this.arrayOfOptionsRefs.push(element);
+         this.state.arrayOfOptionsRefs.push(element);
       }
    };
+   clearOptionsRefs = () => {
+      this.state.arrayOfOptionsRefs = [];
 
+   };
    render() {
       let { currentAllele, openOptions, focusedOption } = this.state;
       const { parent } = this.props;
+
       return (
          <div>
             <SelectInput
@@ -151,6 +152,7 @@ export class Select extends Component {
                ) : (
                      // clear the refs array when ColorListbox is not being rendered
                      [this.clearOptionsRefs(), null]
+
                   )}
             </div>
          </div>

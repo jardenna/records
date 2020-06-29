@@ -1,6 +1,8 @@
 import { useContext } from 'react';
-import Context from '../Components/UdemyHooks/Reaction/context';
+import Context from '@commonReact/context';
 
-export const useCustomContext = () => {
+const useCustomContext = () => {
 	return useContext(Context);
 };
+
+export default useCustomContext;

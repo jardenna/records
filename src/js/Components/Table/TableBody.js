@@ -8,23 +8,26 @@ function TableBody({ data, theadText }) {
    return (
       <tbody>
          {
-            data.map((row, i) => (
-               <tr className="table-row" key={i}>
-                  {
-                     row.map((_, i) => {
+            data.map((row, i) => {
 
-                        return (
-                           <TableCell key={'cell' + i}
-                              data={row.find(r => r.key === headerOrder[i])}
+               return (
+                  <tr className="table-row" key={i}>
+                     {
+                        row.map((_, i) => {
 
-                           />
-                        );
+                           return (
+                              <TableCell key={'cell' + i}
+                                 data={row.find(r => r.key === headerOrder[i])}
+
+                              />
+                           );
+                        }
+
+                        )
                      }
-
-                     )
-                  }
-               </tr>
-            ))
+                  </tr>
+               );
+            })
          }
       </tbody>
    );

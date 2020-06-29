@@ -2,30 +2,28 @@ import React from 'react';
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import { validateAuth } from '@common/validateAuth';
-import Select from './select/Select';
+
+import Context from '@commonReact/context';
+import Dropdown from './select/Dropdown';
+import useGlobalFetch from '@hooks/useGlobalFetch';
+
+const managerArr = 'https://gist.githubusercontent.com/daviferreira/41238222ac31fe36348544ee1d4a9a5e/raw/5dc996407f6c9a6630bfcec56eee22d4bc54b518/employees.json';
 
 
-const items = [
-   { id: 1, name: 'Josh Weirs' },
-   { id: 2, name: 'Sarah Weir' },
-   { id: 3, name: 'Alicia Weir' },
-   { id: 4, name: 'Doo Weir' },
-   { id: 5, name: 'Grooft Weir' }
-];
-
-const items1 = [
-   { id: 1, name: 'Helle' },
-   { id: 2, name: 'Sarah Weir' },
-   { id: 3, name: 'Alicia Weir' },
-   { id: 4, name: 'Doo Weir' },
-   { id: 5, name: 'Grooft Weir' }
-];
 function Login() {
    const loginObj = {
       email: '',
       password: ''
    };
-
+   const { result } = useGlobalFetch(managerArr, 'Get');
+   const inputIdentifier = 'search-managers';
+   const dropDownContext = {
+      result,
+      inputIdentifier,
+      inputName: inputIdentifier,
+      type: 'text',
+      label: 'Select Manager'
+   };
 
    const login = () => {
       console.log(values);
@@ -55,12 +53,14 @@ function Login() {
 
       }
    ];
-
    return (
-      <div>
 
-         <Select />
-         <Select />
+
+      <div>
+         <Context.Provider value={dropDownContext}>
+            <Dropdown />
+         </Context.Provider>
+
          <Form
             inputs={inputs}
             btnText='Submit'
