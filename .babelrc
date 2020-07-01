@@ -6,6 +6,7 @@
       "alias": {
         "@formElements": "./src/js/Components/Common/FormElements",
         "@common": "./src/js/Common",
+        "@utils": "./src/js/utils",
         "@commonReact": "./src/js/Components/Common",
         "@hooks": "./src/js/hooks",
         "@components": "./src/js/Components",

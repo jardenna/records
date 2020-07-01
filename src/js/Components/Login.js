@@ -6,6 +6,7 @@ import { validateAuth } from '@common/validateAuth';
 import Context from '@commonReact/context';
 import Dropdown from './select/Dropdown';
 import useGlobalFetch from '@hooks/useGlobalFetch';
+import { normalizeData, addId } from '@common/normalizeData';
 
 const managerArr = 'https://gist.githubusercontent.com/daviferreira/41238222ac31fe36348544ee1d4a9a5e/raw/5dc996407f6c9a6630bfcec56eee22d4bc54b518/employees.json';
 
@@ -16,13 +17,16 @@ function Login() {
       password: ''
    };
    const { result } = useGlobalFetch(managerArr, 'Get');
+   const normalResult = result && normalizeData(result.data);
+   const data = normalResult && addId(normalResult);
    const inputIdentifier = 'search-managers';
    const dropDownContext = {
       result,
       inputIdentifier,
       inputName: inputIdentifier,
       type: 'text',
-      label: 'Select Manager'
+      label: 'Select Manager',
+      data
    };
 
    const login = () => {

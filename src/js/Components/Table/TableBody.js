@@ -2,8 +2,7 @@ import React from 'react';
 
 import TableCell from './TableCell';
 
-function TableBody({ data, theadText }) {
-   const headerOrder = theadText.map(m => m.key);
+function TableBody({ data, iterator }) {
 
    return (
       <tbody>
@@ -17,7 +16,7 @@ function TableBody({ data, theadText }) {
 
                            return (
                               <TableCell key={'cell' + i}
-                                 data={row.find(r => r.key === headerOrder[i])}
+                                 data={row.find(r => r.key === iterator[i])}
 
                               />
                            );

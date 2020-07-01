@@ -1,31 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
-
-import { normalizeData } from '@common/normalizeData';
+import { normalizeData, addId } from '@common/normalizeData';
 import { cars, theadText } from '@data/cars';
-import { useSorting } from '@hooks/useSorting';
+import { objKeys } from '@utils/iteratorList';
 
+
+
+//Creating an iterator for mapping data
+const iterator = ['id', ...objKeys(cars)];
 
 function Table() {
-
-   const data = cars.map((d, id) => ({ ...d, id }));
-   const [headerText, setHeaderText] = useState(theadText);
-
-   const { sortedItems, sortFunc, sortClassName } = useSorting(data);
-
-   const tbodyData = normalizeData(sortedItems);
+   const tbodyData = normalizeData(addId(cars));
 
    return (
       <div>
          <table className="container">
             <TableHeader
-               headers={headerText}
-               sortFunc={sortFunc}
-               sortClassName={sortClassName}
+               headers={theadText}
             />
-            <TableBody data={tbodyData} theadText={theadText} />
+            <TableBody data={tbodyData} theadText={theadText} iterator={iterator} />
          </table>
 
       </div>

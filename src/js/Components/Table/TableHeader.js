@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableCell from './TableCell';
 
-function TableHeader({ headers, sortFunc, sortClassName }) {
+function TableHeader({ headers }) {
 
    return (
       <thead className="table-row">
@@ -13,8 +13,6 @@ function TableHeader({ headers, sortFunc, sortClassName }) {
                      <TableCell
                         key={d.key}
                         data={d}
-                        onClick={() => sortFunc(d.key)}
-                        className={sortClassName(d.key)}
 
                      />
                   );

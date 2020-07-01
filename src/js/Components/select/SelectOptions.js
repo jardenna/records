@@ -4,7 +4,6 @@ import useCustomContext from '@hooks/useCustomContext';
 
 const SelectOptions = (props) => {
    const ref = useRef(null);
-   //console.log(useCustomContext());
    useEffect(() => {
       if (props.focus) {
          ref.current.focus();
@@ -12,6 +11,8 @@ const SelectOptions = (props) => {
    }, [props.focus]);
 
 
+
+   const { data } = useCustomContext();
 
    return (
       <section id={props.id} className="select-options"
@@ -23,6 +24,8 @@ const SelectOptions = (props) => {
 
          <div className="select-info" data-selector="selectInfo">
             <p> {props.name} </p>
+            <p> {props.jobLevel} </p>
+            <p> {props.Department} </p>
          </div>
 
       </section>
