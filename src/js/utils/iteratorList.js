@@ -7,5 +7,9 @@ function iteratorObj(data) {
 }
 
 export function objKeys(data) {
-   return Object.keys(iteratorObj(data)[0]);
+   const obj = Object.keys(iteratorObj(data)[0]);
+
+   return obj;
 }
+
+

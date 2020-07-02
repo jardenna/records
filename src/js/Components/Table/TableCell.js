@@ -1,9 +1,9 @@
 import React from 'react';
 
-function TableCell({ data, onClick, className }) {
+function TableCell({ data }) {
 
    return (
-      <td className={className} onClick={onClick}>
+      <td>
          {data.text}
       </td>
    );

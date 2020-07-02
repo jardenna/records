@@ -1,11 +1,9 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 
-function List({
-	As = Fragment, items,	renderItems,	...props}) {
+function List({ As = Fragment, items, renderItems, ...props }) {
 
 	return (
-		<As {...props}>{items ?	items.map(renderItems):'fething items...'
-		}
+		<As {...props}>{items ? items.map(renderItems) : 'fething items...'}
 		</As>
 	);
 }

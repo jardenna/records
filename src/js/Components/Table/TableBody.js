@@ -1,34 +1,32 @@
 import React from 'react';
 
-import TableCell from './TableCell';
-
-function TableBody({ data, iterator }) {
+function TableBody({ as: As, asChild: AsChild, data, iterator, ...props }) {
 
    return (
-      <tbody>
-         {
-            data.map((row, i) => {
+      <props.container>
+         {data && data.map((row, i) => {
 
-               return (
-                  <tr className="table-row" key={i}>
-                     {
-                        row.map((_, i) => {
+            return (
+               <As className="table-row" key={i}>
+                  {
+                     row.map((_, i) => {
+                        const data = row.find(r => r.key === iterator[i]);
 
-                           return (
-                              <TableCell key={'cell' + i}
-                                 data={row.find(r => r.key === iterator[i])}
+                        return (
+                           data && data.text !== '' &&
+                           <AsChild key={i}>
+                              {data.text}
+                           </AsChild>
 
-                              />
-                           );
-                        }
-
-                        )
+                        );
                      }
-                  </tr>
-               );
-            })
-         }
-      </tbody>
+
+                     )
+                  }
+               </As>
+            );
+         })}
+      </props.container>
    );
 }
 
