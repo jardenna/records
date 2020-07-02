@@ -1,8 +1,8 @@
 import React from 'react';
 
 import TableHeader from './TableHeader';
-import TableBody from './TableBody';
 import { normalizeData, addId } from '@common/normalizeData';
+import Container from '@commonReact/Children/Container';
 import { cars, theadText } from '@data/cars';
 import { selectArr } from '@data/selectArr';
 import { objKeys } from '@utils/iteratorList';
@@ -16,8 +16,7 @@ function Table() {
 
    return (
       <div>
-
-         <TableBody
+         <Container
             data={divData}
             iterator={iterator}
             as={'section'}
@@ -25,18 +24,18 @@ function Table() {
             container={'section'}
          />
 
-
          <table className="container">
             <TableHeader
                headers={theadText}
             />
 
-            <TableBody
+            <Container
                data={tbodyData}
                iterator={iterator}
                as={'tr'}
                asChild={'td'}
                container={'tbody'}
+               className={'table-row'}
             />
 
          </table>
@@ -45,4 +44,7 @@ function Table() {
 
    );
 }
+
+
+
 export default Table;
