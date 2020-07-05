@@ -6,7 +6,7 @@ function getChildren(obj) {
 }
 
 // find a particular id
-//Parameters: the name og the array and the id that should be found
+//Parameters: the name of the array and the id that should be found
 export function search(arr, key) {
    if (Array.isArray(arr)) {
       for (let obj of arr) {

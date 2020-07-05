@@ -1,21 +1,31 @@
 import React from 'react';
 
 
-const SelectOptions = ({ item, active }) => {
-	const ref = React.useRef(null);
+const SelectOptions = (props) => {
+   const ref = React.useRef(null);
+   React.useEffect(() => {
+      if (props.focus) {
+         ref.current.focus();
+      }
+   }, [props.focus]);
 
+   return (
+      <section className="select-options"
+         onClick={props.onClick}
+         tabIndex={props.focus ? 0 : -1}
+         onKeyUp={props.onKeyUp}
+         ref={ref}
+      >
 
-	return (
+         <div className="select-info" data-selector="selectInfo">
+            {<div> {props.data.map((b, i) => <p key={i}>{b}</p>)} </div>}
 
-		<div
-			className={`item ${active ? 'active' : ''}`}
-			ref={ref}
+         </div>
 
-		>
-			{item.name}
-		</div>
-	);
+      </section>
+   );
 
 };
 
 export default SelectOptions;
+

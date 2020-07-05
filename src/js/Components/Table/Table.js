@@ -7,12 +7,14 @@ import { cars, theadText } from '@data/cars';
 import { selectArr } from '@data/selectArr';
 import { objKeys } from '@utils/iteratorList';
 
+
 //Creating an iterator for mapping data
 const iterator = [...objKeys(cars)];
 
 function Table() {
    const tbodyData = normalizeData(addId(cars));
    const divData = normalizeData(addId(selectArr));
+
 
    return (
       <div>
@@ -44,7 +46,5 @@ function Table() {
 
    );
 }
-
-
 
 export default Table;

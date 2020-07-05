@@ -12,7 +12,6 @@ import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
-import Selectbox from '@formElements/Selectbox';
 import usePagination from '@hooks/usePagination';
 
 import useFilter from '@hooks/useFilter';
@@ -45,7 +44,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
 
    return (
       <React.Fragment>
-         <Selectbox />
          <table className="record-table">
             <thead>
                <tr>
