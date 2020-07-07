@@ -1,0 +1,31 @@
+.selectbox {
+   border: 1px solid $color-gray-dark;
+   background-color: $color-white;
+   position: relative;
+   width: 200px;
+
+   .selectbox-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+   }
+
+   .selectbox-option {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      color: inherit;
+
+      &.active,
+      &:hover {
+         background: $color-blue;
+         color: $color-white;
+      }
+   }
+
+   .chevron-down:after {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+   }
+}

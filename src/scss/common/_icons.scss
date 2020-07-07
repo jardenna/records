@@ -1,15 +1,32 @@
 .chevron-left {
+
    &:after {
       content: "";
-      @include chevron($size:7px, $weight:1px, $color:$color-black, $dir:left);
-      display: inline-block;
+      @include chevron($dir:left);
+
    }
 }
 
 .chevron-right {
    &:after {
       content: "";
-      @include chevron($size:7px, $weight:1px, $color:$color-black, $dir:right);
-      display: inline-block;
+      @include chevron($dir:right);
+
+   }
+}
+
+.chevron-down {
+   &:after {
+      content: "";
+      @include chevron($dir:down);
+
+   }
+}
+
+.chevron-up {
+   &:after {
+      content: "";
+      @include chevron();
+
    }
 }

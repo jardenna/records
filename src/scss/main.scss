@@ -68,6 +68,7 @@ img {
 
 .flex-wrapper {
   @include flexbox();
+  position: relative;
 
 }
 
@@ -76,13 +77,13 @@ img {
 }
 
 .flex-2 {
-  @include flex($values: 2);
+  @include flex($values: 2, $basis: 30%, );
 }
 
 .flex-3 {
-  @include flex($values: 3);
+  @include flex($values: 3, $basis: 50%, );
 }
 
 .flex-4 {
-  @include flex($values: 4);
+  @include flex($values: 4, $basis: 65%, );
 }

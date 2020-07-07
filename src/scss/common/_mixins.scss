@@ -42,10 +42,12 @@
   }
 }
 
-@mixin chevron($size: 20px, $weight:3px, $color:$color-white, $dir:up) {
+@mixin chevron($size: 7px, $weight:1px, $color:$color-gray-dark, $dir:up) {
   width: $size;
   height: $size;
   border: $weight solid $color;
+  display: inline-block;
+
   @include rotate(45deg);
 
   @if $dir==up {

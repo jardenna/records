@@ -6,6 +6,7 @@ import store from '@redux/store';
 
 import Home from '@components/records/Home';
 import Login from '@components/Login';
+import Selectbox from '@components/Selectbox';
 import Table from '@components/Table/Table';
 import RecordTable from '@components/records/RecordTable';
 import Details from '@components/records/Details';
@@ -29,6 +30,7 @@ function App() {
 						<Route path='/all' component={RecordTable} />
 						<Route path='/login' component={Login} />
 						<Route path='/table' component={Table} />
+						<Route path='/select' component={Selectbox} />
 						<Route path='/details/:id' component={Details} />
 						<Route path='/update/:id' component={Update} />
 

@@ -2,10 +2,10 @@
 @import "common/colors";
 @import "common/mixins";
 @import "common/form";
-@import "common/select";
 @import "common/loader";
 @import "common/buttons";
 @import "common/icons";
+@import "common/search";
 @import "layout/nav";
 @import "layout/header";
 @import "layout/cards";
@@ -14,6 +14,7 @@
 @import "records/details";
 @import "table";
 @import "pagination";
+@import "common/selectbox";
 @import "common/modal";
 
 

@@ -12,7 +12,8 @@
         "@components": "./src/js/Components",
         "@redux": "./src/js/redux",
         "@images": "./src/assets/images",
-        "@data": "./src/assets/data"
+        "@data": "./src/assets/data",
+        "@svg": "./src/assets/svg"
 
 
       }

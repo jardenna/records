@@ -1,11 +1,14 @@
-﻿.record-table {
+﻿.record-table-select {
+    position: absolute;
+    right: 0;
+}
+
+.record-table {
     border-spacing: 0;
     border-collapse: collapse;
     border: 1px solid $color-gray-dark;
     margin-bottom: 10px;
     width: 100%;
-
-
 
 
 

@@ -7,14 +7,14 @@
 
         a {
             padding: 8px 15px;
-            border: 1px solid #333300;
+            border: 1px solid$color-gray-dark;
             border-right: none;
             color: inherit;
             display: block;
             min-width: 48px;
 
             &.last-of-type {
-                border-right: 1px solid #333300;
+                border-right: 1px solid $color-gray-dark;
             }
 
             &.active {
@@ -37,9 +37,16 @@
 
         &.disabled {
             color: $color-gray-dark;
-            cursor: default;
+
             pointer-events: none;
             color: $color-gray;
+
+            .chevron-right,
+            .chevron-left {
+                &:after {
+                    border-color: $color-gray;
+                }
+            }
 
             &:hover {
                 background-color: $color-white;
@@ -55,56 +62,11 @@
         margin: 0;
         padding: 0;
 
-        .pagination-chevron {
-            position: relative;
-            top: -1px;
 
-        }
 
 
     }
 
 
-    .selectbox {
-        max-width: 7%;
-        position: relative;
 
-        &:after {
-            content: "";
-            @include chevron($size: 8px, $weight:1px, $color: $color-gray-darker, $dir: down);
-            display: block;
-            position: absolute;
-            top: 13px;
-            right: 12px;
-        }
-
-        .selectbox-input {
-            cursor: pointer;
-
-            &:hover {
-                background-color: $color-gray-light;
-            }
-        }
-
-        .selectbox-items {
-            background-color: $color-white;
-            position: absolute;
-            width: 100%;
-            border-left: 1px solid $color-gray-dark;
-            border-right: 1px solid $color-gray-dark;
-            z-index: 100;
-
-            li {
-                padding: 5px 10px;
-                border-bottom: 1px solid $color-gray-dark;
-
-
-
-                &:hover {
-                    background-color: $color-blue;
-                    color: $color-white;
-                }
-            }
-        }
-    }
 }

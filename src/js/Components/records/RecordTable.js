@@ -5,12 +5,14 @@ import { labels, noInfo } from '@data/labels';
 import { fetchAllRecordsStart } from '@redux/actions/recordsActions';
 import { recordDeleted } from '@redux/actions/recordsActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
+//import Th from '@components/records/Th';
 import Modal from '@commonReact/Modal';
 import Loader from '@commonReact/Loader';
 import Error from '@commonReact/Error';
 import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
+import Selectbox from '@formElements/Selectbox';
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
 import usePagination from '@hooks/usePagination';
 
@@ -29,11 +31,34 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
       origin: ''
    };
 
+   const [rowsCount, setRowsCount] = React.useState(10);
+   const [active, setActive] = React.useState(10);
+   const [hidden, setHidden] = React.useState(true);
+   const [hiddenSearch, setHiddenSearch] = React.useState(true);
+
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
 
-   const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, 5, 2);
+   const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
 
+   const handleSearchInput = (key) => {
+
+      setHiddenSearch(!hiddenSearch);
+   };
+
+
+   const handleSelect = (e, count) => {
+
+      e.preventDefault();
+      setRowsCount(count);
+      setActive(count);
+      setHidden(true);
+   };
+
+   const handleBlur = () => {
+
+      setHidden(true);
+   };
    if (isLoading) {
       return <Loader />;
    }
@@ -42,12 +67,16 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
       return <Error />;
    }
 
+
+   const selectArr = [{ id: 10, text: 10 }, { id: 20, text: 20 }, { id: 50, text: 50 }, { id: filteredText.length, text: 'Show all' }];
+   const rowLength = filteredText.length !== 0;
+
    return (
       <React.Fragment>
+
          <table className="record-table">
             <thead>
                <tr>
-
                   <th>
                      <Button
                         type='button'
@@ -61,6 +90,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         value={values.artist}
                         name='artist'
                         onClick={handleEmptyInput}
+                        handleSearchInput={handleSearchInput}
+                        hiddenSearch={hiddenSearch}
                      />
                   </th>
                   <th>
@@ -70,12 +101,15 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         text={labels.title}
                         className={sortClassName('title')}
                         onClick={() => sortFunc('title')}
+
                      />
                      <Search
                         onChange={handleChange}
                         value={values.title}
                         name='title'
                         onClick={handleEmptyInput}
+                        handleSearchInput={handleSearchInput}
+                        hiddenSearch={hiddenSearch}
 
                      />
                   </th>
@@ -101,7 +135,9 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         onChange={handleChange}
                         value={values.label}
                         name='label'
-                        onClick={handleEmptyInput}
+                        handleEmptyInput={handleEmptyInput}
+                        handleSearchInput={handleSearchInput}
+                        hiddenSearch={hiddenSearch}
                      />
                   </th>
 
@@ -118,6 +154,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         value={values.origin}
                         name='origin'
                         onClick={handleEmptyInput}
+                        handleSearchInput={handleSearchInput}
+                        hiddenSearch={hiddenSearch}
                      />
 
                   </th>
@@ -126,45 +164,77 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                   <th>Antal plader <span>{allRecords && allRecords.length}</span></th>
                </tr>
             </thead>
-            <tbody>
+            {rowLength ?
+               <tbody>
 
-               {currentData(filteredText).map(record =>
+                  {currentData(filteredText).map(record =>
 
-                  <tr id={record._id} key={record._id}>
-                     <td className="first-td" data-label={labels.artist}>{record.artist}</td>
-                     <td data-label={labels.title}>{record.title}</td>
-                     <td data-label={labels.prodYear}>{record.prodYear}</td>
-                     <td data-label={labels.label}>{record.label === null || record.label === '' ? noInfo : record.label}</td>
-                     <td data-label={labels.origin}>{record.origin === null || record.origin === '' ? noInfo : record.origin}</td>
+                     <tr id={record._id} key={record._id}>
+                        <td className="first-td" data-label={labels.artist}>{record.artist}</td>
+                        <td data-label={labels.title}>{record.title}</td>
+                        <td data-label={labels.prodYear}>{record.prodYear}</td>
+                        <td data-label={labels.label}>{record.label === null || record.label === '' ? noInfo : record.label}</td>
+                        <td data-label={labels.origin}>{record.origin === null || record.origin === '' ? noInfo : record.origin}</td>
 
-                     <td>
-                        <DetailsLink id={record._id} />
+                        <td>
+                           <DetailsLink id={record._id} />
 
-                        <Modal
-                           onClick={() => recordDeleted(record._id)}
-                           title={record.title}
-                           artist={record.artist}
-                           id={record._id}
-                           linkTo={'/all'}
+                           <Modal
+                              onClick={() => recordDeleted(record._id)}
+                              title={record.title}
+                              artist={record.artist}
+                              id={record._id}
+                              linkTo={'/all'}
 
-                        />
-                     </td>
-                  </tr>
+                           />
+                        </td>
+                     </tr>
 
-               )}
-            </tbody>
+                  )}
+               </tbody> : <tbody><tr><td colSpan="6">wwww</td></tr></tbody>}
 
          </table>
-         <PaginationNav
-            next={next}
-            prev={prev}
-            jump={jump}
-            currentPage={currentPage}
-            maxPage={maxPage}
-            pages={pages}
-            nextPage={nextPage}
-            prevPage={prevPage}
-         />
+         {rowLength &&
+            <div className="flex-wrapper">
+               <div className="flex-4">
+                  <PaginationNav
+                     next={next}
+                     prev={prev}
+                     jump={jump}
+                     currentPage={currentPage}
+                     maxPage={maxPage}
+                     pages={pages}
+                     nextPage={nextPage}
+                     prevPage={prevPage}
+                  />
+               </div>
+               <div className="flex-item">
+                  {currentPage} af {filteredText.length} plader / {maxPage} sider
+                  <div className="record-table-select">
+                     <section className="selectbox" onBlur={() => handleBlur()}>
+                        <span
+                           onClick={() => setHidden(false)}
+                           onBlur={() => handleBlur()}
+                           className="selectbox-option chevron-down"
+                        >{rowsCount}</span>
+                        <ul className={`${hidden ? 'hidden' : ''} selectbox-list`} >
+                           {selectArr.map(opt =>
+                              <li key={opt.id} >
+                                 <a href="#"
+                                    onClick={(e) => handleSelect(e, opt.id)}
+                                    className={`selectbox-option ${active === opt.id && 'active'}`}
+                                 >
+                                    {opt.text}
+                                 </a>
+                              </li>
+                           )}
+
+                        </ul>
+                     </section>
+                  </div>
+
+               </div>
+            </div>}
 
 
 

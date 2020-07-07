@@ -12,6 +12,7 @@ function Nav() {
             <Link className="main-nav-items" to="/all">Se alle</Link>
             <Link className="main-nav-items" to="/table">Table</Link>
             <Link className="main-nav-items" to="/login">login</Link>
+            <Link className="main-nav-items" to="/select">select</Link>
          </div>
       </nav>
    );

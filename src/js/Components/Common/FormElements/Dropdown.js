@@ -63,7 +63,7 @@ function Dropdown() {
                hidden={hidden}
             />
          </form>
-         <section className={`${hidden ? 'hidden' : ''} select-wrapper`} >
+         <section className={`${hidden ? 'hidden' : ''} selectbox`} >
             {managerData &&
                managerData.map((manager, index) => {
 

@@ -1,22 +1,29 @@
 import React from 'react';
 
-
-
-function Search({ onChange, value, placeholder, name, onClick }) {
+import SearchIcon from '../Common/svg/SearchIcon';
+function Search({ onClick, onChange, value, placeholder, name, handleSearchInput, hiddenSearch }) {
 
    return (
-      <form>
+      <form className="search">
          <div className="input-wrapper">
-            <input type="text"
-               placeholder={placeholder}
-               onChange={onChange}
-               value={value}
-               name={name}
+            <SearchIcon
+               onClick={handleSearchInput}
             />
-            <span onClick={() => onClick(name)}
-               className="btn-close"
 
-            />
+
+            <div className={hiddenSearch ? 'hidden' : null}>
+               <input type="text"
+                  placeholder={placeholder}
+                  onChange={onChange}
+                  value={value}
+                  name={name}
+               />
+
+               <span onClick={() => onClick(name)}
+                  className="btn-delete"
+               />
+            </div>
+
          </div>
       </form>
    );

@@ -8,9 +8,9 @@ export const Filter = ({ onChange, value, onClick, placeholder, id }) => (
                 onChange={onChange}
                 value={value}
                 id={id}
-                
+
             />
-            <span onClick={onClick} className="btn-close" />
+            <span onClick={onClick} className="btn-delete" />
         </div>
     </form>
 
