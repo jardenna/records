@@ -1,7 +1,9 @@
 import React from 'react';
 
+//import useKey from '@hooks/useKey';
 import Options from '@components/Selectbox/Options';
 import Values from '@components/Selectbox/Values';
+import { ARROW_DOWN, ARROW_UP, ENTER, ESC } from '@common/constants/keyboard';
 
 function Select({ label, options, multiple, placeholder }) {
 
@@ -9,6 +11,16 @@ function Select({ label, options, multiple, placeholder }) {
 	const [focusedValue, setFocusedValue] = React.useState(-1);
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [typed, setTyped] = React.useState('');
+	const [timeout, setTimeout] = React.useState('');
+
+
+	// React.useEffect(() => {
+	// 	setTimeout(() => {
+	// 		setTyped('');
+	// 	}, 1000);
+
+	// }, []);
+
 
 
 
@@ -43,135 +55,109 @@ function Select({ label, options, multiple, placeholder }) {
 	};
 
 	const onKeyDown = (e) => {
-		// const { options, multiple } = this.props;
-		// const { isOpen } = this.state;
-		console.log(isOpen);
-
-		// switch (e.key) {
-		// 	case ' ':
-		// 		e.preventDefault();
-		// 		if (isOpen) {
-		// 			if (multiple) {
-		// 				this.setState(prevState => {
-		// 					const { focusedValue } = prevState;
-
-		// 					if (focusedValue !== -1) {
-		// 						const [...values] = prevState.values;
-		// 						const value = options[focusedValue].value;
-		// 						const index = values.indexOf(value);
-
-		// 						if (index === -1) {
-		// 							values.push(value);
-		// 						} else {
-		// 							values.splice(index, 1);
-		// 						}
-
-		// 						return { values };
-		// 					}
-		// 				});
-		// 			}
-		// 		} else {
-		// 			this.setState({
-		// 				isOpen: true
-		// 			});
-		// 		}
-		// 		break;
-		// 	case 'Escape':
-		// 	case 'Tab':
-		// 		if (isOpen) {
-		// 			e.preventDefault();
-		// 			this.setState({
-		// 				isOpen: false
-		// 			});
-		// 		}
-		// 		break;
-		// 	case 'Enter':
-		// 		this.setState(prevState => ({
-		// 			isOpen: !prevState.isOpen
-		// 		}));
-		// 		break;
-		// 	case 'ArrowDown':
-		// 		e.preventDefault();
+		e.preventDefault();
 
 
-		// 		this.setState(prevState => {
-		// 			let { focusedValue } = prevState;
 
-		// 			if (focusedValue < options.length - 1) {
-		// 				focusedValue++;
+		switch (e.key) {
 
-		// 				if (multiple) {
-		// 					return {
-		// 						focusedValue
-		// 					};
-		// 				} else {
-		// 					return {
-		// 						values: [options[focusedValue].value],
-		// 						focusedValue
-		// 					};
-		// 				}
-		// 			}
-		// 		});
-		// 		break;
-		// 	case 'ArrowUp':
-		// 		e.preventDefault();
-		// 		this.setState(prevState => {
-		// 			let { focusedValue } = prevState;
+			//For space tab multible
+			case ' ':
+				if (isOpen) {
+					if (multiple) {
+						setFocusedValue(prevState => {
 
-		// 			if (focusedValue > 0) {
-		// 				focusedValue--;
+							if (prevState !== -1) {
+								const value = options[focusedValue] && options[focusedValue].value;
+								const index = values.indexOf(value);
 
-		// 				if (multiple) {
-		// 					return {
-		// 						focusedValue
-		// 					};
-		// 				} else {
-		// 					return {
-		// 						values: [options[focusedValue].value],
-		// 						focusedValue
-		// 					};
-		// 				}
-		// 			}
-		// 		});
-		// 		break;
-		// 	default:
-		// 		if (/^[a-z0-9]$/i.test(e.key)) {
-		// 			const char = e.key;
+								if (index === -1) {
+									values.push(value);
+								} else {
+									values.splice(index, 1);
+								}
 
-		// 			clearTimeout(this.timeout);
-		// 			this.timeout = setTimeout(() => {
-		// 				this.setState({
-		// 					typed: ''
-		// 				});
-		// 			}, 1000);
+							} else {
+								setIsOpen(true);
+							}
+						});
+					}
+				}
+				break;
+			case ESC:
+				if (isOpen) {
+					setIsOpen(false);
+				}
+				break;
+			case ENTER:
+				setIsOpen(prevState => !prevState);
+				break;
+			case ARROW_DOWN:
 
-		// 			this.setState(prevState => {
-		// 				const typed = prevState.typed + char;
-		// 				const re = new RegExp(`^${typed}`, 'i');
-		// 				const index = options.findIndex(option => re.test(option.value));
+				if (focusedValue < options.length - 1) {
 
-		// 				if (index === -1) {
-		// 					return {
-		// 						typed
-		// 					};
-		// 				}
+					setFocusedValue(prevState => {
+						if (!multiple) {
+							setValues([options[prevState + 1].value]);
+						}
+						return (
+							prevState + 1
+						);
+					});
+				}
+				break;
 
-		// 				if (multiple) {
-		// 					return {
-		// 						focusedValue: index,
-		// 						typed
-		// 					};
-		// 				} else {
-		// 					return {
-		// 						values: [options[index].value],
-		// 						focusedValue: index,
-		// 						typed
-		// 					};
-		// 				}
-		// 			});
-		// 		}
-		// 		break;
-		// }
+			case ARROW_UP:
+				if (focusedValue > 0) {
+
+					setFocusedValue(prevState => {
+						if (!multiple) {
+							setValues([options[prevState - 1].value]);
+						}
+						return (
+							prevState - 1
+						);
+					});
+				}
+				break;
+
+			default:
+				if (/^[a-z0-9]$/i.test(e.key)) {
+					const char = e.key;
+					//search Fix it
+
+					setTimeout(() => {
+						setTyped('');
+					}, 1000);
+
+
+					setTyped(prevState => {
+						const typed = prevState + char;
+						const re = new RegExp(`^${typed}`, 'i');
+						const index = options.findIndex(option => re.test(option.value));
+						const searchOption = [options[index] ? options[index].value : placeholder];
+
+						if (index === -1) {
+							setTyped(prevState + char);
+						}
+						if (multiple) {
+							setFocusedValue(index);
+							setTyped(prevState + char);
+						} else {
+							setValues(searchOption);
+							setFocusedValue(index);
+							setTyped(prevState + char);
+						}
+
+
+					});
+
+
+				}
+				break;
+		}
+
+
 	};
 
 	const onClick = () => {

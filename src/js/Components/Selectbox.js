@@ -25,7 +25,17 @@ function Selectbox() {
             ]}
             multiple
          />
+         <SelectClass
+            label="React Multiple Select"
+            placeholder="Pick some"
+            options={[
+               { value: 'Rock' },
+               { value: 'Paper' },
+               { value: 'Scissors' }
+            ]}
 
+
+         />
          <SelectClass
             label="React Multiple Select"
             placeholder="Pick some"
@@ -35,6 +45,7 @@ function Selectbox() {
                { value: 'Scissors' }
             ]}
             multiple
+
          />
       </div>
    );
