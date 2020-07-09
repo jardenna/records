@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from '@components/Select';
+import SelectClass from '@components/SelectClass';
 function Selectbox() {
    return (
       <div>
@@ -15,6 +16,17 @@ function Selectbox() {
          />
 
          <Select
+            label="React Multiple Select"
+            placeholder="Pick some"
+            options={[
+               { value: 'Rock' },
+               { value: 'Paper' },
+               { value: 'Scissors' }
+            ]}
+            multiple
+         />
+
+         <SelectClass
             label="React Multiple Select"
             placeholder="Pick some"
             options={[

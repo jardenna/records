@@ -2,7 +2,6 @@ import React from 'react';
 
 function Values({ placeholder, multiple, values, stopPropagation, onDeleteOption }) {
 
-
    if (values.length === 0) {
       return (
          <div className="placeholder">

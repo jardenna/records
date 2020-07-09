@@ -6,7 +6,7 @@ import Container from '@commonReact/Children/Container';
 import { cars, theadText } from '@data/cars';
 import { selectArr } from '@data/selectArr';
 import { objKeys } from '@utils/iteratorList';
-
+import KeyEvent from '../../hooks/keyEvents/KeyEvent';
 
 //Creating an iterator for mapping data
 const iterator = [...objKeys(cars)];
@@ -18,13 +18,7 @@ function Table() {
 
    return (
       <div>
-         <Container
-            data={divData}
-            iterator={iterator}
-            as={'section'}
-            asChild={'div'}
-            container={'section'}
-         />
+         <KeyEvent />
 
          <table className="container">
             <TableHeader
