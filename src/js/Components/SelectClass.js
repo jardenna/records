@@ -63,7 +63,8 @@ class SelectClass extends React.Component {
                         const [...values] = prevState.values;
                         const value = options[focusedValue].value;
                         const index = values.indexOf(value);
-                        console.log(index);
+                        console.log(values, focusedValue);
+
                         if (index === -1) {
                            values.push(value);
                         } else {

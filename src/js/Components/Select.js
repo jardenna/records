@@ -3,7 +3,7 @@ import React from 'react';
 //import useKey from '@hooks/useKey';
 import Options from '@components/Selectbox/Options';
 import Values from '@components/Selectbox/Values';
-import { ARROW_DOWN, ARROW_UP, ENTER, ESC } from '@common/constants/keyboard';
+import { ARROW_DOWN, ARROW_UP, ENTER, ESC, SPACE } from '@common/constants/keyboard';
 
 function Select({ label, options, multiple, placeholder }) {
 
@@ -12,17 +12,6 @@ function Select({ label, options, multiple, placeholder }) {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [typed, setTyped] = React.useState('');
 	const [timeout, setTimeout] = React.useState('');
-
-
-	// React.useEffect(() => {
-	// 	setTimeout(() => {
-	// 		setTyped('');
-	// 	}, 1000);
-
-	// }, []);
-
-
-
 
 	const onBlur = () => {
 
@@ -57,30 +46,26 @@ function Select({ label, options, multiple, placeholder }) {
 	const onKeyDown = (e) => {
 		e.preventDefault();
 
-
-
 		switch (e.key) {
-
-			//For space tab multible
-			case ' ':
+			case SPACE:
 				if (isOpen) {
 					if (multiple) {
-						setFocusedValue(prevState => {
 
-							if (prevState !== -1) {
-								const value = options[focusedValue] && options[focusedValue].value;
-								const index = values.indexOf(value);
+						if (focusedValue !== -1) {
+							const value = options[focusedValue] && options[focusedValue].value;
 
+							setValues(prevState => {
+								const index = prevState.indexOf(value);
 								if (index === -1) {
-									values.push(value);
+									const values = [...prevState, value];
+									return values;
 								} else {
-									values.splice(index, 1);
+									const arr = values.filter(item => item !== value);
+									setValues(arr);
 								}
 
-							} else {
-								setIsOpen(true);
-							}
-						});
+							});
+						}
 					}
 				}
 				break;
@@ -97,14 +82,18 @@ function Select({ label, options, multiple, placeholder }) {
 				if (focusedValue < options.length - 1) {
 
 					setFocusedValue(prevState => {
+
 						if (!multiple) {
 							setValues([options[prevState + 1].value]);
 						}
 						return (
-							prevState + 1
+							focusedValue + 1
 						);
 					});
+
 				}
+
+
 				break;
 
 			case ARROW_UP:
@@ -182,25 +171,25 @@ function Select({ label, options, multiple, placeholder }) {
 	const onClickOption = (e) => {
 		const { value } = e.currentTarget.dataset;
 
-		setValues(prevState => {
-			if (!multiple) {
+		if (!multiple) {
+			setValues([value]);
+			setIsOpen(false);
+		} else {
+			setValues(prevState => {
+				const values = [...prevState, value];
+				const index = prevState.indexOf(value);
 
-				return (
-					setValues([value]),
-					setIsOpen(false)
-				);
-			}
-			const values = [...prevState, value];
+				if (index !== -1) {
+					const arr = values.filter(item => item !== value);
+					setValues(arr);
+				}
 
-			const index = prevState.indexOf(value);
+				return values;
+			});
+		}
 
-			if (index !== -1) {
-				const arr = values.filter(item => item !== value);
-				setValues(arr);
-			}
 
-			return values;
-		});
+
 	};
 
 	const stopPropagation = (e) => {
