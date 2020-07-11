@@ -4,7 +4,7 @@ import CheckBox from '@commonReact/svg/CheckBox';
 
 
 
-function Options({ options, multiple, isOpen, values, focusedValue, onClick }) {
+function Options({ options, multiple, isOpen, values, focusedValue, onClickOption }) {
 
 
    if (!isOpen) {
@@ -28,10 +28,8 @@ function Options({ options, multiple, isOpen, values, focusedValue, onClick }) {
                return (
                   <div
                      key={value}
-                     data-value={value}
                      className={className}
-
-                     onClick={onClick}
+                     onClick={() => onClickOption(value)}
                   >
                      {multiple ?
                         <span className="checkbox">

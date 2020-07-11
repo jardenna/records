@@ -1,8 +1,10 @@
 import React from 'react';
 
-//import useKey from '@hooks/useKey';
 import Options from '@components/Selectbox/Options';
 import Values from '@components/Selectbox/Values';
+
+import useTimeout from '@hooks/useTimeout';
+
 import { ARROW_DOWN, ARROW_UP, ENTER, ESC, SPACE } from '@common/constants/keyboard';
 
 function Select({ label, options, multiple, placeholder }) {
@@ -11,7 +13,8 @@ function Select({ label, options, multiple, placeholder }) {
 	const [focusedValue, setFocusedValue] = React.useState(-1);
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [typed, setTyped] = React.useState('');
-	const [timeout, setTimeout] = React.useState('');
+
+	useTimeout(() => setTyped(''), 1000, typed);
 
 	const onBlur = () => {
 
@@ -113,16 +116,9 @@ function Select({ label, options, multiple, placeholder }) {
 			default:
 				if (/^[a-z0-9]$/i.test(e.key)) {
 					const char = e.key;
-					//search Fix it
-
-					setTimeout(() => {
-						setTyped('');
-					}, 1000);
-
-
 					setTyped(prevState => {
-						const typed = prevState + char;
-						const re = new RegExp(`^${typed}`, 'i');
+						const typeds = prevState + char;
+						const re = new RegExp(`^${typeds}`, 'i');
 						const index = options.findIndex(option => re.test(option.value));
 						const searchOption = [options[index] ? options[index].value : placeholder];
 
@@ -137,7 +133,7 @@ function Select({ label, options, multiple, placeholder }) {
 							setFocusedValue(index);
 							setTyped(prevState + char);
 						}
-
+						return typeds;
 
 					});
 
@@ -150,27 +146,18 @@ function Select({ label, options, multiple, placeholder }) {
 	};
 
 	const onClick = () => {
-		setIsOpen(prevState => (!prevState.isOpen));
+		setIsOpen(prevState => !prevState);
 
 	};
 
-	const onDeleteOption = (e) => {
-		const { value } = e.currentTarget.dataset;
-
+	const onDeleteOption = (value) => {
 		setValues(prevState => {
 			const values = [...prevState];
-			const index = values.indexOf(value);
-			values.splice(index, 1);
-
-			return values;
+			return values.filter(a => a !== value);
 		});
-
-
 	};
 
-	const onClickOption = (e) => {
-		const { value } = e.currentTarget.dataset;
-
+	const onClickOption = (value) => {
 		if (!multiple) {
 			setValues([value]);
 			setIsOpen(false);
@@ -188,8 +175,6 @@ function Select({ label, options, multiple, placeholder }) {
 			});
 		}
 
-
-
 	};
 
 	const stopPropagation = (e) => {
@@ -197,34 +182,36 @@ function Select({ label, options, multiple, placeholder }) {
 	};
 
 	return (
-		<div
-			className="select"
-			tabIndex="0"
-			onBlur={onBlur}
-			onKeyDown={onKeyDown}
+		<div>
+			<div
+				className="select"
+				tabIndex="0"
+				onBlur={onBlur}
+				onKeyDown={onKeyDown}
 
-		>
-			<label className="label">{label}</label>
-			<div className="selection" onClick={onClick}>
-				<Values
-					placeholder={placeholder}
+			>
+				<label className="label">{label}</label>
+				<div className="selection" onClick={onClick}>
+					<Values
+						placeholder={placeholder}
+						multiple={multiple}
+						values={values}
+						stopPropagation={stopPropagation}
+						onDeleteOption={onDeleteOption}
+					/>
+
+					<span className={`arrow ${isOpen ? 'chevron-up' : 'chevron-down'}`} />
+
+				</div>
+				<Options
+					options={options}
+					isOpen={isOpen}
 					multiple={multiple}
 					values={values}
-					stopPropagation={stopPropagation}
-					onDeleteOption={onDeleteOption}
+					focusedValue={focusedValue}
+					onClickOption={onClickOption}
 				/>
-
-				<span className={`arrow ${isOpen ? 'chevron-up' : 'chevron-down'}`} />
-
 			</div>
-			<Options
-				options={options}
-				isOpen={isOpen}
-				multiple={multiple}
-				values={values}
-				focusedValue={focusedValue}
-				onClick={onClickOption}
-			/>
 		</div>
 	);
 }

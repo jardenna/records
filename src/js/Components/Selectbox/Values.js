@@ -20,8 +20,7 @@ function Values({ placeholder, multiple, values, stopPropagation, onDeleteOption
             >
                {value}
                <span
-                  data-value={value}
-                  onClick={onDeleteOption}
+                  onClick={() => onDeleteOption(value)}
                   className={`delete ${'btn-delete'}`}
                />
 
