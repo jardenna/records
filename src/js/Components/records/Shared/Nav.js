@@ -6,6 +6,7 @@ function Nav() {
 
    return (
       <nav className="main-nav">
+         <span className="mobile-button" />
          <div className="main-wrapper">
             <Link className="main-nav-items" to="/">Home</Link>
             <Link className="main-nav-items" to="/create">Tilføj album</Link>

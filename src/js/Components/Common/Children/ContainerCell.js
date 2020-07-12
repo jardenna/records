@@ -1,14 +1,9 @@
 import React from 'react';
 
-function ContainerCell({ as: As, text, ...props }) {
-   const ref = React.useRef(null);
-   React.useEffect(() => {
-      if (props.focus) {
-         ref.current.focus();
-      }
-   }, [props.focus]);
+function ContainerCell({ as: As, text }) {
+
    return (
-      <As tabIndex={props.focus ? 0 : -1} ref={ref}>
+      <As tabIndex={0} >
          {text && text}
       </As>
    );

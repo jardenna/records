@@ -1,46 +1,37 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import Options from '@components/Selectbox/Options';
 import Values from '@components/Selectbox/Values';
 
 import useTimeout from '@hooks/useTimeout';
 
-import { ARROW_DOWN, ARROW_UP, ENTER, ESC, SPACE } from '@common/constants/keyboard';
+import { ARROW_DOWN, ARROW_UP, ENTER, ESC, SPACE, END, HOME } from '@common/constants/keyboard';
 
-function Select({ label, options, multiple, placeholder }) {
+
+function Select({ options, label, multiple, placeholder, zIndex }) {
 
 	const [values, setValues] = React.useState([]);
 	const [focusedValue, setFocusedValue] = React.useState(-1);
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [typed, setTyped] = React.useState('');
 
+
 	useTimeout(() => setTyped(''), 1000, typed);
 
 	const onBlur = () => {
-
+		setIsOpen(false);
 		if (multiple) {
-			setFocusedValue(prevState => {
+			setFocusedValue(-1);
 
-				return (
-					setFocusedValue(-1),
-					setIsOpen(false)
-				);
-			});
 		} else {
 			const value = values[0];
-			let focusedValue = -1;
-
 			if (value) {
-				focusedValue = options.findIndex(option => option.value === value);
+				setFocusedValue(options.findIndex(option => option.value === value));
 			}
 
 			return (
-				setFocusedValue(focusedValue),
-				setIsOpen(false)
+				focusedValue
 			);
-
-
-
 		}
 
 
@@ -48,7 +39,6 @@ function Select({ label, options, multiple, placeholder }) {
 
 	const onKeyDown = (e) => {
 		e.preventDefault();
-
 		switch (e.key) {
 			case SPACE:
 				if (isOpen) {
@@ -60,11 +50,9 @@ function Select({ label, options, multiple, placeholder }) {
 							setValues(prevState => {
 								const index = prevState.indexOf(value);
 								if (index === -1) {
-									const values = [...prevState, value];
-									return values;
+									return [...prevState, value];
 								} else {
-									const arr = values.filter(item => item !== value);
-									setValues(arr);
+									return values.filter(item => item !== value);
 								}
 
 							});
@@ -72,7 +60,30 @@ function Select({ label, options, multiple, placeholder }) {
 					}
 				}
 				break;
+			case END:
+
+				if (isOpen) {
+					const optionsLength = options.length - 1;
+					setFocusedValue(optionsLength);
+					if (!multiple) {
+						setValues([options[optionsLength].value]);
+					}
+
+				}
+				break;
+
+			case HOME:
+
+				if (isOpen) {
+					const optionsLength = 0;
+					setFocusedValue(optionsLength);
+					if (!multiple) {
+						setValues([options[optionsLength].value]);
+					}
+				}
+				break;
 			case ESC:
+
 				if (isOpen) {
 					setIsOpen(false);
 				}
@@ -85,14 +96,14 @@ function Select({ label, options, multiple, placeholder }) {
 				if (focusedValue < options.length - 1) {
 
 					setFocusedValue(prevState => {
-
-						if (!multiple) {
-							setValues([options[prevState + 1].value]);
-						}
 						return (
-							focusedValue + 1
+							prevState + 1
 						);
 					});
+
+					if (!multiple) {
+						setValues([options[focusedValue + 1].value]);
+					}
 
 				}
 
@@ -103,41 +114,29 @@ function Select({ label, options, multiple, placeholder }) {
 				if (focusedValue > 0) {
 
 					setFocusedValue(prevState => {
-						if (!multiple) {
-							setValues([options[prevState - 1].value]);
-						}
 						return (
 							prevState - 1
 						);
 					});
+
+					if (!multiple) {
+						setValues([options[focusedValue - 1].value]);
+					}
+
 				}
 				break;
 
 			default:
 				if (/^[a-z0-9]$/i.test(e.key)) {
 					const char = e.key;
-					setTyped(prevState => {
-						const typeds = prevState + char;
-						const re = new RegExp(`^${typeds}`, 'i');
-						const index = options.findIndex(option => re.test(option.value));
-						const searchOption = [options[index] ? options[index].value : placeholder];
-
-						if (index === -1) {
-							setTyped(prevState + char);
-						}
-						if (multiple) {
-							setFocusedValue(index);
-							setTyped(prevState + char);
-						} else {
-							setValues(searchOption);
-							setFocusedValue(index);
-							setTyped(prevState + char);
-						}
-						return typeds;
-
-					});
-
-
+					const regex = new RegExp(`^${char}`, 'i');
+					const index = options.findIndex(option => regex.test(option.value));
+					const searchOption = [options[index] ? options[index].value : placeholder];
+					setFocusedValue(index);
+					if (!multiple) {
+						setValues(searchOption);
+					}
+					setTyped(char);
 				}
 				break;
 		}
@@ -167,8 +166,8 @@ function Select({ label, options, multiple, placeholder }) {
 				const index = prevState.indexOf(value);
 
 				if (index !== -1) {
-					const arr = values.filter(item => item !== value);
-					setValues(arr);
+
+					return values.filter(item => item !== value);
 				}
 
 				return values;
@@ -182,13 +181,13 @@ function Select({ label, options, multiple, placeholder }) {
 	};
 
 	return (
-		<div>
-			<div
+		<Fragment>
+			<section
 				className="select"
 				tabIndex="0"
 				onBlur={onBlur}
 				onKeyDown={onKeyDown}
-
+				style={{ zIndex: zIndex }}
 			>
 				<label className="label">{label}</label>
 				<div className="selection" onClick={onClick}>
@@ -211,8 +210,8 @@ function Select({ label, options, multiple, placeholder }) {
 					focusedValue={focusedValue}
 					onClickOption={onClickOption}
 				/>
-			</div>
-		</div>
+			</section>
+		</Fragment>
 	);
 }
 

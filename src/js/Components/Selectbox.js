@@ -1,30 +1,33 @@
 import React from 'react';
-import Select from '@components/Select';
-import SelectClass from '@components/SelectClass';
+import Select from '@formElements/SelectBox/Select';
+import { cars } from '@data/cars';
+import { selectArr } from '@data/selectArr';
+
+let carOptions = cars.map(elm => ({ value: elm.myName }));
+let selectOptions = selectArr.map(elm => ({ value: elm.myName }));
+
 function Selectbox() {
    return (
       <div>
          <Select
             label="React Select"
             placeholder="Pick one"
-            options={[
-               { value: 'Rock' },
-               { value: 'Paper' },
-               { value: 'Scissors' },
-               { value: 'Sass' }
-            ]}
-
+            options={selectOptions}
+            zIndex={4}
          />
          <Select
             label="React Select"
             placeholder="Pick one"
-            options={[
-               { value: 'Rock' },
-               { value: 'Paper' },
-               { value: 'Scissors' },
-               { value: 'Sass' }
-            ]}
-
+            options={carOptions}
+            multiple
+            zIndex={3}
+         />
+         <Select
+            label="React Select"
+            placeholder="Pick one"
+            options={carOptions}
+            multiple
+            zIndex={2}
          />
 
       </div>

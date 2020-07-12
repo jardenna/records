@@ -12,7 +12,8 @@ import Error from '@commonReact/Error';
 import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
-import Selectbox from '@formElements/Selectbox';
+import Select from '@formElements/SelectBox/Select';
+
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
 import usePagination from '@hooks/usePagination';
 
@@ -41,34 +42,20 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
 
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
 
-   const handleSearchInput = (key) => {
-
+   const handleSearchInput = () => {
       setHiddenSearch(!hiddenSearch);
    };
 
 
    const handleSelect = (e, count) => {
-
       e.preventDefault();
       setRowsCount(count);
       setActive(count);
       setHidden(true);
    };
 
-   const handleBlur = () => {
 
-      setHidden(true);
-   };
-   if (isLoading) {
-      return <Loader />;
-   }
-
-   if (error) {
-      return <Error />;
-   }
-
-
-   const selectArr = [{ id: 10, text: 10 }, { id: 20, text: 20 }, { id: 50, text: 50 }, { id: filteredText.length, text: 'Show all' }];
+   const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: 'Show all' }];
    const rowLength = filteredText.length !== 0;
 
    return (
@@ -211,10 +198,15 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                <div className="flex-item">
                   {currentPage} af {filteredText.length} plader / {maxPage} sider
                   <div className="record-table-select">
-                     <section className="selectbox" onBlur={() => handleBlur()}>
+
+                     <Select
+                        placeholder={rowsCount}
+                        options={selectArr}
+                        zIndex={4}
+                     />
+                     <section className="selectbox" >
                         <span
                            onClick={() => setHidden(false)}
-                           onBlur={() => handleBlur()}
                            className="selectbox-option chevron-down"
                         >{rowsCount}</span>
                         <ul className={`${hidden ? 'hidden' : ''} selectbox-list`} >
@@ -224,7 +216,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                                     onClick={(e) => handleSelect(e, opt.id)}
                                     className={`selectbox-option ${active === opt.id && 'active'}`}
                                  >
-                                    {opt.text}
+                                    {opt.value}
                                  </a>
                               </li>
                            )}

@@ -1,11 +1,9 @@
 import React from 'react';
 
 import ContainerCell from './ContainerCell';
-import useFocus from '@hooks/useFocus';
-
 
 function Container({ as: As, asChild: AsChild, data, iterator, className, ...props }) {
-   const [focus, setFocus] = useFocus(data.length);
+
    return (
       <props.container>
          {data && data.map((row, i) => {
@@ -22,7 +20,7 @@ function Container({ as: As, asChild: AsChild, data, iterator, className, ...pro
                               as={AsChild}
                               text={data.text}
                               key={i}
-                              focus={focus === i}
+
                            />
 
                         );

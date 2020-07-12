@@ -1,3 +1,5 @@
+@import '../common/mq';
+
 .main-header {
 
    background-size: 100%;
@@ -7,6 +9,17 @@
    color: $color-white;
    font-family: $font-secondary;
    font-size: 40px;
+
+
+
+   @include mQ(947px) {
+      height: 200px;
+      font-size: 30px;
+   }
+
+   @include mQ($small) {
+      height: 131px;
+   }
 
    .container {
       max-width: 1600px;
@@ -23,6 +36,12 @@
       font-size: 70px;
       margin: 49px 60px;
       text-transform: uppercase;
+
+
+      @include mQ($medium) {
+         font-size: 30px;
+         margin: 20px;
+      }
 
    }
 }
