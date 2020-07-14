@@ -10,11 +10,16 @@
     margin-bottom: 10px;
     width: 100%;
 
+    .search {
+        svg {
+            width: 30px;
 
+        }
+    }
 
     th {
         font-weight: 500;
-        padding: 13px;
+        padding-left: 13px;
         background-color: $color-blue;
         color: $color-white;
         text-align: left;
@@ -30,9 +35,12 @@
             background: none;
             text-align: left;
             min-width: auto;
+
         }
 
-
+        .btn-delete:after {
+            color: $color-primary-text;
+        }
 
         &:last-child {
             width: 30%;
@@ -72,7 +80,7 @@
     }
 
     tr {
-        padding: 10px;
+
         border-bottom: 1px solid $color-gray;
 
         @include mQ(767px) {

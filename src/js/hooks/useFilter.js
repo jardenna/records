@@ -3,12 +3,11 @@ import React from 'react';
 function useFilter(initialState, items) {
    const [values, setValues] = React.useState(initialState);
 
-
    const filteredText = items.filter(function (item) {
       for (let key in values) {
 
          if (item[key]) {
-            if (!item[key].toLowerCase().includes(values[key].toLowerCase()) && values[key] !== '') {
+            if (!item[key].toLowerCase().toString().includes(values[key].toLowerCase().toString()) && values[key] !== '') {
                return false;
             }
          }
@@ -17,7 +16,7 @@ function useFilter(initialState, items) {
    });
 
 
-   function handleChange(e) {
+   const handleChange = (e) => {
       const { name, value } = e.target;
 
 
@@ -26,7 +25,7 @@ function useFilter(initialState, items) {
          [name]: value
       });
 
-   }
+   };
 
    const handleEmptyInput = (name) => {
       setValues({

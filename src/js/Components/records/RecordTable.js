@@ -8,18 +8,17 @@ import DetailsLink from '@components/records/Shared/DetailsLink';
 //import Th from '@components/records/Th';
 import Modal from '@commonReact/Modal';
 import Loader from '@commonReact/Loader';
-import Error from '@commonReact/Error';
 import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
-import Select from '@formElements/SelectBox/Select';
+import Selectbox from './Shared/Selectbox/Selectbox';
 
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
 import usePagination from '@hooks/usePagination';
 
 import useFilter from '@hooks/useFilter';
 
-function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recordDeleted }) {
+function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDeleted }) {
 
    React.useEffect(() => {
       fetchAllRecordsStart();
@@ -34,29 +33,42 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
 
    const [rowsCount, setRowsCount] = React.useState(10);
    const [active, setActive] = React.useState(10);
-   const [hidden, setHidden] = React.useState(true);
-   const [hiddenSearch, setHiddenSearch] = React.useState(true);
+
+   const [isOpen, setIsOpen] = React.useState(false);
+
+
 
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
 
+
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
 
-   const handleSearchInput = () => {
-      setHiddenSearch(!hiddenSearch);
+
+
+
+   const onBlur = () => {
+      setIsOpen(false);
+
    };
 
+   const onSelect = (count) => {
 
-   const handleSelect = (e, count) => {
-      e.preventDefault();
+      setIsOpen(false);
       setRowsCount(count);
       setActive(count);
-      setHidden(true);
    };
 
+   const onClick = () => {
+      setIsOpen(!isOpen);
+
+   };
 
    const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: 'Show all' }];
    const rowLength = filteredText.length !== 0;
+   if (isLoading) {
+      return <Loader />;
+   }
 
    return (
       <React.Fragment>
@@ -72,13 +84,13 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         className={sortClassName('artist')}
                         onClick={() => sortFunc('artist')}
                      />
+
                      <Search
                         onChange={handleChange}
                         value={values.artist}
                         name='artist'
                         onClick={handleEmptyInput}
-                        handleSearchInput={handleSearchInput}
-                        hiddenSearch={hiddenSearch}
+
                      />
                   </th>
                   <th>
@@ -90,14 +102,12 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         onClick={() => sortFunc('title')}
 
                      />
+
                      <Search
                         onChange={handleChange}
                         value={values.title}
                         name='title'
                         onClick={handleEmptyInput}
-                        handleSearchInput={handleSearchInput}
-                        hiddenSearch={hiddenSearch}
-
                      />
                   </th>
                   <th>
@@ -108,7 +118,12 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         className={sortClassName('prodYear')}
                         onClick={() => sortFunc('prodYear')}
                      />
-
+                     <Search
+                        onChange={handleChange}
+                        value={labels.prodYear}
+                        name='prodYear'
+                        onClick={handleEmptyInput}
+                     />
                   </th>
                   <th>
                      <Button
@@ -122,9 +137,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         onChange={handleChange}
                         value={values.label}
                         name='label'
-                        handleEmptyInput={handleEmptyInput}
-                        handleSearchInput={handleSearchInput}
-                        hiddenSearch={hiddenSearch}
+                        onClick={handleEmptyInput}
+
                      />
                   </th>
 
@@ -141,8 +155,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                         value={values.origin}
                         name='origin'
                         onClick={handleEmptyInput}
-                        handleSearchInput={handleSearchInput}
-                        hiddenSearch={hiddenSearch}
+
                      />
 
                   </th>
@@ -197,32 +210,21 @@ function RecordTable({ fetchAllRecordsStart, allRecords, error, isLoading, recor
                </div>
                <div className="flex-item">
                   {currentPage} af {filteredText.length} plader / {maxPage} sider
+
+
                   <div className="record-table-select">
+                     <Selectbox
+                        selectArr={selectArr}
+                        onBlur={onBlur}
+                        onSelect={onSelect}
+                        onClick={onClick}
+                        isOpen={isOpen}
+                        text={rowsCount}
+                        active={active}
 
-                     <Select
-                        placeholder={rowsCount}
-                        options={selectArr}
-                        zIndex={4}
                      />
-                     <section className="selectbox" >
-                        <span
-                           onClick={() => setHidden(false)}
-                           className="selectbox-option chevron-down"
-                        >{rowsCount}</span>
-                        <ul className={`${hidden ? 'hidden' : ''} selectbox-list`} >
-                           {selectArr.map(opt =>
-                              <li key={opt.id} >
-                                 <a href="#"
-                                    onClick={(e) => handleSelect(e, opt.id)}
-                                    className={`selectbox-option ${active === opt.id && 'active'}`}
-                                 >
-                                    {opt.value}
-                                 </a>
-                              </li>
-                           )}
 
-                        </ul>
-                     </section>
+
                   </div>
 
                </div>

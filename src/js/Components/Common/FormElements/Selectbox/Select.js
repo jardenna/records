@@ -145,7 +145,7 @@ function Select({ options, label, multiple, placeholder, zIndex }) {
 	};
 
 	const onClick = () => {
-		setIsOpen(prevState => !prevState);
+		setIsOpen(!isOpen);
 
 	};
 
