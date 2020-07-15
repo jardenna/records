@@ -13,6 +13,11 @@
             display: block;
             min-width: 48px;
 
+            &:focus {
+                border: var(--focus);
+                outline: none;
+            }
+
             &.last-of-type {
                 border-right: 1px solid $color-gray-dark;
             }

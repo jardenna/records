@@ -1,12 +1,7 @@
 import React from 'react';
 
 import SearchIcon from '../Common/svg/SearchIcon';
-function Search({ onClick, onChange, value, placeholder, name }) {
-   const [hiddenSearch, setHiddenSearch] = React.useState(true);
-
-   const onToggleInput = () => {
-      setHiddenSearch(!hiddenSearch);
-   };
+function Search({ onClick, onChange, value, placeholder, name, onToggleInput, classNameHidden }) {
 
    return (
       <form className="search">
@@ -17,7 +12,7 @@ function Search({ onClick, onChange, value, placeholder, name }) {
 
 
 
-            <div className={hiddenSearch ? 'hidden' : null}>
+            <div className={classNameHidden}>
                <input type="text"
                   placeholder={placeholder}
                   onChange={onChange}

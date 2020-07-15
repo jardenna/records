@@ -89,7 +89,7 @@ export function Details({ fetchDetailsStart, isLoading, error, details, recordDe
                      linkTo={'/'}
                   />
 
-                  <Link to={`/update/${_id}`}>   <button id={_id} className='btn-primary'>Rediger</button> </Link>
+                  <Link id={_id} className='btn-primary' to={`/update/${_id}`}>   Rediger </Link>
 
 
                </footer>

@@ -13,20 +13,11 @@ const iterator = [...objKeys(cars)];
 
 function Table() {
    const tbodyData = normalizeData(addId(cars));
-   const divData = normalizeData(addId(selectArr));
+
 
 
    return (
       <div>
-         <Container
-            data={divData}
-            iterator={iterator}
-            as={'div'}
-            asChild={'p'}
-            container={'section'}
-            className={'table-row'}
-         />
-
          <table className="container">
             <TableHeader
                headers={theadText}

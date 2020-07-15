@@ -11,7 +11,7 @@ function Form(props) {
 	const btnClass = `btn-${props.btnVaiant ? props.btnVaiant : 'primary'}`;
 
 	return (
-		<form onSubmit={props.onSubmit} noValidate>
+		<form onSubmit={props.onSubmit} noValidate className={props.className}>
 			{
 				props.inputs.map(input => {
 

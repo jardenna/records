@@ -175,17 +175,18 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
 
 
    return (
-      <div>
 
-         <Form
-            inputs={inputs}
-            btnText='Submit'
-            btnClass='primary'
-            onSubmit={handleSubmit}
-            onChange={handleChange}
-         />
 
-      </div>
+      <Form
+         inputs={inputs}
+         btnText='Submit'
+         btnClass='primary'
+         onSubmit={handleSubmit}
+         onChange={handleChange}
+         className="create-album flex-wrapper"
+      />
+
+
 
    );
 

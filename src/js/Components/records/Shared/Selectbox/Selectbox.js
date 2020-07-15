@@ -14,19 +14,19 @@ function Selectbox({ selectArr, onBlur, onSelect, onClick, isOpen, text, active 
                {text}
                <span className={`chevron ${isOpen ? 'chevron-up' : 'chevron-down'}`} />
             </div>
-            <div role='listbox'>
+            <ul role='listbox' className='list'>
                {isOpen && selectArr.map(option =>
-                  <div
+                  <li
                      key={option.id}
                      role='option'
                      aria-selected={active ? true : null}
                      onClick={() => onSelect(option.id)}
                      className={`selectbox-option ${active === option.id && 'active'}`}
 
-                  >{option.text}
-                  </div>
+                  >{option.value}
+                  </li>
                )}
-            </div>
+            </ul>
          </section>
       </Fragment>
    );

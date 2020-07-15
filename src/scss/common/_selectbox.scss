@@ -1,20 +1,29 @@
 .selectbox {
-   border: 1px solid $color-gray-dark;
+
    background-color: $color-white;
    position: relative;
    width: 200px;
 
-   .selectbox-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+   &:focus {
+      background-color: $color-gray-lighter;
+   }
+
+   .list {
+
+      border: 1px solid $color-border;
    }
 
    .selectbox-option {
       display: block;
       width: 100%;
       padding: 10px;
+      border-bottom: 1px solid $color-border;
       color: inherit;
+
+
+      &:last-child {
+         border-bottom: none;
+      }
 
       &.active,
       &:hover {
@@ -25,8 +34,8 @@
 
    .chevron-down:after {
       position: absolute;
-      top: 15px;
-      right: 20px;
+      top: 11px;
+      right: 10px;
    }
 }
 
@@ -64,6 +73,7 @@ $main: #7fd0c9;
    padding: 5px;
    border: 1px solid $color-border;
    background: $color-white;
+   min-height: 36px;
 }
 
 .value {

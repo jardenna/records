@@ -9,6 +9,17 @@ button {
   margin-right: 10px;
   cursor: pointer;
   display: inline-block;
+  @include transition();
+
+  &:focus {
+    border: var(--focus);
+  }
+
+  a {
+    color: $color-white;
+
+
+  }
 
   &:last-child {
     margin: 0;
@@ -24,23 +35,32 @@ button.details-btn:last-child {
 a.btn-primary {
   text-decoration: none;
   text-align: center;
+  padding: 8px;
+
+  &:hover {
+    color: $color-white;
+  }
 }
 
 .btn-primary {
   background-color: $color-primary-btn;
-  @include transition();
+
 
   &:hover {
     background-color: $color-primary-btn-hover;
+    outline: none;
+    border: none;
   }
 }
 
 .btn-danger {
   background-color: $color-danger;
-  @include transition();
+
 
   &:hover {
     background-color: $color-red-light;
+    outline: none;
+    border: none;
   }
 }
 
@@ -51,7 +71,7 @@ a.btn-primary {
   height: 20px;
   border-radius: 50%;
   display: inline-block;
-  @include transition();
+
 
   &:hover {
     background-color: $color-primary-btn-hover;

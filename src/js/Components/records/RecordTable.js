@@ -5,7 +5,6 @@ import { labels, noInfo } from '@data/labels';
 import { fetchAllRecordsStart } from '@redux/actions/recordsActions';
 import { recordDeleted } from '@redux/actions/recordsActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
-//import Th from '@components/records/Th';
 import Modal from '@commonReact/Modal';
 import Loader from '@commonReact/Loader';
 import { useSorting } from '@hooks/useSorting';
@@ -15,6 +14,7 @@ import Selectbox from './Shared/Selectbox/Selectbox';
 
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
 import usePagination from '@hooks/usePagination';
+import useToggle from '@hooks/useToggle';
 
 import useFilter from '@hooks/useFilter';
 
@@ -27,6 +27,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    const searchObj = {
       artist: '',
       title: '',
+      test: '',
       label: '',
       origin: ''
    };
@@ -39,13 +40,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
 
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
+
+   const [toggle, selected] = useToggle([]);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
 
-
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
-
-
-
 
    const onBlur = () => {
       setIsOpen(false);
@@ -64,11 +63,18 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
    };
 
+   const onToggleInput = (value) => {
+      toggle(value);
+      handleEmptyInput(value);
+   };
+
    const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: 'Show all' }];
    const rowLength = filteredText.length !== 0;
    if (isLoading) {
       return <Loader />;
    }
+
+
 
    return (
       <React.Fragment>
@@ -83,6 +89,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         text={labels.artist}
                         className={sortClassName('artist')}
                         onClick={() => sortFunc('artist')}
+
                      />
 
                      <Search
@@ -90,6 +97,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         value={values.artist}
                         name='artist'
                         onClick={handleEmptyInput}
+                        onToggleInput={() => onToggleInput('artist')}
+                        classNameHidden={!selected.includes('artist') ? 'hidden' : null}
 
                      />
                   </th>
@@ -108,6 +117,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         value={values.title}
                         name='title'
                         onClick={handleEmptyInput}
+                        onToggleInput={() => onToggleInput('title')}
+                        classNameHidden={!selected.includes('title') ? 'hidden' : null}
                      />
                   </th>
                   <th>
@@ -118,11 +129,14 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         className={sortClassName('prodYear')}
                         onClick={() => sortFunc('prodYear')}
                      />
+
                      <Search
                         onChange={handleChange}
-                        value={labels.prodYear}
-                        name='prodYear'
+                        name='test'
                         onClick={handleEmptyInput}
+                        value={values.test}
+                        onToggleInput={() => onToggleInput('test')}
+                        classNameHidden={!selected.includes('test') ? 'hidden' : null}
                      />
                   </th>
                   <th>
@@ -138,6 +152,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         value={values.label}
                         name='label'
                         onClick={handleEmptyInput}
+                        onToggleInput={() => onToggleInput('label')}
+                        classNameHidden={!selected.includes('label') ? 'hidden' : null}
 
                      />
                   </th>
@@ -155,6 +171,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         value={values.origin}
                         name='origin'
                         onClick={handleEmptyInput}
+                        onToggleInput={() => onToggleInput('origin')}
+                        classNameHidden={!selected.includes('origin') ? 'hidden' : null}
 
                      />
 
@@ -209,7 +227,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   />
                </div>
                <div className="flex-item">
-                  {currentPage} af {filteredText.length} plader / {maxPage} sider
+                  {currentPage} af {filteredText.length} plader / {maxPage} side(r)
 
 
                   <div className="record-table-select">

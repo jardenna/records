@@ -26,7 +26,7 @@ export const useSorting = (items, config = null) => {
 
    const sortFunc = key => {
       let direction = 'ascending';
-      console.log(direction);
+
       if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
          direction = 'descending';
       }
