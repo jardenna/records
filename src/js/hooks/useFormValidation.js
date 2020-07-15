@@ -5,6 +5,9 @@ function useFormValidation(initialState = {}, callBack, validate) {
    const [errors, setErrors] = React.useState({});
    const [touched, setTouched] = React.useState([]);
    const [isSubmitting, setSubmitting] = React.useState(false);
+   const [file, setFile] = React.useState('');
+   const [fileName, setFileName] = React.useState('');
+   const [imgUpdated, setImgUpdated] = React.useState(false);
 
 
    React.useEffect(() => {
@@ -43,6 +46,13 @@ function useFormValidation(initialState = {}, callBack, validate) {
          ...values,
          [name]: value
       });
+
+      if (name === 'photo') {
+
+         setFile(e.target.files[0]);
+         setFileName(name);
+         setImgUpdated(true);
+      }
    }
 
    const handleBlur = (e) => {
@@ -55,23 +65,9 @@ function useFormValidation(initialState = {}, callBack, validate) {
       }
    };
 
-   ////Sets errors on submit
-   // function handleSubmit(e) {
-   //    e.preventDefault();
-   //    if (Object.keys(validate(values)).length === 0) {
-   //       callBack();
-   //       setValues(initialState);
-   //       setErrors({});
 
-   //    } else {
-   //       setErrors(validate(values));
-   //    }
-
-   // }
-
-   //Sets errors on blur
-   const handleSubmit = (event) => {
-      event.preventDefault();
+   const handleSubmit = (e) => {
+      e.preventDefault();
       const validationErrors = validate(values);
       setErrors(validationErrors);
       setSubmitting(true);
@@ -82,7 +78,10 @@ function useFormValidation(initialState = {}, callBack, validate) {
       handleChange,
       handleBlur,
       values,
-      errors
+      errors,
+      file,
+      fileName,
+      imgUpdated
    };
 }
 

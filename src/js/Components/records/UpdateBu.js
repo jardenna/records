@@ -3,37 +3,34 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import Form from '@formElements/Form';
-import useFormValidation from '@hooks/useFormValidation';
 import { fetchDetails } from '@redux/actions/detailActions';
 import { updateRecordSuccess } from '@redux/actions/updateActions';
 import { createRecordRequest } from '@redux/actions/createActions';
 
-import { validateUpdate } from '@common/validateUpdate';
 
 function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, details }) {
+
    const id = useParams().id;
    React.useEffect(() => {
+
       if (id) {
          fetchDetails(id);
+         setValues({
+            artist: details.artist,
+            title: details.title,
+            prodYear: details.prodYear,
+            label: details.label,
+            origin: details.origin,
+            price: details.price,
+            recordNo: details.recordNo,
+            numOfRecords: details.numOfRecords,
+            released: details.released,
+            info: details.info
+         });
       }
    }, []);
 
-
-   const recordId = {
-      artist: details.artist,
-      title: details.title,
-      prodYear: details.prodYear,
-      label: details.label,
-      origin: details.origin,
-      price: details.price,
-      recordNo: details.recordNo,
-      numOfRecords: details.numOfRecords,
-      released: details.released,
-      info: details.info
-   };
-
-
-   const recordNoId = {
+   const recordObj = {
       artist: '',
       title: '',
       prodYear: '',
@@ -46,18 +43,37 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       info: ''
    };
 
-   const recordObj = id ? recordId : recordNoId;
 
-   const handleUpdateOrCreate = () => {
+   const [values, setValues] = React.useState(recordObj);
+   const [file, setFile] = React.useState('');
+   const [fileName, setFileName] = React.useState('');
+   const [imgUpdated, setImgUpdated] = React.useState(false);
+
+   function handleChange(e) {
+      const { name, value } = e.target;
+      setValues({
+         ...values,
+         [name]: value
+      });
+
+      if (name === 'photo') {
+         setFile(e.target.files[0]);
+         setFileName(name);
+         setImgUpdated(true);
+      }
+   }
+
+   function handleSubmit(e) {
+      e.preventDefault();
       if (id) {
          updateRecordSuccess(id, values, imgUpdated, fileName, file);
       } else {
          createRecordRequest(values, fileName, file);
-
+         setValues(recordObj);
       }
-   };
 
-   const { handleSubmit, handleChange, handleBlur, values, errors, file, fileName, imgUpdated } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate);
+   }
+
    const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = values;
 
    const inputs = [
@@ -67,8 +83,8 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          inputIdentifier: 'artist',
          label: 'Gruppe / Kunstner',
          isRequired: true,
-         value: artist,
-         error: errors.artist
+         value: artist
+
       },
       {
          type: 'text',
@@ -76,8 +92,8 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          inputIdentifier: 'title',
          label: 'Titel',
          isRequired: true,
-         value: title,
-         error: errors.title
+         value: title
+
       },
       {
          type: 'text',
@@ -85,8 +101,7 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          inputIdentifier: 'prodYear',
          label: 'Produktions år',
          isRequired: true,
-         value: prodYear,
-         error: errors.prodYear
+         value: prodYear
       },
       {
          type: 'text',
@@ -153,24 +168,30 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          isRequired: false
       }
 
+
    ];
 
 
 
+
    return (
+
+
       <Form
          inputs={inputs}
          btnText='Submit'
          btnClass='primary'
          onSubmit={handleSubmit}
          onChange={handleChange}
-         onBlur={handleBlur}
          className="create-album flex-wrapper"
       />
 
 
+
    );
+
 }
+
 
 const mapStateToProps = (state) => ({
    details: state.recordDetails.record
