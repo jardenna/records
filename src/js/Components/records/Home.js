@@ -8,15 +8,11 @@ import defaultImg from '@images/default.png';
 import DetailsLink from '@components/records/Shared/DetailsLink';
 
 
-
 import { fetchFirstSixStart } from '@redux/actions/homeActions';
 
-export function Home({ firstSix, fetchFirstSixStart, isLoading, error }) {
+function Home({ firstSix, fetchFirstSixStart, isLoading, error }) {
    React.useEffect(() => {
-      if (firstSix.length === 0) {
-         fetchFirstSixStart();
-      }
-
+      fetchFirstSixStart();
    }, [fetchFirstSixStart]);
    if (isLoading) {
       return <Loader />;

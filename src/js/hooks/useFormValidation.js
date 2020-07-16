@@ -1,6 +1,6 @@
 import React from 'react';
 
-function useFormValidation(initialState = {}, callBack, validate) {
+function useFormValidation(initialState = {}, callBack, validate, id) {
    const [values, setValues] = React.useState(initialState);
    const [errors, setErrors] = React.useState({});
    const [touched, setTouched] = React.useState([]);
@@ -17,7 +17,9 @@ function useFormValidation(initialState = {}, callBack, validate) {
             setTouched([]);
             callBack();
             setSubmitting(false);
-            setValues(initialState);
+            if (!id) {
+               setValues(initialState);
+            }
          } else {
             setSubmitting(false);
          }

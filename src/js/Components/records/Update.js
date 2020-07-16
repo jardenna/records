@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
@@ -18,7 +18,7 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       }
    }, []);
 
-
+   let history = useHistory();
    const recordId = {
       artist: details.artist,
       title: details.title,
@@ -39,25 +39,27 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       prodYear: '',
       label: '',
       origin: '',
-      price: ' ',
+      price: '',
       recordNo: '',
-      numOfRecords: ' ',
-      released: ' ',
+      numOfRecords: '',
+      released: '',
       info: ''
    };
 
    const recordObj = id ? recordId : recordNoId;
 
    const handleUpdateOrCreate = () => {
+
       if (id) {
          updateRecordSuccess(id, values, imgUpdated, fileName, file);
+         history.push('/details/' + id);
       } else {
          createRecordRequest(values, fileName, file);
-
+         history.push('/all');
       }
    };
 
-   const { handleSubmit, handleChange, handleBlur, values, errors, file, fileName, imgUpdated } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate);
+   const { handleSubmit, handleChange, handleBlur, values, errors, file, fileName, imgUpdated } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
    const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = values;
 
    const inputs = [

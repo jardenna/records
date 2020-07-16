@@ -94,11 +94,11 @@ img {
 }
 
 .flex-2 {
-  @include flex($values: 2, $basis: 30%, );
+  @include flex($values: 2, $basis: 50%, );
 }
 
 .flex-3 {
-  @include flex($values: 3, $basis: 50%, );
+  @include flex($values: 3, $basis: 75%, );
 }
 
 .flex-4 {

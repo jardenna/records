@@ -4,9 +4,10 @@ import api from '@common/api';
 import endpoints from '@common/endpoints';
 
 import {
+   FETCH_FIRST_SIX,
    fetchFirstSixFailure,
-   firstSixFetched,
-   FETCH_FIRST_SIX
+   firstSixFetched
+
 } from '@redux/actions/homeActions';
 
 

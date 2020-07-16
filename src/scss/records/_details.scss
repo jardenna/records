@@ -1,26 +1,32 @@
-﻿.details-container {
-    .details-content {
-        .text-bold {
+﻿.details {
+
+    .block-img {
+        text-align: left;
+        max-width: 20%;
+
+
+    }
+
+    .details-header {
+        margin-bottom: 10px;
+
+        .details-artist {
             display: inline-block;
-            min-width: 37%;
-        }
-
-        .inline {
-
-            @include inline-item ($width: 48%, $margin: 10px);
-            margin-bottom: 14px;
-
-            &:first-child {
-                display: block;
-            }
-        }
-
-        .details-info {
-            border-top: 1px solid $color-gray;
-            padding-top: 20px;
-            margin-top: 10px;
+            font-size: 39px;
+            font-weight: 400;
         }
     }
 
+    .details-info {
+        border-top: 1px solid $color-gray;
+        padding-top: 20px;
+        margin-top: 10px;
+    }
 
+    .details-content {
+
+        margin: 10px 0;
+
+
+    }
 }

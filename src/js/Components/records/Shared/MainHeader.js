@@ -7,7 +7,7 @@ function MainHeader() {
             backgroundImage: `url(${hero})`
         }}>
             <div className="container">
-                <span>Steens</span>        <h2>Pladesamling</h2>
+                <h1>Pladesamling</h1>
             </div>
 
         </header>

@@ -11,7 +11,7 @@ export const fetchAllRecordsStart = () => ({
 });
 
 //Export to component Delete record 
-export const recordDeleted = (id) => ({
+export const recordDeleted = id => ({
    type: ALL_RECORDS_TYPES.DELETE_RECORD_SUCCESS,
    payload: id
 });

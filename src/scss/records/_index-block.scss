@@ -66,9 +66,7 @@
         }
 
 
-        img {
-            max-width: 300px;
-        }
+
 
         h1 {
             font-size: 25px;
@@ -84,16 +82,15 @@
 
     .block-img {
         text-align: center;
+
+        img {
+            max-width: 300px;
+        }
     }
 
 
 
     footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
         text-align: right;
-        padding: 15px 25px;
     }
 }
