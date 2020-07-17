@@ -10,6 +10,7 @@ button {
   cursor: pointer;
   display: inline-block;
   @include transition();
+  position: relative;
 
   &:focus {
     border: var(--focus);
@@ -48,8 +49,7 @@ a.btn-primary {
 
   &:hover {
     background-color: $color-primary-btn-hover;
-    outline: none;
-    border: none;
+
   }
 }
 
@@ -59,8 +59,7 @@ a.btn-primary {
 
   &:hover {
     background-color: $color-red-light;
-    outline: none;
-    border: none;
+
   }
 }
 
@@ -75,17 +74,5 @@ a.btn-primary {
 
   &:hover {
     background-color: $color-primary-btn-hover;
-  }
-}
-
-.btn-delete {
-  &:after {
-    content: "+";
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 19px;
-    font-weight: 500;
-    @include rotate();
   }
 }

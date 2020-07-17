@@ -21,7 +21,7 @@ function Values({ test, placeholder, multiple, values, stopPropagation, onDelete
                {value} {test}
                <span
                   onClick={() => onDeleteOption(value)}
-                  className={`delete ${'btn-delete'}`}
+                  className={`delete ${'icon-x'}`}
                />
 
             </span>

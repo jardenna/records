@@ -22,7 +22,7 @@ function Search({ onClick, onChange, value, placeholder, name, onToggleInput, cl
                />
 
                <span onClick={() => onClick(name)}
-                  className="btn-delete"
+                  className="icon-x"
                />
             </div>
 

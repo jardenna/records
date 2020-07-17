@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Loader from '@commonReact/Loader';
 import Error from '@commonReact/Error';
 import endpoints from '@common/endpoints';
+
 import defaultImg from '@images/default.png';
 import DetailsLink from '@components/records/Shared/DetailsLink';
 

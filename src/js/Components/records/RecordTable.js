@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { labels, noInfo } from '@data/labels';
+import { labels } from '@data/labels';
+import { CONTENT } from '@common/constants/content';
 import { fetchAllRecordsStart } from '@redux/actions/recordsActions';
 import { recordDeleted } from '@redux/actions/recordsActions';
 import DetailsLink from '@components/records/Shared/DetailsLink';
-import Modal from '@commonReact/Modal';
+import Popup from '@commonReact/Popup';
 import Loader from '@commonReact/Loader';
 import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
@@ -36,20 +37,14 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    const [active, setActive] = React.useState(10);
 
    const [isOpen, setIsOpen] = React.useState(false);
-
-
-
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
 
-   const [toggle, selected] = useToggle([]);
+   const [toggle, selected, onBlur] = useToggle([], onDelete);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
 
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
 
-   const onBlur = () => {
-      setIsOpen(false);
 
-   };
 
    const onSelect = (count) => {
 
@@ -68,12 +63,18 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
       handleEmptyInput(value);
    };
 
+   const onDelete = id => {
+      recordDeleted(id);
+
+   };
+
    const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: 'Show all' }];
    const rowLength = filteredText.length !== 0;
    if (isLoading) {
       return <Loader />;
    }
 
+   const { noInfo, deleteText, noFoundRecord } = CONTENT;
 
 
    return (
@@ -197,19 +198,29 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         <td>
                            <DetailsLink id={record._id} />
 
-                           <Modal
-                              onClick={() => recordDeleted(record._id)}
-                              title={record.title}
-                              artist={record.artist}
+                           <Popup
+                              onClick={() => toggle(record._id)}
+                              submit={() => onDelete(record._id)}
+                              content={record.title}
+                              header={record.artist}
+                              text={deleteText}
+                              buttonType="delete"
                               id={record._id}
-                              linkTo={'/all'}
+                              deleteLinkTo={'/all'}
+                              triggerBtnClassName="danger"
+                              triggerBtnText="Slet"
+                              role="dialog"
+                              ariaType="modal"
+                              componentName="modal"
+                              showFooter
+                              selected={selected}
 
                            />
                         </td>
                      </tr>
 
                   )}
-               </tbody> : <tbody><tr><td colSpan="6">wwww</td></tr></tbody>}
+               </tbody> : <tbody><tr><td colSpan="6">{noFoundRecord}</td></tr></tbody>}
 
          </table>
          {rowLength &&

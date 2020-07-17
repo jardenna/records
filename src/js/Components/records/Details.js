@@ -4,15 +4,22 @@ import { connect } from 'react-redux';
 
 import Loader from '@commonReact/Loader';
 import endpoints from '@common/endpoints';
-import { labels, noInfo } from '@data/labels';
+import { labels } from '@data/labels';
+import { CONTENT } from '@common/constants/content';
 import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
-import Modal from '@commonReact/Modal';
+import Popup from '@commonReact/Popup';
+import useToggle from '@hooks/useToggle';
 import { recordDeleted } from '@redux/actions/recordsActions';
 import { fetchDetailsStart } from '@redux/actions/detailActions';
 
 export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }) {
 
+   const onDelete = id => {
+      recordDeleted(id);
+   };
+
+   const [toggle, selected] = useToggle([], onDelete);
    const id = useParams().id;
    React.useEffect(() => {
       fetchDetailsStart(id);
@@ -24,6 +31,7 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
       return <Loader />;
    }
 
+   const { noInfo, deleteText, edit, deleteRecord } = CONTENT;
    const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
    return (
       <div className="details">
@@ -81,15 +89,26 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
                   </div>}
 
                <footer className="content-footer">
-                  <Modal
-                     onClick={() => recordDeleted(_id)}
-                     title={title}
-                     artist={artist}
+                  <Popup
+                     onClick={() => toggle(_id)}
+                     submit={() => onDelete(_id)}
+                     content={title}
+                     header={artist}
+                     text={deleteText}
+                     buttonType="delete"
                      id={_id}
-                     linkTo={'/'}
+                     deleteLinkTo={'/all'}
+                     triggerBtnClassName="danger"
+                     triggerBtnText={deleteRecord}
+                     role="dialog"
+                     ariaType="modal"
+                     componentName="modal"
+                     showFooter
+                     selected={selected}
+
                   />
 
-                  <Link id={_id} className='btn-primary' to={`/update/${_id}`}>   Rediger </Link>
+                  <Link id={_id} className='btn-primary' to={`/update/${_id}`}>   {edit} </Link>
 
 
                </footer>

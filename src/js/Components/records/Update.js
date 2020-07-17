@@ -59,7 +59,15 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       }
    };
 
-   const { handleSubmit, handleChange, handleBlur, values, errors, file, fileName, imgUpdated } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
+   const { handleSubmit,
+      handleChange,
+      handleBlur,
+      values,
+      errors,
+      file,
+      fileName,
+      imgUpdated } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
+
    const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = values;
 
    const inputs = [

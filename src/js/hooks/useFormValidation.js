@@ -16,13 +16,11 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
          if (noErrors) {
             setTouched([]);
             callBack();
-            setSubmitting(false);
+
             if (!id) {
                setValues(initialState);
             }
-         } else {
-            setSubmitting(false);
-         }
+         } setSubmitting(false);
       }
    }, [errors]);
 

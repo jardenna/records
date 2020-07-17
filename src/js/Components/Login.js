@@ -5,6 +5,7 @@ import useFormValidation from '@hooks/useFormValidation';
 import useToggle from '@hooks/useToggle';
 
 import { validateAuth } from '@common/validateAuth';
+import Popup from '@commonReact/Popup';
 
 
 function Login() {
@@ -18,9 +19,24 @@ function Login() {
       console.log(values);
    };
 
+   const onTest = (value) => {
+      console.log(value);
+   };
+   const testObj = [
+      { id: 1, item: 'Er du sikker på at du vil slette' },
+      { id: 2, item: 'Arts' },
+      { id: 3, item: 'Leisure' }
+   ];
 
-
+   const testObj1 = [
+      { id: 11, item: 'Er du sikker på at du vil slette' },
+      { id: 21, item: 'Arts' }
+   ];
    const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, login, validateAuth);
+   const [toggle, selected, submit, onBlur] = useToggle([], onTest);
+
+
+
    const { email, password } = values;
 
 
@@ -47,27 +63,51 @@ function Login() {
       }
    ];
 
-   const genres = ['Adventure', 'Arts', 'Leisure', 'Nature'];
-   const [toggle, selected] = useToggle([]);
-
-
-
-
-
    return (
       <div>
-         {genres.map((genre, i) =>
-            <div key={i}>
-               <div onClick={() => toggle(genre)}>
-                  klik
 
-            </div>
+         <div >
+            {testObj1.map(genre =>
+               <Popup key={genre.id}
+                  onClick={() => toggle(genre.id)}
+                  selected={selected}
+                  id={genre.id}
+                  text={genre.item}
+                  onBlur={onBlur}
+                  submit={() => submit(genre.id)}
+                  buttonType={'delete'}
+                  deleteLinkTo={'/'}
+                  triggerBtnClassName={'danger'}
+                  triggerBtnText={'Slet'}
+                  role={'tooltip'}
+                  componentName={'tooltip'}
+                  focus={focus === genre.id - 1}
+               />
+            )}
 
-               <div className={selected.includes(genre) ? 'hidden' : null}>
-                  genre
-               </div>
-            </div>
-         )}
+         </div>
+
+         <div style={{ marginTop: 80 }}>
+            {testObj.map(genre =>
+               <Popup key={genre.id}
+                  onClick={() => toggle(genre.id)}
+                  selected={selected}
+                  id={genre.id}
+                  text={genre.item}
+                  onBlur={onBlur}
+                  submit={() => submit(genre.id)}
+                  buttonType={'delete'}
+                  deleteLinkTo={'/'}
+                  triggerBtnClassName={'danger'}
+                  triggerBtnText={'Slet'}
+                  role="dialog"
+                  ariaType={'modal'}
+                  componentName={'modal'}
+                  showFooter
+               />
+            )}
+
+         </div>
 
 
          <Form

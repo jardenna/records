@@ -10,7 +10,7 @@ export const Filter = ({ onChange, value, onClick, placeholder, id }) => (
                 id={id}
 
             />
-            <span onClick={onClick} className="btn-delete" />
+            <span onClick={onClick} className="icon-x" />
         </div>
     </form>
 

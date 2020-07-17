@@ -30,3 +30,22 @@
 
    }
 }
+
+.icon-x {
+   background: none;
+   padding: 30px;
+   margin: 0;
+   min-width: auto;
+
+   &:after {
+      content: "+";
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 19px;
+      font-weight: 500;
+      @include rotate();
+      cursor: pointer;
+      color: $color-primary-text;
+   }
+}
