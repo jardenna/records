@@ -6,6 +6,6 @@ export const CONTENT = {
    edit: 'Rediger',
    deleteRecord: 'Slet',
    numOfRecords: 'Antal plader',
-   pages: 'side(r)',
+   pagesNum: 'side(r)',
    records: 'plader'
 };

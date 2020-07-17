@@ -74,7 +74,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
       return <Loader />;
    }
 
-   const { noInfo, deleteText, noFoundRecord } = CONTENT;
+   const { noInfo, deleteText, noFoundRecord, deleteRecord, pagesNum, records } = CONTENT;
 
 
    return (
@@ -208,7 +208,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                               id={record._id}
                               deleteLinkTo={'/all'}
                               triggerBtnClassName="danger"
-                              triggerBtnText="Slet"
+                              triggerBtnText={deleteRecord}
                               role="dialog"
                               ariaType="modal"
                               componentName="modal"
@@ -238,7 +238,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   />
                </div>
                <div className="flex-item">
-                  {currentPage} af {filteredText.length} plader / {maxPage} side(r)
+                  {currentPage} af {filteredText.length} {records} / {maxPage} {pagesNum}
 
 
                   <div className="record-table-select">
