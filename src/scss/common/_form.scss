@@ -73,11 +73,14 @@ fieldset {
 }
 
 .required {
+
+
   &:after {
     content: "*";
     color: $color-danger;
-    font-size: 33px;
+
     position: absolute;
-    top: 5px;
+    top: 0;
+    right: -9px;
   }
 }

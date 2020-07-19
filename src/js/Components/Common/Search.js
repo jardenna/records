@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SearchIcon from '../Common/svg/SearchIcon';
 function Search({ onClick, onChange, value, placeholder, name, onToggleInput, classNameHidden }) {
@@ -32,3 +33,18 @@ function Search({ onClick, onChange, value, placeholder, name, onToggleInput, cl
 }
 
 export default Search;
+
+
+Search.propTypes = {
+
+
+   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+   onChange: PropTypes.func.isRequired,
+   onClick: PropTypes.func.isRequired,
+   name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+
+};
+Search.defaultProps = {
+   placeholder: ''
+
+};

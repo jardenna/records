@@ -21,3 +21,7 @@ Button.propTypes = {
 	text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	onClick: PropTypes.func
 };
+Button.defaultProps = {
+	className: 'btn-primary',
+	type: 'button'
+};

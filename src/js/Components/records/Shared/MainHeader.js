@@ -1,4 +1,6 @@
 ﻿import React from 'react';
+import { Link } from 'react-router-dom';
+
 import hero from '@images/hero.jpg';
 
 function MainHeader() {
@@ -7,7 +9,7 @@ function MainHeader() {
             backgroundImage: `url(${hero})`
         }}>
             <div className="container">
-                <h1>Pladesamling</h1>
+                <h1><Link to='/'>Pladesamling</Link></h1>
             </div>
 
         </header>

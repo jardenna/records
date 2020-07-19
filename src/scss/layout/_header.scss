@@ -10,6 +10,9 @@
    font-family: $font-secondary;
    font-size: 40px;
 
+   a {
+      color: $color-white;
+   }
 
 
    @include mQ(947px) {

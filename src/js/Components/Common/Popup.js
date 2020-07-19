@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import DeleteBtn from '@components/records/Shared/DeleteBtn';
 
-function Popup({ showFooter, componentName, submit, onClick, id, selected, text, buttonType, deleteLinkTo, triggerBtnText, triggerBtnClassName, role, ariaType }) {
+function Popup({ showFooter, componentName, submit, onClick, id, selected, text, content, buttonType, deleteLinkTo, triggerBtnText, triggerBtnClassName, role, ariaType }) {
    const ariaHidden = selected.includes(id) ? false : true;
 
    return (
-      <div style={{ position: 'relative' }}>
+      <React.Fragment >
          <button className={'btn-' + triggerBtnClassName} onClick={onClick} aria-describedby={id}>{triggerBtnText}</button>
 
          {selected.includes(id) &&
@@ -21,7 +23,9 @@ function Popup({ showFooter, componentName, submit, onClick, id, selected, text,
                      <button className="icon-x" onClick={onClick} />
                   </header>
                   <div className="popup-content">
-                     {text}
+                     <p>{text}</p>
+                     {content && <h2>{content}</h2>}
+
                   </div>
 
                   {showFooter && <footer className="popup-footer">
@@ -31,17 +35,32 @@ function Popup({ showFooter, componentName, submit, onClick, id, selected, text,
                   </footer>}
                </div>
             </section>
-
-
-
-
-
          }
-
-
-      </div>
+      </React.Fragment>
    );
 
 }
 
 export default Popup;
+
+
+
+Popup.propTypes = {
+
+   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+   triggerBtnText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+   content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+   onClick: PropTypes.func.isRequired,
+   buttonType: PropTypes.string.isRequired,
+   selected: PropTypes.array.isRequired
+};
+Popup.defaultProps = {
+   componentName: 'modal',
+   triggerBtnClassName: 'btn-primary',
+   ariaType: 'modal',
+   role: 'modal',
+   linkTo: '/',
+   id: 1
+
+};

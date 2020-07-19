@@ -4,6 +4,7 @@ import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import useToggle from '@hooks/useToggle';
 
+import Context from '@commonReact/context';
 import { validateAuth } from '@common/validateAuth';
 import Popup from '@commonReact/Popup';
 
@@ -63,8 +64,17 @@ function Login() {
       }
    ];
 
+   const formObj = {
+      inputs,
+      btnText: 'Submit',
+      btnClass: 'primary',
+      onSubmit: handleSubmit,
+      onChange: handleChange,
+      onBlur: handleBlur
+   };
+
    return (
-      <div>
+      <Context.Provider value={formObj}>
 
          <div >
             {testObj1.map(genre =>
@@ -118,7 +128,7 @@ function Login() {
             onChange={handleChange}
             onBlur={handleBlur}
          />
-      </div>
+      </Context.Provider >
 
    );
 }

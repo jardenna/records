@@ -85,7 +85,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                <tr>
                   <th>
                      <Button
-                        type='button'
+
                         id={labels.artist}
                         text={labels.artist}
                         className={sortClassName('artist')}
@@ -105,7 +105,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   </th>
                   <th>
                      <Button
-                        type='button'
+
                         id={labels.title}
                         text={labels.title}
                         className={sortClassName('title')}
@@ -124,7 +124,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   </th>
                   <th>
                      <Button
-                        type='button'
+
                         id={labels.prodYear}
                         text={labels.prodYear}
                         className={sortClassName('prodYear')}
@@ -142,7 +142,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   </th>
                   <th>
                      <Button
-                        type='button'
+
                         id={labels.label}
                         text={labels.label}
                         className={sortClassName('label')}
@@ -161,7 +161,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
                   <th>
                      <Button
-                        type='button'
+
                         id={labels.origin}
                         text={labels.origin}
                         className={sortClassName('origin')}
@@ -174,11 +174,8 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         onClick={handleEmptyInput}
                         onToggleInput={() => onToggleInput('origin')}
                         classNameHidden={!selected.includes('origin') ? 'hidden' : null}
-
                      />
-
                   </th>
-
 
                   <th>Antal plader <span>{allRecords && allRecords.length}</span></th>
                </tr>
@@ -197,7 +194,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
                         <td>
                            <DetailsLink id={record._id} />
-
                            <Popup
                               onClick={() => toggle(record._id)}
                               submit={() => onDelete(record._id)}

@@ -8,12 +8,7 @@
         }
     }
 
-    .true {
-        &:after {
-            content: "*";
-            color: $color-red-light;
-        }
-    }
+
 
 
     .create-wrapper {
@@ -49,8 +44,6 @@
         font-size: 15px;
         padding: 20px 40px;
 
-        &:last-child {
-            margin-left: 20px;
-        }
+
     }
 }

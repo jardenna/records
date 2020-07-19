@@ -31,10 +31,11 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
       return <Loader />;
    }
 
+   const modalContent = `${title} med  ${artist}`;
    const { noInfo, deleteText, edit, deleteRecord } = CONTENT;
    const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
    return (
-      <div className="details">
+      <section className="details">
          <header className="details-header">
             <h2 className="details-artist">{artist}</h2>
             {' '}/{' '}
@@ -47,8 +48,6 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
                <img src={img} alt={artist} />
             </div>
             <section className="flex-2">
-
-
                <DetailsContent
                   text={origin === '' ? noInfo : origin}
                   label={labels.origin} />
@@ -92,8 +91,8 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
                   <Popup
                      onClick={() => toggle(_id)}
                      submit={() => onDelete(_id)}
-                     content={title}
-                     header={artist}
+                     content={modalContent}
+
                      text={deleteText}
                      buttonType="delete"
                      id={_id}
@@ -116,7 +115,7 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
 
          </div>
 
-      </div>
+      </section>
    );
 }
 

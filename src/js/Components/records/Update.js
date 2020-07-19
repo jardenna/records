@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
+import Context from '@commonReact/context';
 import { fetchDetails } from '@redux/actions/detailActions';
 import { updateRecordSuccess } from '@redux/actions/updateActions';
 import { createRecordRequest } from '@redux/actions/createActions';
@@ -165,20 +166,22 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
 
    ];
 
+   const formObj = {
+      inputs,
+      btnText: 'Submit',
+      onSubmit: handleSubmit,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: 'create-album flex-wrapper'
+   };
+
 
 
    return (
-      <Form
-         inputs={inputs}
-         btnText='Submit'
-         btnClass='primary'
-         onSubmit={handleSubmit}
-         onChange={handleChange}
-         onBlur={handleBlur}
-         className="create-album flex-wrapper"
-      />
+      <Context.Provider value={formObj}>
+         <Form />
 
-
+      </Context.Provider>
    );
 }
 
