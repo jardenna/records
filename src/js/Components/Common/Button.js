@@ -8,7 +8,7 @@ function Button(props) {
 			id={props.id}
 			className={props.className}
 			onClick={props.onClick}
-		>{props.text}</button>
+		>{props.btnText}</button>
 
 	);
 }
@@ -18,7 +18,7 @@ export default Button;
 Button.propTypes = {
 	type: PropTypes.string,
 	className: PropTypes.string,
-	text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+	btnText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	onClick: PropTypes.func
 };
 Button.defaultProps = {

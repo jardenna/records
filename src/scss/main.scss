@@ -104,3 +104,7 @@ img {
 .flex-4 {
   @include flex($values: 4, $basis: 65%, );
 }
+
+figure {
+  margin: 0;
+}

@@ -1,49 +1,42 @@
 ﻿.create-album {
+
+    &.flex-wrapper {
+        @include mQ($medium) {
+            display: block;
+        }
+    }
+
     .input-wrapper {
-        min-width: 45%;
-        max-width: 45%;
+        min-width: 48%;
+
+        @include mQ($large) {
+            min-width: 46%;
+        }
+
+        @include mQ($small) {
+            min-width: 100%;
+        }
+
+        &.image-preview-input {
+            min-width: 100%;
+        }
 
         &:nth-child(odd) {
             margin-right: 30px;
         }
     }
 
-
-
-
-    .create-wrapper {
-        width: 80%
-    }
-
-    .image-preview {
-        img {
-            max-width: 200px;
-            max-height: 200px;
-            margin-bottom: 30px;
-            display: block;
-        }
-    }
-
-    .image-wrapper {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 23%;
-    }
 }
 
 
 
-.content-footer {
-    text-align: right;
-    padding: 20px 0;
+.image-preview-wrapper {
+    text-align: center;
+}
 
-    a,
-    button {
-        min-width: 250px;
-        font-size: 15px;
-        padding: 20px 40px;
-
-
+.image-preview {
+    img {
+        max-width: 300px;
+        max-height: 300px;
     }
 }

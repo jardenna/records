@@ -10,10 +10,10 @@ const DeleteBtn = ({ onClick, linkTo }) => {
     const { deleteRecord } = CONTENT;
     return (
 
-        <Link to={linkTo} role="button">
+        <Link to={linkTo} role="button" className="btn-danger">
             <div
                 onClick={onClick}
-                className="btn-danger">
+            >
                 {deleteRecord}
             </div>
 

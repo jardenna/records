@@ -7,6 +7,7 @@ import endpoints from '@common/endpoints';
 
 import defaultImg from '@images/default.png';
 import DetailsLink from '@components/records/Shared/DetailsLink';
+import Figure from '@commonReact/Figure';
 
 
 import { fetchFirstSixStart } from '@redux/actions/homeActions';
@@ -34,7 +35,11 @@ function Home({ firstSix, fetchFirstSixStart, isLoading, error }) {
                <h2> {six.title}</h2>
 
                <div className="block-img">
-                  <img src={img} alt={six.artist} />
+                  <Figure
+                     src={img}
+                     alt={six.artist}
+                  />
+
                </div>
                <footer className='index-block-footer'>
 

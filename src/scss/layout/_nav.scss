@@ -6,7 +6,7 @@ $burgerColor: $color-gray-light;
 .main-nav {
 
    width: 100%;
-
+   text-align: right;
    margin: 0;
    background-color: $color-background;
 
@@ -22,11 +22,13 @@ $burgerColor: $color-gray-light;
 
    ul {
       list-style: none;
+      margin: 0;
+      padding: 0;
    }
 
    li {
       margin-right: 10px;
-      flex: 1;
+      display: inline-block;
 
       &:last-child {
          margin: 0;
@@ -64,5 +66,19 @@ $burgerColor: $color-gray-light;
          left: 0;
       }
    }
+
+}
+
+.main-headline {
+   position: absolute;
+   top: 200px;
+   left: 150px;
+   font-size: 17px;
+   color: #04515f;
+
+   @include mQ(1750px) {
+      left: 0;
+   }
+
 
 }

@@ -5,7 +5,7 @@ import useFormValidation from '@hooks/useFormValidation';
 import useToggle from '@hooks/useToggle';
 
 import Context from '@commonReact/context';
-import { validateAuth } from '@common/validateAuth';
+import { validateAuth } from '@common/validation/validateAuth';
 import Popup from '@commonReact/Popup';
 
 

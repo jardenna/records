@@ -8,6 +8,7 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
    const [file, setFile] = React.useState('');
    const [fileName, setFileName] = React.useState('');
    const [imgUpdated, setImgUpdated] = React.useState(false);
+   const [previewUrl, setPreviewUrl] = React.useState('');
 
 
    React.useEffect(() => {
@@ -40,7 +41,9 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
    }, [touched, values]);
 
    function handleChange(e) {
-      const { name, value } = e.target;
+      const reader = new FileReader();
+      const { name, value, files } = e.target;
+
 
       setValues({
          ...values,
@@ -48,8 +51,13 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
       });
 
       if (name === 'photo') {
-
-         setFile(e.target.files[0]);
+         const photoFile = files[0];
+         // console.log(photoFile.name);
+         reader.onloadend = () => {
+            setPreviewUrl(reader.result);
+         };
+         reader.readAsDataURL(photoFile);
+         setFile(photoFile);
          setFileName(name);
          setImgUpdated(true);
       }
@@ -81,7 +89,9 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
       errors,
       file,
       fileName,
-      imgUpdated
+      imgUpdated,
+      previewUrl,
+      previewUrlName: file.name
    };
 }
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Figure(props){
-	return(
-		<figure className={props.className && props.className}>
-			<img src={props.src} alt={props.alt}/>
+function Figure(props) {
+
+	return (
+		<figure className={props.className}>
+			<img src={props.src} alt={props.alt} />
+			{props.figcaption && <figcaption>{props.figcaption}</figcaption>}
 
 		</figure>
 	);
@@ -12,10 +14,15 @@ function Figure(props){
 export default Figure;
 
 
-Figure.propTypes ={
+Figure.propTypes = {
+	className: PropTypes.string,
+	src: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+	alt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+	figcaption: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 
-	className:PropTypes.string,
-	src:PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-	alt:PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+};
 
+Figure.defaultProps = {
+	className: 'figure',
+	alt: 'image'
 };

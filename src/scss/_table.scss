@@ -14,16 +14,21 @@
         svg {
             width: 30px;
 
+            @include mQ($medium) {
+                width: 20px;
+
+            }
         }
     }
-
-
 
     thead {
         tr {
             height: 100px;
-        }
 
+            @include mQ($medium) {
+                height: auto;
+            }
+        }
     }
 
     th {
@@ -36,9 +41,20 @@
         cursor: pointer;
         position: relative;
 
-        @include mQ(767px) {
-            display: none;
+        &:first-child {
+            width: 19%;
+
         }
+
+        .th-info {
+
+            @include mQ($medium) {
+                padding: 10px 0;
+                display: block;
+            }
+        }
+
+
 
         button {
             background: none;
@@ -49,6 +65,13 @@
             left: 20px;
             z-index: 20;
 
+            @include mQ($medium) {
+                left: 16px;
+                font-weight: 100;
+                font-size: 12px;
+                top: 4px;
+                padding: 10px 4px;
+            }
 
 
         }
@@ -58,6 +81,10 @@
             position: absolute;
             top: 21px;
             z-index: 10;
+
+            @include mQ($medium) {
+                top: 3px;
+            }
         }
 
 
@@ -74,7 +101,7 @@
                 border: none;
             }
 
-            @include mQ(767px) {
+            @include mQ($medium) {
                 display: block;
                 width: 100%;
             }
@@ -90,6 +117,12 @@
         margin-left: 10px;
         display: inline-block;
         right: -9px;
+
+        @include mQ($medium) {
+            right: -11px;
+
+
+        }
     }
 
     .descending:after {
@@ -100,6 +133,12 @@
         top: 7px;
         display: inline-block;
         right: -9px;
+
+        @include mQ($medium) {
+            right: -9px;
+            top: 6px;
+
+        }
     }
 
     tr {
@@ -107,10 +146,11 @@
         border-bottom: 1px solid $color-gray;
         height: 70px;
 
-        @include mQ(767px) {
+        @include mQ($medium) {
             display: block;
             padding: 0;
             border-bottom: none;
+            height: 263px;
         }
     }
 
@@ -122,13 +162,13 @@
             padding-right: 10px;
             padding-left: 0;
 
-            @include mQ(767px) {
+            @include mQ($medium) {
                 padding-right: 0;
                 padding-left: 10px;
             }
         }
 
-        @include mQ(767px) {
+        @include mQ($medium) {
             position: relative;
             padding-left: 50%;
             display: block;
@@ -139,7 +179,7 @@
         }
 
         &:first-child {
-            @include mQ(767px) {
+            @include mQ($medium) {
                 border-top: 1px solid $color-gray-dark;
                 border-bottom: 2px solid $color-blue;
                 font-weight: bold;
@@ -148,7 +188,7 @@
         }
 
         &:before {
-            @include mQ(767px) {
+            @include mQ($medium) {
                 content: attr(data-label);
                 display: inline-block;
                 margin-left: -100%;

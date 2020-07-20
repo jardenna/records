@@ -5,11 +5,11 @@ import { useParams, useHistory } from 'react-router-dom';
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import Context from '@commonReact/context';
+import { CONTENT } from '@common/constants/content';
 import { fetchDetails } from '@redux/actions/detailActions';
 import { updateRecordSuccess } from '@redux/actions/updateActions';
 import { createRecordRequest } from '@redux/actions/createActions';
-
-import { validateUpdate } from '@common/validateUpdate';
+import { validateUpdate } from '@common/validation/validateUpdate';
 
 function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, details }) {
    const id = useParams().id;
@@ -67,7 +67,9 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       errors,
       file,
       fileName,
-      imgUpdated } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
+      imgUpdated,
+      previewUrl,
+      previewUrlName } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
 
    const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = values;
 
@@ -101,27 +103,21 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       },
       {
          type: 'text',
+         name: 'released',
+         inputIdentifier: 'released',
+         label: 'Senest udgivet',
+         isRequired: false,
+         value: released,
+         error: errors.released
+
+      },
+      {
+         type: 'text',
          name: 'label',
          inputIdentifier: 'label',
          label: 'Plademærke',
          isRequired: false,
          value: label
-      },
-      {
-         type: 'textarea',
-         name: 'origin',
-         inputIdentifier: 'origin',
-         label: 'Oprindelse',
-         isRequired: false,
-         value: origin
-      },
-      {
-         type: 'text',
-         name: 'price',
-         inputIdentifier: 'price',
-         label: 'Pris',
-         isRequired: false,
-         value: price
       },
       {
          type: 'text',
@@ -131,22 +127,34 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          isRequired: false,
          value: recordNo
       },
+
+
       {
          type: 'text',
          name: 'numOfRecords',
          inputIdentifier: 'numOfRecords',
          label: 'Antal LP(er)',
          isRequired: false,
-         value: numOfRecords
+         value: numOfRecords,
+         error: errors.numOfRecords
       },
       {
          type: 'text',
-         name: 'released',
-         inputIdentifier: 'released',
-         label: 'Senest udgivet',
+         name: 'price',
+         inputIdentifier: 'price',
+         label: 'Pris',
          isRequired: false,
-         value: released
+         value: price,
+         error: errors.price
+      },
 
+      {
+         type: 'textarea',
+         name: 'origin',
+         inputIdentifier: 'origin',
+         label: 'Oprindelse',
+         isRequired: false,
+         value: origin
       },
       {
          type: 'textarea',
@@ -160,26 +168,32 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          type: 'file',
          name: 'photo',
          inputIdentifier: 'cover',
-         label: 'Indsæt billede',
-         isRequired: false
+
+         isRequired: false,
+         previewClassName: 'image-preview-input'
       }
 
    ];
 
+
+   const { imgUpload, noImgUpload } = CONTENT;
    const formObj = {
       inputs,
-      btnText: 'Submit',
+      btnText: 'Gem',
       onSubmit: handleSubmit,
       onChange: handleChange,
       onBlur: handleBlur,
-      className: 'create-album flex-wrapper'
+      className: 'flex-wrapper flex-4',
+      previewUrl,
+      showPreviewImage: true,
+      noImgUpload,
+      imgUpload,
+      previewUrlName
    };
-
-
 
    return (
       <Context.Provider value={formObj}>
-         <Form />
+         <section className="flex-wrapper create-album"><Form /></section>
 
       </Context.Provider>
    );

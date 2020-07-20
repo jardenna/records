@@ -39,8 +39,13 @@
 
 
       @include mQ($medium) {
-         font-size: 30px;
-         margin: 20px;
+         font-size: 50px;
+         top: 60px;
+      }
+
+      @include mQ($small) {
+         font-size: 34px;
+         top: 30px
       }
 
    }

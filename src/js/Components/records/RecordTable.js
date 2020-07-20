@@ -87,7 +87,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      <Button
 
                         id={labels.artist}
-                        text={labels.artist}
+                        btnText={labels.artist}
                         className={sortClassName('artist')}
                         onClick={() => sortFunc('artist')}
 
@@ -107,7 +107,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      <Button
 
                         id={labels.title}
-                        text={labels.title}
+                        btnText={labels.title}
                         className={sortClassName('title')}
                         onClick={() => sortFunc('title')}
 
@@ -126,7 +126,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      <Button
 
                         id={labels.prodYear}
-                        text={labels.prodYear}
+                        btnText={labels.prodYear}
                         className={sortClassName('prodYear')}
                         onClick={() => sortFunc('prodYear')}
                      />
@@ -144,7 +144,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      <Button
 
                         id={labels.label}
-                        text={labels.label}
+                        btnText={labels.label}
                         className={sortClassName('label')}
                         onClick={() => sortFunc('label')}
                      />
@@ -163,7 +163,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      <Button
 
                         id={labels.origin}
-                        text={labels.origin}
+                        btnText={labels.origin}
                         className={sortClassName('origin')}
                         onClick={() => sortFunc('origin')}
                      />
@@ -177,7 +177,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      />
                   </th>
 
-                  <th>Antal plader <span>{allRecords && allRecords.length}</span></th>
+                  <th><span className="th-info">Antal plader {allRecords && allRecords.length}</span></th>
                </tr>
             </thead>
             {rowLength ?

@@ -8,6 +8,7 @@ import { labels } from '@data/labels';
 import { CONTENT } from '@common/constants/content';
 import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
+import Figure from '@commonReact/Figure';
 import Popup from '@commonReact/Popup';
 import useToggle from '@hooks/useToggle';
 import { recordDeleted } from '@redux/actions/recordsActions';
@@ -18,12 +19,14 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
    const onDelete = id => {
       recordDeleted(id);
    };
-
+   const params = useParams();
+   const id = params.id;
    const [toggle, selected] = useToggle([], onDelete);
-   const id = useParams().id;
+
    React.useEffect(() => {
       fetchDetailsStart(id);
    }, []);
+
 
    const { _id, artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info, photo } = details;
 
@@ -45,7 +48,11 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
          <div className="block-container flex-wrapper">
 
             <div className="block-img flex-item">
-               <img src={img} alt={artist} />
+               <Figure
+                  src={img}
+                  alt={artist}
+               />
+
             </div>
             <section className="flex-2">
                <DetailsContent
@@ -74,7 +81,7 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
 
 
                <DetailsContent
-                  text={price === 0 ? noInfo : price + ',00'}
+                  text={price === null ? noInfo : price + ',00'}
                   label={labels.price} />
 
 

@@ -5,54 +5,69 @@ import Input from '@formElements/Input';
 import TextArea from '@formElements/TextArea';
 import Button from '@commonReact/Button';
 import useCustomContext from '@hooks/useCustomContext';
-
+import ImagePreview from '@formElements/ImagePreview';
 
 function Form(props) {
 
 	const formContext = useCustomContext();
+	const { btnVaiant, btnText, onSubmit, className, inputs, showPreviewImage } = formContext;
 
-	const btnClass = `btn-${formContext.btnVaiant ? formContext.btnVaiant : props.btnVaiant}`;
+	const btnClass = `btn-${btnVaiant ? btnVaiant : props.btnVaiant}`;
 
 	return (
-		<form onSubmit={formContext.onSubmit} noValidate className={formContext.className}>
+		<React.Fragment>
 
-			{
-				formContext.inputs.map(input => {
+			<form onSubmit={onSubmit} noValidate className={className}>
 
-					return (
-						<Fragment key={input.inputIdentifier}>
-							{input.type !== 'textarea' ? <Input
-								type={input.type}
-								name={input.name}
-								value={input.value}
-								inputIdentifier={input.inputIdentifier}
-								label={input.label}
-								isRequired={input.isRequired}
-								error={input.error}
-							/> :
-								<TextArea
+				{
+					inputs.map(input => {
+
+						return (
+							<Fragment key={input.inputIdentifier}>
+								{input.type !== 'textarea' ? <Input
+									type={input.type}
 									name={input.name}
 									value={input.value}
 									inputIdentifier={input.inputIdentifier}
 									label={input.label}
 									isRequired={input.isRequired}
 									error={input.error}
+									previewClassName={input.previewClassName}
+								/> :
+									<TextArea
+										name={input.name}
+										value={input.value}
+										inputIdentifier={input.inputIdentifier}
+										label={input.label}
+										isRequired={input.isRequired}
+										error={input.error}
 
-								/>
-							}
+									/>
+								}
 
-						</Fragment>
-					);
-				})
+							</Fragment>
+						);
+					})
+				}
+				<footer className="form-footer">
+
+
+					<Button
+						type='submit'
+						className={btnClass}
+						btnText={btnText}
+					/>
+				</footer>
+
+
+			</form>
+
+
+			{showPreviewImage &&
+				<ImagePreview />
 			}
+		</React.Fragment>
 
-			<Button
-				type='submit'
-				className={btnClass}
-				text={formContext.btnText}
-			/>
-
-		</form>
 	);
 }
 export default Form;
@@ -60,7 +75,7 @@ export default Form;
 Form.propTypes = {
 	type: PropTypes.string,
 	className: PropTypes.string,
-	text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+	btnText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	onClick: PropTypes.func,
 	inputs: PropTypes.arrayOf(PropTypes.shape({
 		type: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -74,7 +89,9 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-	btnVaiant: 'primary'
+	btnVaiant: 'primary',
+	btnText: 'submit',
+	inputs: []
 };
 
 
