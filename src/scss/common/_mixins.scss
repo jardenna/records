@@ -110,6 +110,10 @@
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
+
+  @include mQ($small) {
+    display: block;
+  }
 }
 
 @mixin flex($values:1, $basis: 30%, $margin:30px) {

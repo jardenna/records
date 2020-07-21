@@ -76,6 +76,10 @@ img {
   overflow: hidden;
 }
 
+.disabled {
+
+  pointer-events: none;
+}
 
 .list {
   list-style: none;

@@ -1,16 +1,35 @@
+.disabled {
+   .selectbox {
+      color: $color-gray;
+   }
+
+}
+
 .selectbox {
 
    background-color: $color-white;
    position: relative;
    width: 200px;
+   margin: 10px 0;
+
+   @include mQ($small) {
+      width: 320px;
+
+   }
+
 
    &:focus {
-      background-color: $color-gray-lighter;
+      border: var(--focus);
+      outline: none;
    }
+
+
 
    .list {
 
       border: 1px solid $color-border;
+      border-bottom: none;
+      border-top: none;
    }
 
    .selectbox-option {

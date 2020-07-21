@@ -44,8 +44,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
 
-
-
    const onSelect = (count) => {
 
       setIsOpen(false);
@@ -68,6 +66,12 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
    };
 
+   React.useEffect(() => {
+      if (filteredText.length < rowsCount) {
+         setIsOpen(false);
+      }
+   });
+
    const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: 'Show all' }];
    const rowLength = filteredText.length !== 0;
    if (isLoading) {
@@ -75,6 +79,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    }
 
    const { noInfo, deleteText, noFoundRecord, deleteRecord, pagesNum, records } = CONTENT;
+   const disabled = filteredText.length < rowsCount;
 
 
    return (
@@ -216,7 +221,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      </tr>
 
                   )}
-               </tbody> : <tbody><tr><td colSpan="6">{noFoundRecord}</td></tr></tbody>}
+               </tbody> : <tbody><tr><td colSpan="6" className="td-info">{noFoundRecord}</td></tr></tbody>}
 
          </table>
          {rowLength &&
@@ -237,7 +242,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   {currentPage} af {filteredText.length} {records} / {maxPage} {pagesNum}
 
 
-                  <div className="record-table-select">
+                  <div className={`${disabled ? 'disabled' : ''} record-table-select`}>
                      <Selectbox
                         selectArr={selectArr}
                         onBlur={onBlur}
@@ -246,7 +251,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         isOpen={isOpen}
                         text={rowsCount}
                         active={active}
-
                      />
 
 

@@ -4,7 +4,6 @@ import TableHeader from './TableHeader';
 import { normalizeData, addId } from '@common/normalizeData';
 import Container from '@commonReact/Children/Container';
 import { cars, theadText } from '@data/cars';
-import { selectArr } from '@data/selectArr';
 import { objKeys } from '@utils/iteratorList';
 
 

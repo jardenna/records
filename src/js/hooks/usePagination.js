@@ -50,8 +50,6 @@ function usePagination(data, itemsPerPage, pageNeighbours) {
 
    const gotoPage = page => {
 
-      //const totalPages = Math.ceil(data.length / 10);
-
       const currentPage = Math.max(0, Math.min(page, data.length));
 
       setCurrentPage(currentPage);
@@ -90,7 +88,17 @@ function usePagination(data, itemsPerPage, pageNeighbours) {
    }
 
 
+
+
+
    const pages = createPageNumbers(currentPage);
+
+   React.useEffect(() => {
+      if (currentPage > data.length) {
+         setCurrentPage(1);
+      }
+
+   });
 
    return { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage };
 }

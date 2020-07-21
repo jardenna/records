@@ -1,5 +1,11 @@
 a[class^='btn-'],
 button {
+
+  @include mQ($small) {
+    min-width: 140px;
+  }
+
+
   color: $color-white;
   outline: none;
   border: 0;
@@ -12,15 +18,16 @@ button {
   @include transition();
   position: relative;
 
+
   &:focus {
     border: var(--focus);
   }
 
   a {
     color: $color-white;
-
-
   }
+
+
 
   &:last-child {
     margin: 0;

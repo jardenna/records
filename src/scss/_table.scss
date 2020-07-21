@@ -10,6 +10,8 @@
     margin-bottom: 10px;
     width: 100%;
 
+
+
     .search {
         svg {
             width: 30px;
@@ -27,6 +29,10 @@
 
             @include mQ($medium) {
                 height: auto;
+            }
+
+            @include mQ($small) {
+                display: none;
             }
         }
     }
@@ -150,7 +156,7 @@
             display: block;
             padding: 0;
             border-bottom: none;
-            height: 263px;
+            height: 303px;
         }
     }
 
@@ -162,9 +168,17 @@
             padding-right: 10px;
             padding-left: 0;
 
-            @include mQ($medium) {
-                padding-right: 0;
+            &.td-info {
                 padding-left: 10px;
+            }
+
+            @include mQ($medium) {
+                text-align: right;
+            }
+
+            @include mQ($small) {
+                padding: 10px 0;
+                text-align: center;
             }
         }
 
