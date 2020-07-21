@@ -36,7 +36,8 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
 
    const modalContent = `${title} med  ${artist}`;
    const { noInfo, deleteText, edit, deleteRecord } = CONTENT;
-   const img = photo ? `${endpoints.uploads}${photo}` : defaultImg;
+   const uploadedPhoto = `${endpoints.uploads}${photo}`;
+   const img = photo ? uploadedPhoto : defaultImg;
    return (
       <section className="details">
          <header className="details-header">
@@ -76,12 +77,12 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
                   label={labels.recordNo} />
 
                <DetailsContent
-                  text={numOfRecords === null ? 1 : numOfRecords}
+                  text={numOfRecords === '' || numOfRecords === null ? 1 : numOfRecords}
                   label={labels.numOfRecords} />
 
 
                <DetailsContent
-                  text={price === null ? noInfo : price + ',00'}
+                  text={price === null || price === 0 ? noInfo : price + ',00'}
                   label={labels.price} />
 
 

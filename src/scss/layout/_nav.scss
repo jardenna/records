@@ -80,5 +80,9 @@ $burgerColor: $color-gray-light;
       left: 0;
    }
 
+   @include mQ($small) {
+      top: 130px;
+   }
+
 
 }

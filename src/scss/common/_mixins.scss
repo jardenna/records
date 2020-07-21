@@ -112,7 +112,7 @@
   flex-wrap: wrap;
 }
 
-@mixin flex($values:1, $basis: 30%, $grow: 0, $margin:30px) {
+@mixin flex($values:1, $basis: 30%, $margin:30px) {
   -webkit-box-flex: $values;
   -moz-box-flex: $values;
   -webkit-flex: $values;
@@ -121,7 +121,7 @@
   margin-right: $margin;
   position: relative;
   flex-basis: $basis;
-  flex-grow: $grow;
+
 
   &:last-child {
     margin-right: 0;

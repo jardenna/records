@@ -6,10 +6,14 @@ import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import Context from '@commonReact/context';
 import { CONTENT } from '@common/constants/content';
+import endpoints from '@common/endpoints';
+import { validateUpdate } from '@common/validation/validateUpdate';
+import defaultImg from '@images/default.png';
+
 import { fetchDetails } from '@redux/actions/detailActions';
 import { updateRecordSuccess } from '@redux/actions/updateActions';
 import { createRecordRequest } from '@redux/actions/createActions';
-import { validateUpdate } from '@common/validation/validateUpdate';
+
 
 function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, details }) {
    const id = useParams().id;
@@ -20,6 +24,7 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
    }, []);
 
    let history = useHistory();
+
    const recordId = {
       artist: details.artist,
       title: details.title,
@@ -68,10 +73,12 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       file,
       fileName,
       imgUpdated,
-      previewUrl,
-      previewUrlName } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
+      previewUrl } = useFormValidation(recordObj, handleUpdateOrCreate, validateUpdate, id);
 
    const { artist, title, prodYear, label, origin, price, recordNo, numOfRecords, released, info } = values;
+   const { photo } = details;
+   const albumPrice = price || price !== 0 && price;
+   const albumNo = numOfRecords || numOfRecords !== 0 ? numOfRecords : '';
 
    const inputs = [
       {
@@ -127,15 +134,13 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          isRequired: false,
          value: recordNo
       },
-
-
       {
          type: 'text',
          name: 'numOfRecords',
          inputIdentifier: 'numOfRecords',
          label: 'Antal LP(er)',
          isRequired: false,
-         value: numOfRecords,
+         value: albumNo,
          error: errors.numOfRecords
       },
       {
@@ -144,7 +149,7 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          inputIdentifier: 'price',
          label: 'Pris',
          isRequired: false,
-         value: price,
+         value: albumPrice,
          error: errors.price
       },
 
@@ -176,7 +181,9 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
    ];
 
 
-   const { imgUpload, noImgUpload } = CONTENT;
+
+   const uploadedPhoto = photo ? `${endpoints.uploads}${photo}` : defaultImg;
+   const { imgUpload } = CONTENT;
    const formObj = {
       inputs,
       btnText: 'Gem',
@@ -186,9 +193,10 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
       className: 'flex-wrapper flex-4',
       previewUrl,
       showPreviewImage: true,
-      noImgUpload,
       imgUpload,
-      previewUrlName
+      uploadedPhoto,
+      file,
+      altText: `${artist} ${title}`
    };
 
    return (

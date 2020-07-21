@@ -2,7 +2,10 @@
 
     .block-img {
         text-align: left;
-        max-width: 20%;
+
+        img {
+            max-width: 300px;
+        }
 
     }
 

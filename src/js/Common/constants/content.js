@@ -9,7 +9,6 @@ export const CONTENT = {
    pagesNum: 'side(r)',
    records: 'album',
    imgUpload: 'Billede upload',
-   noImgUpload: 'Intet billede er valgt',
    errorNumber: 'Skal være et tal',
    errorLogin: 'Password skal være mindst 6 tegn',
    required: 'Udfyld venligst feltet '

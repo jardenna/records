@@ -8,13 +8,24 @@
 }
 
 .block-container {
+
+    .flex-item {
+        margin: 0 15px;
+    }
+
+
+
     .block-item {
-        min-width: 450px;
-        height: 450px;
+        min-width: 380px;
         position: relative;
         color: #fff;
         padding: 25px;
         margin-bottom: 30px;
+
+        @include mQ($small) {
+            min-width: 100%;
+            margin: 10px 0;
+        }
 
         .index-block-btn {
             margin-right: 30px;
@@ -38,23 +49,30 @@
 
         &:nth-child(1) {
             background-color: $color-blue;
+
         }
 
         &:nth-child(2) {
             background-color: $color-gray-darker;
+
+
+
         }
 
         &:nth-child(3) {
             background-color: $color-red;
+
         }
 
         &:nth-child(4) {
             background-color: $color-gray-darker;
+
         }
 
         &:nth-child(5) {
             background-color: $color-gray-light;
             color: $color-black;
+
 
             button {
                 color: $color-black;
@@ -63,6 +81,7 @@
 
         &:nth-child(6) {
             background-color: $color-blue;
+            margin-right: 15px;
         }
 
 
@@ -80,17 +99,19 @@
         }
     }
 
-    .block-img {
-        text-align: center;
 
-        img {
-            max-width: 300px;
-        }
-    }
 
 
 
     footer {
         text-align: right;
+    }
+}
+
+.block-img {
+    text-align: center;
+
+    img {
+        max-width: 300px;
     }
 }

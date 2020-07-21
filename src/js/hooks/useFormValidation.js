@@ -90,8 +90,8 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
       file,
       fileName,
       imgUpdated,
-      previewUrl,
-      previewUrlName: file.name
+      previewUrl
+
    };
 }
 

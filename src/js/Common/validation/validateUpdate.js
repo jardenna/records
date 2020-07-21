@@ -7,9 +7,10 @@ export function validateUpdate(values) {
    const { errorNumber, required } = CONTENT;
 
    const valNum = inputValue => {
-      return !VALIDNUM.test(inputValue) && inputValue !== '' && inputValue;
+
+      return !VALIDNUM.test(inputValue) && inputValue !== ' ' && inputValue;
    };
-   console.log(numOfRecords);
+
    let errors = {};
 
    if (!artist) {
