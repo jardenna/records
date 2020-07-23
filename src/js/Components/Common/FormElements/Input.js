@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import useCustomContext from '@hooks/useCustomContext';
 import Label from '@formElements/Label';
