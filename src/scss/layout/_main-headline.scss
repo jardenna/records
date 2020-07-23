@@ -1,0 +1,23 @@
+.main-headline {
+   position: absolute;
+   top: 0;
+
+   font-size: 17px;
+   color: #04515f;
+
+   @include mQ(1750px) {
+      left: 0;
+   }
+
+   @include mQ($small) {
+      position: fixed;
+      top: 0;
+      z-index: 3;
+      text-align: right;
+      color: #fff;
+      right: 154px;
+      font-size: 15px;
+   }
+
+
+}

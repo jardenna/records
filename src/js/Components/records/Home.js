@@ -13,18 +13,26 @@ import Figure from '@commonReact/Figure';
 import { fetchFirstSixStart } from '@redux/actions/homeActions';
 
 function Home({ firstSix, fetchFirstSixStart, isLoading, error }) {
+
+
    React.useEffect(() => {
       fetchFirstSixStart();
    }, [fetchFirstSixStart]);
+
+
    if (isLoading) {
       return <Loader />;
    }
    if (error) {
       return <Error />;
    }
+
+
    return (
 
-      <section className="block-container flex-wrapper">
+      <section className="block-container flex-wrapper mobile-margin"  >
+
+
 
          {firstSix && firstSix.map(six => {
             const photo = six.photo;

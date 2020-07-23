@@ -20,9 +20,7 @@ function Login() {
       console.log(values);
    };
 
-   const onTest = (value) => {
-      console.log(value);
-   };
+
    const testObj = [
       { id: 1, item: 'Er du sikker på at du vil slette' },
       { id: 2, item: 'Arts' },
@@ -34,13 +32,11 @@ function Login() {
       { id: 21, item: 'Arts' }
    ];
    const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, login, validateAuth);
-   const [toggle, selected, submit, onBlur] = useToggle([], onTest);
+   const [toggle, selected, submit, onBlur] = useToggle([]);
 
 
 
    const { email, password } = values;
-
-
 
    const inputs = [
       {

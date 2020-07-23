@@ -87,17 +87,18 @@ function usePagination(data, itemsPerPage, pageNeighbours) {
       return data.slice(begin, end);
    }
 
-
-
-
-
    const pages = createPageNumbers(currentPage);
 
    React.useEffect(() => {
-      if (currentPage > data.length) {
+      if (currentPage >= data.length) {
          setCurrentPage(1);
       }
-
+      if (data.length <= itemsPerPage) {
+         setCurrentPage(1);
+      }
+      if (currentPage >= itemsPerPage) {
+         setCurrentPage(1);
+      }
    });
 
    return { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage };

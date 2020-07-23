@@ -85,7 +85,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    return (
       <React.Fragment>
 
-         <table className="record-table">
+         <table className="record-table mobile-margin">
             <thead>
                <tr>
                   <th>
@@ -104,7 +104,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         name='artist'
                         onClick={handleEmptyInput}
                         onToggleInput={() => onToggleInput('artist')}
-                        classNameHidden={!selected.includes('artist') ? 'hidden' : null}
+                        classNameHidden={!selected.includes('artist') ? 'hidden' : 'hidden max'}
 
                      />
                   </th>
@@ -124,7 +124,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         name='title'
                         onClick={handleEmptyInput}
                         onToggleInput={() => onToggleInput('title')}
-                        classNameHidden={!selected.includes('title') ? 'hidden' : null}
+                        classNameHidden={!selected.includes('title') ? 'hidden' : 'hidden max'}
                      />
                   </th>
                   <th>
@@ -142,7 +142,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         onClick={handleEmptyInput}
                         value={values.test}
                         onToggleInput={() => onToggleInput('test')}
-                        classNameHidden={!selected.includes('test') ? 'hidden' : null}
+                        classNameHidden={!selected.includes('test') ? 'hidden' : 'hidden max'}
                      />
                   </th>
                   <th>
@@ -159,7 +159,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         name='label'
                         onClick={handleEmptyInput}
                         onToggleInput={() => onToggleInput('label')}
-                        classNameHidden={!selected.includes('label') ? 'hidden' : null}
+                        classNameHidden={!selected.includes('label') ? 'hidden' : 'hidden max'}
 
                      />
                   </th>
@@ -178,7 +178,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         name='origin'
                         onClick={handleEmptyInput}
                         onToggleInput={() => onToggleInput('origin')}
-                        classNameHidden={!selected.includes('origin') ? 'hidden' : null}
+                        classNameHidden={!selected.includes('origin') ? 'hidden' : 'hidden max'}
                      />
                   </th>
 
@@ -239,8 +239,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   />
                </div>
                <div className="flex-item">
-                  {currentPage} af {filteredText.length} {records} / {maxPage} {pagesNum}
-
+                  {currentPage} af  {maxPage} {pagesNum} / {filteredText.length} {records}
 
                   <div className={`${disabled ? 'disabled' : ''} record-table-select`}>
                      <Selectbox

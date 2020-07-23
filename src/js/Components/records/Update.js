@@ -201,7 +201,7 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
 
    return (
       <Context.Provider value={formObj}>
-         <section className="flex-wrapper create-album"><Form /></section>
+         <section className="flex-wrapper create-album mobile-margin"><Form /></section>
 
       </Context.Provider>
    );

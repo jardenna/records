@@ -46,6 +46,10 @@ img {
   max-width: 1600px;
   margin: 0 auto;
   padding: 30px;
+
+  @include mQ($small) {
+    padding: 10px;
+  }
 }
 
 .text-bold {
@@ -68,12 +72,30 @@ img {
 }
 
 .hidden {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
+
+  @include transition($what: height);
+  height: 0;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 200px;
+
+}
+
+
+.max {
+  @include transition($what: height);
+  transition: height .3s ease-in-out;
+  overflow: auto;
+  height: 200px;
+  z-index: 20;
+}
+
+.mobile-margin {
+  @include mQ($small) {
+    margin-top: 91px;
+  }
+
 }
 
 .disabled {
@@ -90,8 +112,9 @@ img {
 .flex-wrapper {
   @include flexbox();
   position: relative;
-
 }
+
+
 
 .flex-item {
   @include flex();

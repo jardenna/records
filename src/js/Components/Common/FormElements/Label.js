@@ -26,5 +26,6 @@ Label.propTypes = {
 };
 
 Label.defaultProps = {
-   label: ''
+   label: '',
+   text: ''
 };

@@ -1,5 +1,3 @@
-@import '../common/mq';
-
 .main-header {
 
    background-size: 100%;
@@ -21,7 +19,10 @@
    }
 
    @include mQ($small) {
-      height: 131px;
+      height: 90px;
+      position: fixed;
+      width: 100%;
+      z-index: 2;
    }
 
    .container {
@@ -45,7 +46,7 @@
 
       @include mQ($small) {
          font-size: 34px;
-         top: 30px
+         top: 11px
       }
 
    }

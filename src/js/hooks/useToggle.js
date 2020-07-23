@@ -1,11 +1,12 @@
 import React from 'react';
 
 
-const useToggle = (initialState = [], callback) => {
+const useToggle = (initialState = []) => {
    const [selected, setSelected] = React.useState(initialState);
 
    const onBlur = () => {
       setSelected([]);
+
    };
 
    const selectedArr = (value) => {
@@ -16,13 +17,11 @@ const useToggle = (initialState = [], callback) => {
       selectedArr(value);
    };
 
-   const submit = (value) => {
-      callback(value);
-      setSelected([]);
 
-   };
 
-   return [toggle, selected, submit, onBlur];
+
+
+   return [toggle, selected, onBlur];
 };
 
 export default useToggle;

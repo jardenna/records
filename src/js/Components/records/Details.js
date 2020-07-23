@@ -21,7 +21,7 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
    };
    const params = useParams();
    const id = params.id;
-   const [toggle, selected] = useToggle([], onDelete);
+   const [toggle, selected] = useToggle([]);
 
    React.useEffect(() => {
       fetchDetailsStart(id);
@@ -39,7 +39,7 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
    const uploadedPhoto = `${endpoints.uploads}${photo}`;
    const img = photo ? uploadedPhoto : defaultImg;
    return (
-      <section className="details">
+      <section className="details mobile-margin">
          <header className="details-header">
             <h2 className="details-artist">{artist}</h2>
             {' '}/{' '}

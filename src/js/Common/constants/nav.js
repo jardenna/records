@@ -52,6 +52,7 @@ export const routes = [
    {
       path: '/login',
       main: Login,
+      link: login,
       sideBar: () => login
    }
 

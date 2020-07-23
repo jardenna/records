@@ -8,14 +8,12 @@ function MainHeader() {
         <header className="main-header" style={{
             backgroundImage: `url(${hero})`
         }}>
-            <div className="container">
+            <div className="main-wrapper">
                 <h1><Link to='/'>Pladesamling</Link></h1>
             </div>
 
         </header>
     );
 }
-
-
 
 export default MainHeader;
