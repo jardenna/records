@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Values({ test, placeholder, multiple, values, stopPropagation, onDeleteOption }) {
+function Values({ additionalText, placeholder, multiple, values, stopPropagation, onDeleteOption }) {
 
    if (values.length === 0) {
       return (
@@ -18,7 +18,7 @@ function Values({ test, placeholder, multiple, values, stopPropagation, onDelete
                onClick={stopPropagation}
                className="multiple value"
             >
-               {value} {test}
+               {value} {additionalText}
                <span
                   onClick={() => onDeleteOption(value)}
                   className={`delete ${'icon-x'}`}
@@ -31,7 +31,7 @@ function Values({ test, placeholder, multiple, values, stopPropagation, onDelete
 
    return (
       <div className="value">
-         {values[0]}{test}
+         {values[0]}{additionalText}
       </div>
    );
 

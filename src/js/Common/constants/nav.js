@@ -1,8 +1,6 @@
-
-
 import Home from '@components/records/Home';
 import Login from '@components/Login';
-//import Selectbox from '@components/Selectbox';
+import Selectbox from '@components/Selectbox';
 //import Table from '@components/Table/Table';
 import RecordTable from '@components/records/RecordTable';
 import Details from '@components/records/Details';
@@ -14,10 +12,11 @@ const NAV = {
    all: 'Se alle album',
    details: 'Detaljer',
    addAlbum: 'Tilføj album',
-   login: 'Log ind'
+   login: 'Log ind',
+   select: 'Select'
 };
 
-const { home, create, all, details, addAlbum, login } = NAV;
+const { home, create, all, details, addAlbum, login, select } = NAV;
 
 export const routes = [
    {
@@ -54,13 +53,12 @@ export const routes = [
       main: Login,
       link: login,
       sideBar: () => login
+   },
+   {
+      path: '/select',
+      main: Selectbox,
+      link: select,
+      sideBar: () => select
    }
 
 ];
-{/* <Route path='/table' component={Table} />
-<Route path='/select' component={Selectbox} /> 
-
-<Link className="main-nav-items" to="/table">Table</Link>
-
-<Link className="main-nav-items" to="/select">select</Link> 
-*/}

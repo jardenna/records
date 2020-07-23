@@ -12,11 +12,11 @@ import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
 import Selectbox from './Shared/Selectbox/Selectbox';
+import Select from '@formElements/SelectBox/Select';
 
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
 import usePagination from '@hooks/usePagination';
 import useToggle from '@hooks/useToggle';
-
 import useFilter from '@hooks/useFilter';
 
 function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDeleted }) {
@@ -36,25 +36,15 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    const [rowsCount, setRowsCount] = React.useState(10);
    const [active, setActive] = React.useState(10);
 
-   const [isOpen, setIsOpen] = React.useState(false);
+
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
 
-   const [toggle, selected, onBlur] = useToggle([], onDelete);
+   const [toggle, selected] = useToggle([], onDelete);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
 
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
 
-   const onSelect = (count) => {
 
-      setIsOpen(false);
-      setRowsCount(count);
-      setActive(count);
-   };
-
-   const onClick = () => {
-      setIsOpen(!isOpen);
-
-   };
 
    const onToggleInput = (value) => {
       toggle(value);
@@ -66,13 +56,9 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
    };
 
-   React.useEffect(() => {
-      if (filteredText.length < rowsCount) {
-         setIsOpen(false);
-      }
-   });
 
-   const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: 'Show all' }];
+
+   const selectArr = [{ id: 10, value: 10 }, { id: 20, value: 20 }, { id: 50, value: 50 }, { id: filteredText.length, value: filteredText.length }];
    const rowLength = filteredText.length !== 0;
    if (isLoading) {
       return <Loader />;
@@ -81,6 +67,10 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    const { noInfo, deleteText, noFoundRecord, deleteRecord, pagesNum, records } = CONTENT;
    const disabled = filteredText.length < rowsCount;
 
+   const callBack = (value) => {
+      setRowsCount(value);
+      setActive(value);
+   };
 
    return (
       <React.Fragment>
@@ -90,12 +80,10 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                <tr>
                   <th>
                      <Button
-
                         id={labels.artist}
                         btnText={labels.artist}
                         className={sortClassName('artist')}
                         onClick={() => sortFunc('artist')}
-
                      />
 
                      <Search
@@ -243,15 +231,12 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
                   <div className={`${disabled ? 'disabled' : ''} record-table-select`}>
                      <Selectbox
-                        selectArr={selectArr}
-                        onBlur={onBlur}
-                        onSelect={onSelect}
-                        onClick={onClick}
-                        isOpen={isOpen}
-                        text={rowsCount}
+                        placeholder={rowsCount}
+                        options={selectArr}
+                        callBack={callBack}
                         active={active}
+                        textLength={filteredText.length}
                      />
-
 
                   </div>
 

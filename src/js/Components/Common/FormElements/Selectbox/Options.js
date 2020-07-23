@@ -2,8 +2,9 @@ import React from 'react';
 
 import CheckBox from '@commonReact/svg/CheckBox';
 
-function Options({ options, multiple, isOpen, values, focusedValue, onClickOption }) {
+function Options({ options, multiple, isOpen, values, focusedValue, onClickOption, textLength }) {
 
+   console.log(textLength);
    if (!isOpen) {
       return null;
    }
