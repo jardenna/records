@@ -160,8 +160,7 @@ table {
             height: 263px;
         }
 
-        @include mQ(320px) {
-
+        @include mQ($mini) {
             height: 403px;
         }
     }
@@ -194,7 +193,7 @@ table {
             display: block;
         }
 
-        @include mQ(320px) {
+        @include mQ($mini) {
             padding-left: 14px;
 
         }
@@ -217,7 +216,7 @@ table {
                 white-space: nowrap;
             }
 
-            @include mQ(320px) {
+            @include mQ($mini) {
                 display: block;
                 margin-bottom: 0.5em;
                 margin-left: 0;

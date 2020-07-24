@@ -141,7 +141,7 @@
   }
 }
 
-@mixin transition($what: all, $time: 0.5s, $how: ease-in-out) {
+@mixin transition($what: all, $time: .5s, $how: ease-in-out) {
   -webkit-transition: $what $time $how;
   -moz-transition: $what $time $how;
   -ms-transition: $what $time $how;
