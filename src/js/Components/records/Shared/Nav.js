@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from '@common/constants/nav';
+import MenuBurger from '@commonReact/MenuBurger';
 import { Switch, Route } from 'react-router-dom';
 import useToggle from '@hooks/useToggle';
 import useScroll from '@hooks/useScroll';
@@ -14,16 +15,18 @@ function Nav() {
 
    const onToggleNav = (value) => {
       toggle(value);
+
    };
 
 
    return (
-      <div className={isSticky ? 'sticky' : ''} ref={ref}>
-         <span
-            className="mobile-button"
+      <div className={`${!selected.includes('mobile') ? '' : 'open-nav'} ${isSticky ? 'sticky' : ''} main-nav`} ref={ref}>
+
+         <MenuBurger
             onClick={() => onToggleNav('mobile')}
          />
-         <nav className={`${!selected.includes('mobile') ? '' : 'open-nav'} main-nav`}>
+
+         <nav className='main-nav'>
 
             <section className="main-wrapper">
                <ul>

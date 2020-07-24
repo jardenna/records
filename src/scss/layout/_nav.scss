@@ -1,4 +1,5 @@
 $burgerColor: $color-gray-light;
+$burgerColorActive: $color-gray-dark;
 
 .sticky {
    position: sticky;
@@ -12,7 +13,7 @@ $burgerColor: $color-gray-light;
    height: 30px;
    cursor: pointer;
    position: fixed;
-   z-index: 20;
+   z-index: 25;
    top: 13px;
    right: 20px;
    display: none;
@@ -34,6 +35,24 @@ $burgerColor: $color-gray-light;
    }
 }
 
+.open-nav {
+   @include transition();
+
+   .main-nav {
+      @include mQ($small) {
+         right: 0;
+      }
+   }
+
+   .mobile-button {
+      &:after {
+         background: $burgerColorActive;
+         box-shadow: 0 7px 0 $burgerColorActive, 0 14px 0 $burgerColorActive;
+
+      }
+   }
+}
+
 .main-nav {
    width: 100%;
    text-align: right;
@@ -41,18 +60,14 @@ $burgerColor: $color-gray-light;
    background-color: $color-background;
    position: relative;
 
-   &.open-nav {
 
-      @include transition();
-      right: 0;
-   }
 
    @include mQ($small) {
       text-align: left;
       @include transition();
       position: fixed;
       right: -200px;
-      top: 50px;
+      top: 0;
       width: 200px;
       height: 100%;
       z-index: 20;

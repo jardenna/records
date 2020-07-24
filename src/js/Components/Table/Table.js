@@ -13,8 +13,6 @@ const iterator = [...objKeys(cars)];
 function Table() {
    const tbodyData = normalizeData(addId(cars));
 
-
-
    return (
       <div>
          <table className="container">

@@ -3,7 +3,7 @@
     right: 0;
 }
 
-.record-table {
+table {
     border-spacing: 0;
     border-collapse: collapse;
     border: 1px solid $color-gray-dark;
@@ -52,6 +52,10 @@
 
         }
 
+        .btn-primary {
+            background-color: $color-blue;
+        }
+
         .th-info {
 
             @include mQ($medium) {
@@ -68,8 +72,9 @@
             min-width: auto;
             position: relative;
             top: -10px;
-            left: 20px;
-            z-index: 20;
+            left: 30px;
+            z-index: 2;
+            padding: 0;
 
             @include mQ($medium) {
                 left: 16px;
@@ -119,26 +124,22 @@
     .ascending:after {
         content: "";
         @include triangle($size:7px, $color:$color-blue-darkest, $dir:down);
-        top: 16px;
-        margin-left: 10px;
-        display: inline-block;
-        right: -9px;
+        top: 6px;
+
+        right: -21px;
 
         @include mQ($medium) {
             right: -11px;
-
+            top: 15px;
 
         }
     }
 
     .descending:after {
-
         content: "";
-
         @include triangle($size:7px, $color:$color-blue-darkest, $dir:up);
-        top: 7px;
-        display: inline-block;
-        right: -9px;
+        top: -3px;
+        right: -21px;
 
         @include mQ($medium) {
             right: -9px;
@@ -156,7 +157,12 @@
             display: block;
             padding: 0;
             border-bottom: none;
-            height: 303px;
+            height: 263px;
+        }
+
+        @include mQ(320px) {
+
+            height: 403px;
         }
     }
 
@@ -188,8 +194,9 @@
             display: block;
         }
 
-        @include mQ(360px) {
+        @include mQ(320px) {
             padding-left: 14px;
+
         }
 
         &:first-child {
@@ -210,10 +217,11 @@
                 white-space: nowrap;
             }
 
-            @include mQ(360px) {
+            @include mQ(320px) {
                 display: block;
                 margin-bottom: 0.5em;
                 margin-left: 0;
+                font-weight: 700;
             }
         }
     }
