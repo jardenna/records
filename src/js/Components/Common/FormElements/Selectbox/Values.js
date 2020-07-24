@@ -31,7 +31,7 @@ function Values({ additionalText, placeholder, multiple, values, stopPropagation
 
    return (
       <div className="value">
-         {values[0]}{additionalText}
+         {values[0]} {additionalText}
       </div>
    );
 

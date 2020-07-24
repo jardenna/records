@@ -1,6 +1,6 @@
 import Home from '@components/records/Home';
 import Login from '@components/Login';
-import Selectbox from '@components/Selectbox';
+import Selectbo from '../../Components/Selectbo';
 //import Table from '@components/Table/Table';
 import RecordTable from '@components/records/RecordTable';
 import Details from '@components/records/Details';
@@ -56,7 +56,7 @@ export const routes = [
    },
    {
       path: '/select',
-      main: Selectbox,
+      main: Selectbo,
       link: select,
       sideBar: () => select
    }

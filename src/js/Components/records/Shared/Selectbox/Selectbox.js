@@ -2,11 +2,11 @@ import React from 'react';
 
 import Options from '@formElements/SelectBox/Options';
 import Values from '@formElements/SelectBox/Values';
-import useFocus from '@hooks/useFocus';
+import useSelectbox from '@hooks/useSelectbox';
 
-function SelectBox({ options, label, multiple, placeholder, zIndex, callBack, textLength }) {
+function SelectBox({ options, label, multiple, placeholder, zIndex, callBack }) {
 
-   const [onBlur, onKeyDown, values, stopPropagation, onDeleteOption, isOpen, focusedValue, onClickOption, onClick] = useFocus(options, multiple, placeholder, callBack);
+   const [onBlur, onKeyDown, values, stopPropagation, onDeleteOption, isOpen, focusedValue, onClickOption, onClick] = useSelectbox(options, multiple, placeholder, callBack);
 
    return (
 
@@ -26,18 +26,16 @@ function SelectBox({ options, label, multiple, placeholder, zIndex, callBack, te
                stopPropagation={stopPropagation}
                onDeleteOption={onDeleteOption}
             />
-
             <span className={`chevron ${isOpen ? 'chevron-up' : 'chevron-down'}`} />
 
          </div>
          <Options
             options={options}
-            isOpen={isOpen}
             multiple={multiple}
             values={values}
+            isOpen={isOpen}
             focusedValue={focusedValue}
             onClickOption={onClickOption}
-            textLength={textLength}
          />
       </section>
 

@@ -2,8 +2,10 @@ import React from 'react';
 import { LEFT_PAGE, RIGHT_PAGE } from '../Components/Common/Pagination/constants';
 const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
-function usePagination(data, itemsPerPage, pageNeighbours) {
+function usePagination(data, rowsCount, pageNeighbours) {
    const [currentPage, setCurrentPage] = React.useState(1);
+
+   const itemsPerPage = typeof rowsCount === 'number' ? rowsCount : data.length;
 
    // Number of  pages
    const maxPage = Math.ceil(data.length / itemsPerPage);
