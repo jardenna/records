@@ -1,5 +1,6 @@
 import React from 'react';
-import Selectbox from './records/Shared/Selectbox/Selectbox';
+import Selectbox from '@formElements/Selectbox/Selectbox';
+import Context from '@commonReact/context';
 
 import { cars } from '@data/cars';
 import { selectArr } from '@data/selectArr';
@@ -9,17 +10,20 @@ let selectOptions = selectArr.map(elm => ({ value: elm.myName }));
 
 function Selectbo() {
 
-   const callBack = (value) => {
-      console.log(value);
+
+
+   const initObj = {
+      options: selectArr
+
    };
    return (
-      <div>
+      <Context.Provider value={initObj}>
          <Selectbox
             label="React Select"
             placeholder="Pick one"
             options={selectOptions}
             zIndex={4}
-            callBack={callBack}
+
          />
          <Selectbox
             label="React Select"
@@ -38,7 +42,7 @@ function Selectbo() {
 
          />
 
-      </div>
+      </Context.Provider>
    );
 }
 

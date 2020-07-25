@@ -6,7 +6,7 @@ import useSelectbox from '@hooks/useSelectbox';
 
 function SelectBox({ options, label, multiple, placeholder, zIndex, callBack }) {
 
-   const [onBlur, onKeyDown, values, stopPropagation, onDeleteOption, isOpen, focusedValue, onClickOption, onClick] = useSelectbox(options, multiple, placeholder, callBack);
+   const [onBlur, onKeyDown, values, onDeleteOption, isOpen, focusedValue, onClickOption, onClick] = useSelectbox(options, multiple, placeholder, callBack);
 
    return (
 
@@ -23,7 +23,6 @@ function SelectBox({ options, label, multiple, placeholder, zIndex, callBack }) 
                placeholder={placeholder}
                multiple={multiple}
                values={values}
-               stopPropagation={stopPropagation}
                onDeleteOption={onDeleteOption}
             />
             <span className={`chevron ${isOpen ? 'chevron-up' : 'chevron-down'}`} />

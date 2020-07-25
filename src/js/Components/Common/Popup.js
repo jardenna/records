@@ -7,7 +7,7 @@ function Popup({ showFooter, componentName, submit, onClick, id, selected, text,
    const ariaHidden = selected.includes(id) ? false : true;
 
    return (
-      <React.Fragment >
+      <div className="popup-wrapper">
          <button className={'btn-' + triggerBtnClassName} onClick={onClick} aria-describedby={id}>{triggerBtnText}</button>
 
          {selected.includes(id) &&
@@ -36,7 +36,7 @@ function Popup({ showFooter, componentName, submit, onClick, id, selected, text,
                </div>
             </section>
          }
-      </React.Fragment>
+      </div>
    );
 
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Values({ additionalText, placeholder, multiple, values, stopPropagation, onDeleteOption }) {
+function Values({ additionalText, placeholder, multiple, values, onDeleteOption }) {
 
    if (values.length === 0) {
       return (
@@ -11,22 +11,26 @@ function Values({ additionalText, placeholder, multiple, values, stopPropagation
    }
 
    if (multiple) {
-      return values.map((value, index) => {
-         return (
-            <span
-               key={index}
-               onClick={stopPropagation}
-               className="multiple value"
-            >
-               {value} {additionalText}
-               <span
-                  onClick={() => onDeleteOption(value)}
-                  className={`delete ${'icon-x'}`}
-               />
+      return (
+         <div className="value-wrapper">
+            {
+               values.map((value, index) => (
+                  <span
+                     key={index}
 
-            </span>
-         );
-      });
+                     className="multiple value"
+                  >
+                     {value} {additionalText}
+                     <span
+                        onClick={() => onDeleteOption(value)}
+                        className={`delete ${'icon-x'}`}
+                     />
+
+                  </span>
+               ))
+            }
+         </div>
+      );
    }
 
    return (

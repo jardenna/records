@@ -5,59 +5,12 @@
 
 }
 
-.selectbox {
-
-   background-color: $color-white;
-   position: relative;
-   width: 200px;
-   margin: 10px 0;
-
-   @include mQ($small) {
-      width: 320px;
-
-   }
 
 
-   &:focus {
-      border: var(--focus);
-      outline: none;
-   }
+.value-wrapper {
+   margin-right: 10px;
 
-
-
-   .list {
-      border: 1px solid $color-border;
-      border-bottom: none;
-      border-top: none;
-   }
-
-   .selectbox-option {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border-bottom: 1px solid $color-border;
-      color: inherit;
-
-
-      &:last-child {
-         border-bottom: none;
-      }
-
-      &.active,
-      &:hover {
-         background: $color-blue;
-         color: $color-white;
-      }
-   }
-
-   .chevron-down:after {
-      position: absolute;
-      top: 11px;
-      right: 10px;
-   }
 }
-
-
 
 $main-light: #d9f2fb;
 $main: #7fd0c9;
@@ -105,12 +58,21 @@ $main: #7fd0c9;
    margin-right: 5px;
    background: $color-blue;
    color: $color-gray-light;
+
+   .icon-x {
+      &:after {
+
+         color: #fff;
+         right: auto;
+         top: 0;
+      }
+   }
 }
 
 .delete {
    position: absolute;
    top: 0;
-   right: 0;
+   right: 5px;
    display: block;
    padding: 10px;
    font-size: 10px;

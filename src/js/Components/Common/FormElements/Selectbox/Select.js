@@ -176,9 +176,7 @@ function Select({ options, label, multiple, placeholder, zIndex }) {
 
 	};
 
-	const stopPropagation = (e) => {
-		e.stopPropagation();
-	};
+
 
 	return (
 		<Fragment>
@@ -195,7 +193,6 @@ function Select({ options, label, multiple, placeholder, zIndex }) {
 						placeholder={placeholder}
 						multiple={multiple}
 						values={values}
-						stopPropagation={stopPropagation}
 						onDeleteOption={onDeleteOption}
 					/>
 

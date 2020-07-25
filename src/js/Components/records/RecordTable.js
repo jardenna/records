@@ -11,8 +11,7 @@ import Loader from '@commonReact/Loader';
 import { useSorting } from '@hooks/useSorting';
 import Button from '@commonReact/Button';
 import Search from '@commonReact/Search';
-import Selectbox from './Shared/Selectbox/Selectbox';
-
+import Selectbox from '@formElements/Selectbox/Selectbox';
 import PaginationNav from '@commonReact/Pagination/PaginationNav';
 import usePagination from '@hooks/usePagination';
 import useToggle from '@hooks/useToggle';

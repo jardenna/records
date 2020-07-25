@@ -1,16 +1,20 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { CONTENT } from '@common/constants/content';
 
 
 
 const DeleteBtn = ({ onClick, linkTo }) => {
+    const history = useHistory();
+
+    const pathName = history.location.pathname;
+
     const { deleteRecord } = CONTENT;
     return (
 
-        <Link to={linkTo} role="button" className="btn-danger">
+        <Link to={linkTo && pathName} role="button" className="btn-danger">
             <div
                 onClick={onClick}
             >

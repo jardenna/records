@@ -164,11 +164,9 @@ function useSelectbox(options, multiple, placeholder, callBack = () => { }) {
 
    };
 
-   const stopPropagation = (e) => {
-      e.stopPropagation();
-   };
 
-   return [onBlur, onKeyDown, values, stopPropagation, onDeleteOption, isOpen, focusedValue, onClickOption, onClick];
+
+   return [onBlur, onKeyDown, values, onDeleteOption, isOpen, focusedValue, onClickOption, onClick];
 }
 
 export default useSelectbox;
