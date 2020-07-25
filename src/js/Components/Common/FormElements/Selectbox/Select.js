@@ -19,7 +19,7 @@ function Select({ options, label, multiple, placeholder, zIndex }) {
 	useTimeout(() => setTyped(''), 1000, typed);
 
 	const onBlur = () => {
-		setIsOpen(false);
+
 		if (multiple) {
 			setFocusedValue(-1);
 

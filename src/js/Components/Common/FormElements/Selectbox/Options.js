@@ -1,7 +1,5 @@
 import React from 'react';
 
-import CheckBox from '@commonReact/svg/CheckBox';
-
 function Options({ options, multiple, isOpen, values, focusedValue, onClickOption }) {
 
    if (!isOpen) {
@@ -18,9 +16,6 @@ function Options({ options, multiple, isOpen, values, focusedValue, onClickOptio
                let className = 'option';
                if (selected) className += ' selected';
                if (index === focusedValue) className += ' focused';
-
-
-
                return (
                   <li
                      key={index}
@@ -29,11 +24,8 @@ function Options({ options, multiple, isOpen, values, focusedValue, onClickOptio
                      onClick={() => onClickOption(value)}
                      aria-selected={selected ? true : null}
                   >
-                     {multiple ?
-                        <span className="checkbox">
-                           {selected ? <CheckBox /> : null}
-                        </span> :
-                        null
+                     {multiple &&
+                        <span className={`checkbox ${selected ? 'icon-checkmark' : null}`} />
                      }
                      {value}
                   </li>

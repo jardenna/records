@@ -2,22 +2,11 @@
    .selectbox {
       color: $color-gray;
    }
-
 }
-
-
 
 .value-wrapper {
    margin-right: 10px;
-
 }
-
-$main-light: #d9f2fb;
-$main: #7fd0c9;
-
-
-
-
 
 .select {
    position: relative;
@@ -26,8 +15,6 @@ $main: #7fd0c9;
 
    &:focus {
       outline: 0;
-
-
    }
 }
 
@@ -81,7 +68,6 @@ $main: #7fd0c9;
 
 .placeholder {
    padding: 5px 10px;
-
 }
 
 .chevron {
@@ -90,8 +76,6 @@ $main: #7fd0c9;
    right: 5px;
    display: block;
    padding: 10px;
-
-
 }
 
 .options {
@@ -113,9 +97,9 @@ $main: #7fd0c9;
    cursor: pointer;
 
    &.selected {
-      border: 1px solid $main;
+      border: 1px solid $color-green-dark;
       margin: -1px -1px 0;
-      background: $main-light;
+      background-color: $color-white;
    }
 
    &.focused {
@@ -124,20 +108,20 @@ $main: #7fd0c9;
 }
 
 .checkbox {
-   content: '';
    vertical-align: top;
    display: inline-block;
    width: 16px;
    height: 16px;
-   padding: 2px;
+   padding: 4px;
+   padding-top: 2px;
    border: 1px solid $color-border;
    border-radius: 2px;
    margin: 2px 12px 0 0;
-   color: $color-white;
    font-size: 10px;
 
    .selected & {
       border-color: $color-blue;
-      background: $main;
+      background-color: $color-white;
+
    }
 }
