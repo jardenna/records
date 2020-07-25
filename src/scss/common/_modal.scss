@@ -1,11 +1,44 @@
-﻿.modal {
+﻿.popup-overlay {
     position: fixed;
-    background-color: rgba(53, 53, 53, .85);
+    background-color: transparent;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    z-index: 2000;
+
+}
+
+.overlay-background {
+    .popup-overlay {
+        background-color: $color-background-rgba;
+        z-index: 200;
+    }
+}
+
+.modal {
+    background: $color-white;
+    position: fixed;
+    width: 700px;
+    left: 50%;
+    top: 10%;
+    margin: auto -350px;
+    z-index: 220;
+    text-align: center;
+
+    &.popup-small {
+        width: 600px;
+        margin: auto -300px;
+    }
+
+    &.popup-large {
+        width: 900px;
+        margin: auto -450px;
+    }
+
+    .popup-footer {
+        margin-top: 30px;
+        text-align: center;
+    }
 
     .popup-header {
 
@@ -17,31 +50,7 @@
         min-height: 150px;
     }
 
-    .popup-inner {
-        background: $color-white;
-        position: absolute;
-        width: 700px;
-        left: 50%;
-        top: 10%;
-        margin: auto -350px;
-        top: 10%;
-        text-align: center;
 
-        &.popup-small {
-            width: 600px;
-            margin: auto -300px;
-        }
-
-        &.popup-large {
-            width: 900px;
-            margin: auto -450px;
-        }
-
-        .popup-footer {
-            margin-top: 30px;
-            text-align: center;
-        }
-    }
 }
 
 .popup-wrapper {
@@ -75,65 +84,4 @@
             border: 1px dotted $color-primary-text;
         }
     }
-}
-
-.tooltip {
-    position: absolute;
-    width: 180px;
-    background-color: $color-gray-dark;
-    color: $color-white;
-    text-align: center;
-    border-radius: 5px;
-    z-index: 10;
-    top: 50%;
-    transform: translate(157px, -50%);
-    box-shadow: 6px 6px 14px -4px rgba(0, 0, 0, 0.39);
-
-    .icon-x:after {
-        top: 1px;
-        color: $color-white;
-    }
-
-    &:before {
-        content: '';
-        position: absolute;
-        display: block;
-        border: 5px solid transparent;
-        top: 50%;
-        transform: translate(.5em, -50%);
-    }
-}
-
-.tooltip-top {
-    transform: translate(-10px, -128%);
-
-    &::before {
-        left: 50%;
-        transform: translate(-53%, 0px);
-        top: 100%;
-        border-bottom-width: 0;
-        border-top-color: $color-gray-dark;
-    }
-}
-
-.tooltip-bottom {
-    top: 100%;
-    transform: translate(-10px, 2%);
-
-    &::before {
-        top: 100%;
-        border-top-width: 0;
-        border-bottom-color: $color-gray-dark;
-        left: 50%;
-        transform: translate(-50%, -89px);
-    }
-}
-
-.tooltip-right {
-    &:before {
-        border-left-width: 0;
-        border-right-color: $color-gray-dark;
-        right: calc(192px - 5px);
-    }
-
 }

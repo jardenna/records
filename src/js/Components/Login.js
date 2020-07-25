@@ -2,7 +2,7 @@ import React from 'react';
 
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
-import useToggle from '@hooks/useToggle';
+
 
 import Context from '@commonReact/context';
 import { validateAuth } from '@common/validation/validateAuth';
@@ -32,7 +32,7 @@ function Login() {
       { id: 21, item: 'Arts' }
    ];
    const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, login, validateAuth);
-   const [toggle, selected, submit, onBlur] = useToggle([]);
+
 
 
 
@@ -65,8 +65,8 @@ function Login() {
       btnText: 'Submit',
       btnClass: 'primary',
       onSubmit: handleSubmit,
-      onChange: handleChange,
-      onBlur: handleBlur
+      onChange: handleChange
+
    };
 
    return (
@@ -75,19 +75,19 @@ function Login() {
          <div >
             {testObj1.map(genre =>
                <Popup key={genre.id}
-                  onClick={() => toggle(genre.id)}
-                  selected={selected}
+
                   id={genre.id}
                   text={genre.item}
-                  onBlur={onBlur}
-                  submit={() => submit(genre.id)}
+
+                  callback={() => console.log(456)}
                   buttonType={'delete'}
                   deleteLinkTo={'/'}
                   triggerBtnClassName={'danger'}
                   triggerBtnText={'Slet'}
                   role={'tooltip'}
                   componentName={'tooltip'}
-                  focus={focus === genre.id - 1}
+                  tooltipDirection={'right'}
+
                />
             )}
 
@@ -96,12 +96,13 @@ function Login() {
          <div style={{ marginTop: 80 }}>
             {testObj.map(genre =>
                <Popup key={genre.id}
-                  onClick={() => toggle(genre.id)}
-                  selected={selected}
+
+                  callback={() => console.log(56)}
+
                   id={genre.id}
                   text={genre.item}
-                  onBlur={onBlur}
-                  submit={() => submit(genre.id)}
+
+
                   buttonType={'delete'}
                   deleteLinkTo={'/'}
                   triggerBtnClassName={'danger'}

@@ -34,7 +34,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
    const [rowsCount, setRowsCount] = React.useState(10);
    const { sortedItems, sortFunc, sortClassName } = useSorting(allRecords);
 
-   const [toggle, selected] = useToggle([], onDelete);
+   const [toggle, selected] = useToggle([]);
    const { handleChange, values, handleEmptyInput, filteredText } = useFilter(searchObj, sortedItems);
 
    const { next, prev, jump, currentData, currentPage, maxPage, pages, nextPage, prevPage } = usePagination(filteredText, rowsCount, 2);
@@ -46,6 +46,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
    const onDelete = id => {
       recordDeleted(id);
+
    };
 
    const selectArr = [{ value: 10 }, { value: 20 }, { value: 50 }, { value: 'Show all' }];
@@ -178,22 +179,18 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         <td>
                            <DetailsLink id={record._id} />
                            <Popup
-                              onClick={() => toggle(record._id)}
-                              submit={() => onDelete(record._id)}
+                              callback={() => onDelete(record._id)}
                               content={record.title}
                               header={record.artist}
                               text={deleteText}
                               buttonType="delete"
                               id={record._id}
-                              deleteLinkTo={'/all'}
                               triggerBtnClassName="danger"
                               triggerBtnText={deleteRecord}
                               role="dialog"
                               ariaType="modal"
                               componentName="modal"
                               showFooter
-                              selected={selected}
-
                            />
                         </td>
                      </tr>
