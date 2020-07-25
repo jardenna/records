@@ -1,10 +1,23 @@
 ﻿.details {
 
+    .flex-wrapper {
+        &.details-content-wrapper {
+            @include mQ($small) {
+                display: flex;
+                margin-left: 15px;
+            }
+        }
+
+    }
+
     .block-img {
         text-align: left;
 
         img {
-            max-width: 300px;
+
+            @include mQ($small) {
+                max-width: 200px;
+            }
         }
 
     }
@@ -16,6 +29,13 @@
             display: inline-block;
             font-size: 39px;
             font-weight: 400;
+            margin-right: 0;
+
+            @include mQ($small) {
+                font-size: 24px;
+                margin: 10px;
+            }
+
         }
     }
 
@@ -28,6 +48,10 @@
     .details-content {
 
         margin: 10px 0;
+
+        @include mQ($small) {
+            margin: 3px 0;
+        }
 
 
     }

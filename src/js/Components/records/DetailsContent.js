@@ -2,16 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DetailsContent = ({ text, label }) => {
-
    return (
-
-
-      <div className="flex-wrapper">
+      <div className="flex-wrapper details-content-wrapper">
          <span className="details-content flex-item text-bold">{label}:</span>
          <span className="details-content flex-item">{text}</span>
 
       </div>
-
 
    );
 

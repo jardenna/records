@@ -55,12 +55,11 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
       return <Loader />;
    }
 
-   const { noInfo, deleteText, noFoundRecord, deleteRecord, pagesNum, records } = CONTENT;
+   const { noInfo, deleteText, noFoundRecord, deleteRecord, pagesNum, records, numOfRecords } = CONTENT;
    const disabled = filteredText.length < rowsCount;
 
    const callBack = (value) => {
       setRowsCount(value);
-
    };
 
    return (
@@ -84,7 +83,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         onClick={handleEmptyInput}
                         onToggleInput={() => onToggleInput('artist')}
                         classNameHidden={!selected.includes('artist') ? 'hidden' : 'hidden max'}
-
                      />
                   </th>
                   <th>
@@ -94,7 +92,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                         btnText={labels.title}
                         className={sortClassName('title')}
                         onClick={() => sortFunc('title')}
-
                      />
 
                      <Search
@@ -108,7 +105,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                   </th>
                   <th>
                      <Button
-
                         id={labels.prodYear}
                         btnText={labels.prodYear}
                         className={sortClassName('prodYear')}
@@ -145,7 +141,6 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
 
                   <th>
                      <Button
-
                         id={labels.origin}
                         btnText={labels.origin}
                         className={sortClassName('origin')}
@@ -161,7 +156,7 @@ function RecordTable({ fetchAllRecordsStart, allRecords, isLoading, recordDelete
                      />
                   </th>
 
-                  <th><span className="th-info">Antal plader {allRecords && allRecords.length}</span></th>
+                  <th><span className="th-info">{numOfRecords} {allRecords && allRecords.length}</span></th>
                </tr>
             </thead>
             {rowLength ?

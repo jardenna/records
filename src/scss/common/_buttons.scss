@@ -5,7 +5,6 @@ button {
     min-width: 140px;
   }
 
-
   color: $color-white;
   outline: none;
   border: 0;
@@ -39,11 +38,11 @@ button.details-btn:last-child {
 }
 
 
-
 a.btn-primary {
   text-decoration: none;
   text-align: center;
-  padding: 8px;
+  padding: 7px;
+  min-height: 35px;
 
   &:hover {
     color: $color-white;

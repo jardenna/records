@@ -5,7 +5,7 @@ export const CONTENT = {
    details: 'Detaljer',
    edit: 'Rediger',
    deleteRecord: 'Slet',
-   numOfRecords: 'Antal  album',
+   numOfRecords: 'Antal album',
    pagesNum: 'side(r)',
    records: 'album',
    imgUpload: 'Billede upload',

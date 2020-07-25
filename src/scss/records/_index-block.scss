@@ -100,11 +100,18 @@
     }
 
 
-
-
-
-    footer {
+    .content-footer {
         text-align: right;
+        margin-top: 10px;
+
+        @include mQ($small) {
+
+            text-align: center;
+        }
+
+        .popup-wrapper {
+            margin-right: 10px;
+        }
     }
 }
 
