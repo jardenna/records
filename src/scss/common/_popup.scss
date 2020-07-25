@@ -1,0 +1,50 @@
+.popup-overlay {
+   position: fixed;
+   background-color: transparent;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+
+}
+
+.overlay-background {
+   .popup-overlay {
+      background-color: $color-background-rgba;
+      z-index: 200;
+   }
+}
+
+.popup-wrapper {
+   position: relative;
+   display: inline-block;
+}
+
+.popup-content {
+   padding: 20px;
+
+}
+
+.popup-footer {
+   padding: 20px;
+
+   .btn-primary {
+      margin-left: 20px;
+
+   }
+
+}
+
+.popup-header {
+   position: relative;
+
+
+   .icon-x {
+      position: absolute;
+      right: 0;
+
+      &:focus {
+         border: 1px dotted $color-primary-text;
+      }
+   }
+}
