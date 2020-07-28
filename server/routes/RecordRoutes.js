@@ -5,9 +5,10 @@ const router = express.Router();
 
 const utils = require('../utils');
 
+const isAuth = require('../middleware/isAuth');
 
 // Get all records
-router.get('/', async (_, res) => {
+router.get('/', async (_req, res) => {
 
    try {
       const allRecords = await Record.find().sort([['date', -1]]);
