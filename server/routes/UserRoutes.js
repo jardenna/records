@@ -1,10 +1,9 @@
 const express = require('express');
 const { compare, hash } = require('bcrypt');
-
-
+const { verify } = require('jsonwebtoken');
 const User = require('../models/UserModel');
 
-
+const { isAuth } = require('../middleware/isAuth');
 const { createAccessToken, createRefreshToken, sendAccessToken, sendRefreshToken } = require('../token');
 const router = express.Router();
 
@@ -32,6 +31,7 @@ router.get('/', async (req, res) => {
 
    try {
       const user = await User.find();
+
       res.json(user);
    } catch (error) {
       res.json({ 'message': error });
@@ -74,10 +74,20 @@ router.post('/signup', async (req, res) => {
          });
          await user.save();
 
+         const signedUpUser = user && user._id;
+         const accesstoken = createAccessToken(signedUpUser);
+         const refreshtoken = createRefreshToken(signedUpUser);
+
+         user.refreshtoken = refreshtoken;
+
+         sendRefreshToken(res, refreshtoken);
+         sendAccessToken(res, req, accesstoken);
       }
 
+
       res.status(200).json({
-         message: 'User was created succesfully'
+         message: 'User was created succesfully',
+         name
       });
 
    } catch (error) {
@@ -91,80 +101,123 @@ router.post('/signup', async (req, res) => {
 });
 
 //Login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
    const { email, password } = req.body;
    const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-   User.find({ email })
-      .then(user => {
-         //Does the user exist
-         if (!email) {
-            return res.status(401).json({
-               message: 'Email must be provided'
-            });
-         }
+   try {
+      const user = await User.find({ email });
 
-         if (!validEmail.test(email)) {
-            return res.status(422).json({
-               message: 'Invalid email address'
-            });
-
-         }
-
-         if (!password) {
-            return res.status(401).json({
-               message: 'Password must be provided'
-            });
-         }
-
-
-         if (user.length === 0) {
-            return res.status(401).json({
-               message: 'User does not exist'
-            });
-         }
-
-
-
-         compare(password, user[0].password, (error, result) => {
-
-            if (error) {
-               return res.status(401).json({
-                  message: 'Auth failed'
-               });
-            }
-            if (result) {
-               const accessToken = createAccessToken(user[0]._id);
-
-
-               return res.status(200).json({
-                  message: 'Login Succeeded',
-                  accessToken
-               });
-            }
-
-            return res.status(401).json({
-               message: 'Invalid password'
-            });
-         });
-
-      })
-      .catch(() => {
-
+      //Does the user exist
+      if (!email) {
          return res.status(401).json({
-            message: 'Invalid email'
+            message: 'Email must be provided'
          });
+      }
+
+      if (!validEmail.test(email)) {
+         return res.status(422).json({
+            message: 'Invalid email address'
+         });
+
+      }
+
+      if (!password) {
+         return res.status(401).json({
+            message: 'Password must be provided'
+         });
+      }
+
+
+      if (user.length === 0) {
+         return res.status(401).json({
+            message: 'User does not exist'
+         });
+      }
+      const valid = await compare(password, user[0].password);
+      //Wrong password
+      if (!valid) {
+         return res.status(401).json({
+            message: 'Invalid password'
+         });
+      }
+
+      // const logedInUser = user[0]._id;
+      const accesstoken = createAccessToken(user[0]._id);
+      const refreshtoken = createRefreshToken(user[0]._id);
+
+      user[0].refreshtoken = refreshtoken;
+
+      sendRefreshToken(res, refreshtoken);
+      sendAccessToken(res, req, accesstoken);
+
+   } catch (error) {
+      res.status(401).json({
+         message: 'Auth failed'
       });
+   }
+
+
 });
 
-//Logout a user
 
+
+// 3. Logout a user
 router.post('/logout', (_req, res) => {
-   res.clearCookie('refreshToken');
+   res.clearCookie('refreshtoken', { path: '/refresh_token' });
 
    return res.send({
-      message: 'logged out'
+      message: 'Logged out'
    });
+});
+
+
+router.post('/refresh_token', async (req, res) => {
+   const token = req.cookies.refreshtoken;
+   // token is valid, check if user exist
+   const { email } = req.body;
+   const user = await User.find({ email });
+
+   // If we don't have a token in our request
+   if (!token) return res.send({ accesstoken: '' });
+   // We have a token, let's verify it!
+   let payload = null;
+   try {
+      payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
+   } catch (err) {
+      return res.send({ accesstoken: '' });
+   }
+
+   if (user.length === 0) return res.send({ accesstoken: '' });
+   // user exist, check if refreshtoken exist on user
+   if (user.refreshtoken !== token)
+      return res.send({ accesstoken: '' });
+   // token exist, create new Refresh- and accesstoken
+   const accesstoken = createAccessToken(user.id);
+   const refreshtoken = createRefreshToken(user.id);
+   // update refreshtoken on user in db
+   // Could have different versions instead!
+   user.refreshtoken = refreshtoken;
+   // All good to go, send new refreshtoken and accesstoken
+   sendRefreshToken(res, refreshtoken);
+   return res.send({ accesstoken });
+});
+
+// 4. Protected route
+router.post('/protected', async (req, res) => {
+   try {
+      const userId = isAuth(req);
+
+      if (userId !== null) {
+         res.send({
+            data: 'This is protected data.'
+         });
+      }
+   } catch (err) {
+      res.send({
+         error: `${err.message}`
+      });
+   }
 });
 
 

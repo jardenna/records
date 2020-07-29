@@ -13,7 +13,7 @@ import { validateAuth } from '@common/validation/validateAuth';
 
 
 
-function Login() {
+function Register() {
    const loginObj = {
       name: '',
       email: '',
@@ -25,13 +25,13 @@ function Login() {
 
 
 
-   const login = () => {
+   const submit = () => {
       const url = endpoints.main + 'user/signup';
       api('post', url, values)
          .then((result) => setUser(result));
    };
 
-   const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, login, validateAuth);
+   const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, submit, validateAuth);
    //console.log(user);
    const { email, password, name, confirmPassword } = values;
    const { contentName, contentEmail, contentPassword, contentConfirmPassword } = CONTENT;
@@ -94,4 +94,4 @@ function Login() {
    );
 }
 
-export default Login;
+export default Register;

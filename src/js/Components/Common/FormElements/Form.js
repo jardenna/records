@@ -18,7 +18,6 @@ function Form(props) {
 		<React.Fragment>
 
 			<form onSubmit={onSubmit} noValidate className={className}>
-
 				{
 					inputs.map(input => {
 

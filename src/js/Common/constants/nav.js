@@ -3,6 +3,8 @@ import Login from '@components/Login';
 import Selectbo from '../../Components/Selectbo';
 
 import RecordTable from '@components/records/RecordTable';
+
+import Protected from '@components/records/Protected';
 import Details from '@components/records/Details';
 import Update from '@components/records/Update';
 
@@ -55,10 +57,10 @@ export const routes = [
       sideBar: () => login
    },
    {
-      path: '/select',
-      main: Selectbo,
-      link: select,
-      sideBar: () => select
+      path: '/protected',
+      main: Protected,
+      link: 'protected',
+      sideBar: () => 'protected'
    }
 
 ];

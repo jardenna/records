@@ -10,8 +10,17 @@ export const CONTENT = {
    records: 'album',
    imgUpload: 'Billede upload',
    errorNumber: 'Skal være et tal',
-   errorLogin: 'Password skal være mindst 6 tegn',
-   required: 'Udfyld venligst feltet '
+   errorPassword: 'Password skal være mindst 6 tegn',
+   errorEmail: 'Ugyldig email',
+   errorMatchPassword: 'Adgangskoder stemmer ikke overens',
+   required: 'Udfyld venligst feltet ',
+   login: 'Log ind',
+   logout: 'Log ud',
+   signUp: 'Opret login',
+   contentName: 'Navn',
+   contentEmail: 'Email',
+   contentPassword: 'Adgangskode',
+   contentConfirmPassword: 'Bekræft Adgangskode'
 };
 
 export const NAV = {

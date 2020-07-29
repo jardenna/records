@@ -173,7 +173,6 @@ function Update({ createRecordRequest, fetchDetails, updateRecordSuccess, detail
          type: 'file',
          name: 'photo',
          inputIdentifier: 'cover',
-
          isRequired: false,
          previewClassName: 'image-preview-input'
       }
