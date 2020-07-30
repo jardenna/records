@@ -29,5 +29,6 @@ export const NAV = {
    all: 'Se alle album',
    details: 'Detaljer',
    addAlbum: 'Tilføj album',
-   login: 'Log ind'
+   login: 'Log ind',
+   register: 'Opret bruger'
 };

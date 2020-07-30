@@ -2,18 +2,12 @@ import { all, take, call } from 'redux-saga/effects';
 import endpoints from '@common/endpoints';
 import { ALL_RECORDS_TYPES } from '@redux/actions/recordsActions';
 
+import api from '@common/api';
+
 const deleteApi = id => {
    const url = endpoints.records;
    const path = url + 'delete/' + id;
-   return (
-      fetch(path, {
-         method: 'delete',
-         headers: {
-            'Content-Type': 'application/json'
-         }
-      })
-         .then(res => res.ok ? res.json() : Promise.reject(res))
-   );
+   api('delete', path);
 };
 function* deleteRecord(id) {
    yield call(deleteApi, id);

@@ -1,4 +1,6 @@
 import endpoints from '@common/endpoints';
+import api from '@common/api';
+import imgApi from '@common/imgApi';
 
 export const UPDATE_TYPES = {
    UPDATE_RECORD_START: 'UPDATE_RECORD_START',
@@ -41,24 +43,18 @@ export const updateRecordSuccess = (id, record, imgUpdated, fileName, file) => {
          for (let key in record) {
             fd.append(key, record[key]);
          }
-         fetch(path, {
-            method: 'POST',
-            body: fd
-         })
-            .then(res => res.ok ? res.json() : Promise.reject(res));
+
+         imgApi('post', path, fd);
+
       };
    }
 
    return dispatch => {
       dispatch(updateRecordStart());
-      fetch(path, {
-         method: 'PUT',
-         body: JSON.stringify(record),
-         headers: {
-            'Content-Type': 'application/json'
-         }
-      })
-         .then(res => res.ok ? res.json() : Promise.reject(res))
+
+
+      api('put', path, record)
+
          .then(() => dispatch(recordUpdated(id, record)))
          .catch(error => dispatch(updateRecordFailure(error)));
    };

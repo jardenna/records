@@ -1,7 +1,9 @@
 import React from 'react';
-//import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import api from '@common/api';
 import endpoints from '@common/endpoints';
+import { connect } from 'react-redux';
 import { CONTENT } from '@common/constants/content';
 // import Loader from '@commonReact/Loader';
 // import Error from '@commonReact/Error';
@@ -9,43 +11,44 @@ import { CONTENT } from '@common/constants/content';
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import Context from '@commonReact/context';
-import { validateAuth } from '@common/validation/validateAuth';
+import { validateLogin } from '@common/validation/validateLogin';
 
+import { loginSuccess } from '@redux/actions/loginActions';
 
+import { NAV } from '@common/constants/content';
 
-function Login() {
+function Login({ loginSuccess }) {
    const loginObj = {
-      name: '',
       email: '',
-      password: '',
-      confirmPassword: ''
+      password: ''
    };
 
+
+   const { register } = NAV;
    const [user, setUser] = React.useState('');
 
+   const submit = () => {
 
+      const url = endpoints.main + 'user/login';
 
-   const login = () => {
-      const url = endpoints.main + 'user/signup';
       api('post', url, values)
-         .then((result) => setUser(result));
+         .then((result) => setUser(result))
+         .catch(error => error);
    };
 
-   const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, login, validateAuth);
+   const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, submit, validateLogin);
+   let history = useHistory();
+   const onRegister = () => {
+      history.push('/register');
+   };
+
+
    //console.log(user);
-   const { email, password, name, confirmPassword } = values;
-   const { contentName, contentEmail, contentPassword, contentConfirmPassword } = CONTENT;
+   const { email, password } = values;
+   const { contentEmail, contentPassword } = CONTENT;
 
    const inputs = [
-      {
-         type: 'text',
-         name: 'name',
-         inputIdentifier: 'name',
-         label: contentName,
-         isRequired: true,
-         value: name,
-         error: errors.name
-      },
+
       {
          type: 'text',
          name: 'email',
@@ -63,15 +66,6 @@ function Login() {
          isRequired: true,
          value: password,
          error: errors.password
-      },
-      {
-         type: 'text',
-         name: 'confirmPassword',
-         inputIdentifier: 'confirmPassword',
-         label: contentConfirmPassword,
-         isRequired: true,
-         value: confirmPassword,
-         error: errors.confirmPassword
       }
 
    ];
@@ -89,9 +83,20 @@ function Login() {
    return (
       <Context.Provider value={formObj}>
          <Form />
+         <button className='btn-primary' onClick={onRegister}>{register}</button>
       </Context.Provider >
 
    );
 }
 
+
+
+const mapStateToProps = (state) => ({
+   user: state.login.user
+});
+
+
+
 export default Login;
+//export default connect(mapStateToProps, { loginSuccess })(Login);
+

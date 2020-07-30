@@ -1,6 +1,6 @@
 ﻿
 
-const api = function (method, url, data, headers = {}) {
+const api = function (method, url, data, headers = { 'Content-Type': 'application/json' }) {
 	return fetch(url, {
 		method: method.toUpperCase(),
 		body: JSON.stringify(data),  // send it as stringified json
@@ -9,11 +9,7 @@ const api = function (method, url, data, headers = {}) {
 	}).then(res => res.ok ? res.json() : Promise.reject(res));
 };
 
-//api.credentials = 'include';
-api.headers = {
-	//'csrf-token': window.csrf || '',    // only if globally set, otherwise ignored
-	'Accept': 'application/json',    // receive json
-	'Content-Type': 'application/json'  // send json
-};
+
+
 
 export default api;

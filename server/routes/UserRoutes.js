@@ -107,8 +107,7 @@ router.post('/login', async (req, res) => {
 
    try {
       const user = await User.find({ email });
-
-      //Does the user exist
+      // console.log(user[0].name);
       if (!email) {
          return res.status(401).json({
             message: 'Email must be provided'
@@ -119,7 +118,6 @@ router.post('/login', async (req, res) => {
          return res.status(422).json({
             message: 'Invalid email address'
          });
-
       }
 
       if (!password) {
@@ -128,7 +126,7 @@ router.post('/login', async (req, res) => {
          });
       }
 
-
+      //Does the user exist
       if (user.length === 0) {
          return res.status(401).json({
             message: 'User does not exist'
@@ -142,14 +140,14 @@ router.post('/login', async (req, res) => {
          });
       }
 
-      // const logedInUser = user[0]._id;
+
       const accesstoken = createAccessToken(user[0]._id);
       const refreshtoken = createRefreshToken(user[0]._id);
 
       user[0].refreshtoken = refreshtoken;
 
       sendRefreshToken(res, refreshtoken);
-      sendAccessToken(res, req, accesstoken);
+      sendAccessToken(res, req, accesstoken, user[0].name);
 
    } catch (error) {
       res.status(401).json({

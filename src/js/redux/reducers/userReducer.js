@@ -1,20 +1,22 @@
-import { LOGIN_TYPES } from '@redux/actions/loginActions';
+import { USER_TYPES } from '@redux/actions/userActions';
+
 
 const initialState = {
    isLoading: false,
    user: {},
    error: false
+
 };
 
-const loginReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
 
    switch (action.type) {
-      case LOGIN_TYPES.LOGIN_START:
+      case USER_TYPES.USER_START:
          return {
             ...state,
             isLoading: true
          };
-      case LOGIN_TYPES.LOGIN_SUCCESS:
+      case USER_TYPES.USER_SUCCESS:
          return {
             ...state,
             isLoading: false,
@@ -23,7 +25,7 @@ const loginReducer = (state = initialState, action) => {
 
          };
 
-      case LOGIN_TYPES.LOGIN_FAILURE:
+      case USER_TYPES.USER_FAILURE:
 
          return {
             ...state,
@@ -36,4 +38,4 @@ const loginReducer = (state = initialState, action) => {
    }
 };
 
-export default loginReducer;
+export default userReducer;

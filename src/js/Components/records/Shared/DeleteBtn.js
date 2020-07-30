@@ -7,6 +7,7 @@ import { CONTENT } from '@common/constants/content';
 
 
 const DeleteBtn = ({ onClick, linkTo }) => {
+
     const history = useHistory();
 
     const pathName = history.location.pathname;
@@ -14,7 +15,7 @@ const DeleteBtn = ({ onClick, linkTo }) => {
     const { deleteRecord } = CONTENT;
     return (
 
-        <Link to={linkTo && pathName} role="button" className="btn-danger">
+        <Link to={linkTo ? linkTo : pathName} role="button" className="btn-danger">
             <div
                 onClick={onClick}
             >

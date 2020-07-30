@@ -1,24 +1,15 @@
 import Home from '@components/records/Home';
 import Login from '@components/Login';
-import Selectbo from '../../Components/Selectbo';
-
 import RecordTable from '@components/records/RecordTable';
 
 import Protected from '@components/records/Protected';
 import Details from '@components/records/Details';
 import Update from '@components/records/Update';
+import Register from '@components/records/Register';
 
-const NAV = {
-   home: 'Home',
-   create: 'Tilføj album',
-   all: 'Se alle album',
-   details: 'Detaljer',
-   addAlbum: 'Tilføj album',
-   login: 'Log ind',
-   select: 'Select'
-};
+import { NAV } from '@common/constants/content';
 
-const { home, create, all, details, addAlbum, login, select } = NAV;
+const { home, create, all, details, addAlbum, login, register } = NAV;
 
 export const routes = [
    {
@@ -55,6 +46,11 @@ export const routes = [
       main: Login,
       link: login,
       sideBar: () => login
+   },
+   {
+      path: '/register',
+      main: Register,
+      sideBar: () => register
    },
    {
       path: '/protected',

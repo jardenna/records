@@ -1,6 +1,7 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import endpoints from '@common/endpoints';
+import imgApi from '@common/imgApi';
 
 import {
    createRecordFailure,
@@ -10,7 +11,7 @@ import {
 
 
 
-const createRecordApi = (record, fileName, file, id, imgUpdated) => {
+const createRecordApi = (record, fileName, file) => {
 
    const fd = new FormData();
 
@@ -18,41 +19,11 @@ const createRecordApi = (record, fileName, file, id, imgUpdated) => {
       fd.append(key, record[key]);
    }
    fd.append(fileName, file);
+   const url = endpoints.records;
 
-   if (id) {
-      const url = endpoints.records;
-      const path = url + id;
-      fetch(path, {
-         method: 'PUT',
-         body: JSON.stringify(record),
-         headers: {
-            'Content-Type': 'application/json'
-         }
-      }).then(res => res.ok ? res.json() : Promise.reject(res))
-         .then(record => record);
-      if (imgUpdated) {
-         const fdata = new FormData();
+   imgApi('post', url, fd)
+      .then(record => record);
 
-
-         fdata.append(fileName, file);
-         return () => {
-
-            fetch(path, {
-               method: 'POST',
-               body: fdata
-            })
-               .then(res => res.ok ? res.json() : Promise.reject(res));
-         };
-      }
-   } else {
-      fetch(endpoints.records, {
-         method: 'POST',
-         body: fd
-
-      })
-         .then(res => res.ok ? res.json() : Promise.reject(res))
-         .then(record => record);
-   }
 
 };
 

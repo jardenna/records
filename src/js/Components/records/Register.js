@@ -12,7 +12,6 @@ import Context from '@commonReact/context';
 import { validateAuth } from '@common/validation/validateAuth';
 
 
-
 function Register() {
    const loginObj = {
       name: '',
@@ -88,7 +87,11 @@ function Register() {
 
    return (
       <Context.Provider value={formObj}>
+
+
          <Form />
+
+
       </Context.Provider >
 
    );

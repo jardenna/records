@@ -15,9 +15,10 @@ const createRefreshToken = (userId) => {
 
 
 
-const sendAccessToken = (res, req, accesstoken) => {
+const sendAccessToken = (res, req, accesstoken, name) => {
    res.send({
       accesstoken,
+      name,
       email: req.body.email,
       message: 'Login Succeeded'
    });

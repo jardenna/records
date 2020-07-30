@@ -10,18 +10,19 @@ import defaultImg from '@images/default.png';
 import DetailsContent from '@components/records/DetailsContent';
 import Figure from '@commonReact/Figure';
 import Popup from '@commonReact/Popup';
-import useToggle from '@hooks/useToggle';
+
 import { recordDeleted } from '@redux/actions/recordsActions';
 import { fetchDetailsStart } from '@redux/actions/detailActions';
 
 export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }) {
 
    const onDelete = id => {
+
       recordDeleted(id);
    };
    const params = useParams();
    const id = params.id;
-   const [toggle, selected] = useToggle([]);
+
 
    React.useEffect(() => {
       fetchDetailsStart(id);
@@ -97,10 +98,9 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
 
                <footer className="content-footer">
                   <Popup
-                     onClick={() => toggle(_id)}
-                     submit={() => onDelete(_id)}
-                     content={modalContent}
 
+                     callback={() => onDelete(_id)}
+                     content={modalContent}
                      text={deleteText}
                      buttonType="delete"
                      id={_id}
@@ -111,8 +111,6 @@ export function Details({ fetchDetailsStart, isLoading, details, recordDeleted }
                      ariaType="modal"
                      componentName="modal"
                      showFooter
-                     selected={selected}
-
                   />
 
                   <Link id={_id} className='btn-primary' to={`/update/${_id}`}>   {edit} </Link>
