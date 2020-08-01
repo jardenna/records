@@ -5,6 +5,7 @@ import api from '@common/api';
 export const LOGIN_TYPES = {
    LOGIN_START: 'LOGIN_START',
    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+   LOGOUT: 'LOGOUT',
    LOGIN_FAILURE: 'LOGIN_FAILURE'
 };
 
@@ -26,10 +27,14 @@ const loggedIn = (user) => {
    });
 };
 
+export const logOut = () => {
+   return {
+      type: LOGIN_TYPES.LOGOUT
+   };
+};
 
 export const loginSuccess = (user) => {
    const url = endpoints.main + 'user/login';
-   console.log(user);
    return dispatch => {
       dispatch(loginStart());
       api.headers = {

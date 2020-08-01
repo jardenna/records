@@ -3,21 +3,18 @@ import { useHistory } from 'react-router-dom';
 
 import api from '@common/api';
 import endpoints from '@common/endpoints';
-import { connect } from 'react-redux';
+
 import { CONTENT } from '@common/constants/content';
-// import Loader from '@commonReact/Loader';
-// import Error from '@commonReact/Error';
+
 
 import Form from '@formElements/Form';
 import useFormValidation from '@hooks/useFormValidation';
 import Context from '@commonReact/context';
 import { validateLogin } from '@common/validation/validateLogin';
 
-import { loginSuccess } from '@redux/actions/loginActions';
-
 import { NAV } from '@common/constants/content';
 
-function Login({ loginSuccess }) {
+function Login() {
    const loginObj = {
       email: '',
       password: ''
@@ -25,15 +22,14 @@ function Login({ loginSuccess }) {
 
 
    const { register } = NAV;
-   const [user, setUser] = React.useState('');
+   const [user, setUser] = React.useState({});
 
    const submit = () => {
-
       const url = endpoints.main + 'user/login';
-
       api('post', url, values)
          .then((result) => setUser(result))
          .catch(error => error);
+
    };
 
    const { handleSubmit, handleChange, handleBlur, values, errors } = useFormValidation(loginObj, submit, validateLogin);
@@ -43,7 +39,6 @@ function Login({ loginSuccess }) {
    };
 
 
-   //console.log(user);
    const { email, password } = values;
    const { contentEmail, contentPassword } = CONTENT;
 
@@ -70,6 +65,7 @@ function Login({ loginSuccess }) {
 
    ];
 
+
    const formObj = {
       inputs,
       btnText: 'Log in',
@@ -77,7 +73,6 @@ function Login({ loginSuccess }) {
       onSubmit: handleSubmit,
       onChange: handleChange,
       onBlur: handleBlur
-
    };
 
    return (
@@ -89,14 +84,6 @@ function Login({ loginSuccess }) {
    );
 }
 
-
-
-const mapStateToProps = (state) => ({
-   user: state.login.user
-});
-
-
-
 export default Login;
-//export default connect(mapStateToProps, { loginSuccess })(Login);
+
 

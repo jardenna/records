@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import useToggle from '@hooks/useToggle';
 import useScroll from '@hooks/useScroll';
 
-function Nav({ logoutCallback }) {
+function Nav() {
    const ref = React.useRef(null);
 
    const [toggle, selected] = useToggle([]);
@@ -49,7 +49,6 @@ function Nav({ logoutCallback }) {
                   )}
                </Switch>
             </div>
-            <button className="btn-primary" onClick={logoutCallback}>Log out</button>
          </nav>
 
       </div>

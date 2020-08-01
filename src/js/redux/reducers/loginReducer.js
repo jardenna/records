@@ -3,7 +3,8 @@ import { LOGIN_TYPES } from '@redux/actions/loginActions';
 const initialState = {
    isLoading: false,
    user: {},
-   error: false
+   error: false,
+   loggedIn: false
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -18,9 +19,15 @@ const loginReducer = (state = initialState, action) => {
          return {
             ...state,
             isLoading: false,
-            user: action.payload
+            user: action.payload,
+            loggedIn: true
+         };
 
-
+      case LOGIN_TYPES.LOGOUT:
+         return {
+            ...state,
+            user: {},
+            loggedIn: false
          };
 
       case LOGIN_TYPES.LOGIN_FAILURE:
@@ -28,7 +35,8 @@ const loginReducer = (state = initialState, action) => {
          return {
             ...state,
             isLoading: false,
-            error: true
+            error: true,
+            loggedIn: false
          };
 
       default: return state;

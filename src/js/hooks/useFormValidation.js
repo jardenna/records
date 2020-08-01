@@ -16,7 +16,6 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
          const noErrors = Object.keys(errors).length === 0;
          if (noErrors) {
             setTouched([]);
-            callBack();
 
             if (!id) {
                setValues(initialState);
@@ -52,7 +51,6 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
 
       if (name === 'photo') {
          const photoFile = files[0];
-         // console.log(photoFile.name);
          reader.onloadend = () => {
             setPreviewUrl(reader.result);
          };
@@ -79,6 +77,7 @@ function useFormValidation(initialState = {}, callBack, validate, id) {
       const validationErrors = validate(values);
       setErrors(validationErrors);
       setSubmitting(true);
+      callBack();
    };
 
    return {
