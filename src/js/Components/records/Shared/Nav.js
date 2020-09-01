@@ -17,7 +17,6 @@ function Nav() {
 
    const onToggleNav = (value) => {
       toggle(value);
-
    };
 
    return (
