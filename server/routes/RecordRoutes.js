@@ -99,13 +99,9 @@ router.delete('/delete/:recordId', async (req, res) => {
 
 //Update record
 router.put('/:recordId', async (req, res) => {
-
-
    try {
-
       const updatedPost = await Record.updateOne(
          { _id: req.params.recordId },
-
          {
             $set: {
                artist: req.body.artist,
