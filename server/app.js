@@ -25,14 +25,12 @@ app.use(express.static(path.join(__dirname, './', 'public')));
 
 const RecordRoutes = require('./routes/RecordRoutes');
 const userRoutes = require('./routes/UserRoutes');
-const homeRoute = require('./routes/homeRoute');
-
 
 
 //Custom routes middleware
 app.use('/records', RecordRoutes);
 app.use('/user', userRoutes);
-app.use('/', homeRoute);
+app.use('/', RecordRoutes);
 
 
 

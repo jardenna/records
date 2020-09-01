@@ -1,17 +1,30 @@
 const mongoose = require('mongoose');
 
+const regex = require('../utils/regex');
+const { YEAR_REGEX } = regex;
+
+const a = /^(18|19|20)\d{2}$/;
+
+
+
 const RecordSchema = mongoose.Schema({
    artist: {
       type: String,
-      required: true
+      required: [true, 'Please enter an artist name']
    },
    title: {
       type: String,
-      required: true
+      required: [true, 'Please enter a title']
    },
    prodYear: {
       type: Number,
-      required: true
+      validate: {
+         validator: function (v) {
+            return YEAR_REGEX.test(v);
+         },
+         message: props => `${props.value} is not a valid Year!`
+      },
+      required: [true, 'Please enter a production year']
    },
    label: String,
    origin: String,
@@ -24,15 +37,13 @@ const RecordSchema = mongoose.Schema({
       type: Number,
       default: 1
    },
-   released: String,
+   released: Number,
    info: String,
-   photo: String,
-   date: {
-      type: Date,
-      default: Date.now
-   }
+   photo: String
 
-});
+
+}, { timestamps: true });
+
 
 
 module.exports = mongoose.model('Records', RecordSchema);
